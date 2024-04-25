@@ -3,7 +3,16 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-  <persistence-unit name="default">
+  <persistence-unit name="my-persistence-unit" transaction-type="RESOURCE_LOCAL">
+    <description>description</description>
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
 
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/> <!-- Set Hibernate PostgreSQL dialect -->
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres?user=postgres.pswhvvykrqmtbcudgjmt&amp;password=Dungdechepbai135"/>
+      <property name="jakarta.persistence.jdbc.user" value="postgres.pswhvvykrqmtbcudgjmt"/>
+      <property name="jakarta.persistence.jdbc.password" value="Dungdechepbai135"/>
+    </properties>
   </persistence-unit>
 </persistence>
