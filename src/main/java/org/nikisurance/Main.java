@@ -1,3 +1,5 @@
+package org.nikisurance;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.jpa.HibernatePersistenceProvider;

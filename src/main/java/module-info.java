@@ -9,5 +9,6 @@ module org.nikisurance {
 
     exports org.nikisurance.entity;
     exports org.nikisurance.util;
-
+    opens org.nikisurance to javafx.fxml;
+    opens org.nikisurance.entity to org.hibernate.orm.core;
 }
