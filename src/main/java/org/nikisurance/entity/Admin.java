@@ -1,13 +1,19 @@
-package org.model;
+package org.nikisurance.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "admin")
 public class Admin {
     @Id
+    @Column(name = "id")
     private int id;
+    @Column(name = "username")
     private String username;
+    @Column(name = "password")
     private String password;
 
     public int getId() {
@@ -32,5 +38,14 @@ public class Admin {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

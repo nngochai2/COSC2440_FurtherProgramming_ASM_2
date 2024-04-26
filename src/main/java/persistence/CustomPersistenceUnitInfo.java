@@ -1,6 +1,5 @@
 package persistence;
 
-import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.SharedCacheMode;
 import jakarta.persistence.ValidationMode;
 import jakarta.persistence.spi.ClassTransformer;
@@ -12,10 +11,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 
-public class CustomerPersistenceUnitInfo implements PersistenceUnitInfo {
+public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
     private final Properties properties = new Properties();
 
-    public CustomerPersistenceUnitInfo() {
+    public CustomPersistenceUnitInfo() {
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("jakarta.persistence.jdbc.url", "jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres");
         properties.put("jakarta.persistence.jdbc.user", "postgres.pswhvvykrqmtbcudgjmt");
@@ -70,7 +69,7 @@ public class CustomerPersistenceUnitInfo implements PersistenceUnitInfo {
 
     @Override
     public List<String> getManagedClassNames() {
-        return List.of("org.model.Admin");
+        return List.of("org.nikisurance.entity.Admin");
     }
 
     @Override
