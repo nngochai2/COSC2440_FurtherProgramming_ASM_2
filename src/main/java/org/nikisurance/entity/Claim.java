@@ -1,5 +1,7 @@
 package org.nikisurance.entity;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -8,41 +10,29 @@ import java.util.List;
  * @author Nguyen Ngoc Hai - s3978281
  */
 
+@Entity
+@Table
 public class Claim implements Serializable {
-    private String claimID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long claimId;
     private Date claimDate;
-    private Customer insuredPerson;
-    private int cardNumber;
+    private Long policyHolderId; // Foreign key
+    @ManyToOne
+    private PolicyHolder policyHolder;
+    @Column(unique = true)
     private Date examDate;
-    private List<String> documents;
+    private String bankingInfo;
     private int claimAmount;
-    private Status status;
-    private String receiverBankingInfo;
+    private ClaimStatus status;
 
-    public Claim(String claimID, Date claimDate, Customer insuredPerson, int cardNumber, Date examDate, List<String> documents, int claimAmount, Status status, String receiverBankingInfo) {
-        this.claimID = claimID;
-        this.claimDate = claimDate;
-        this.insuredPerson = insuredPerson;
-        this.cardNumber = cardNumber;
-        this.examDate = examDate;
-        this.documents = documents;
+
+    public int getClaimAmount() {
+        return claimAmount;
+    }
+
+    public void setClaimAmount(int claimAmount) {
         this.claimAmount = claimAmount;
-        this.status = status;
-        this.receiverBankingInfo = receiverBankingInfo;
-    }
-
-    public enum Status {
-        NEW,
-        PROCESSING,
-        DONE,
-    }
-
-    public String getClaimID() {
-        return claimID;
-    }
-
-    public void setClaimID(String claimID) {
-        this.claimID = claimID;
     }
 
     public Date getClaimDate() {
@@ -53,20 +43,12 @@ public class Claim implements Serializable {
         this.claimDate = claimDate;
     }
 
-    public Customer getInsuredPerson() {
-        return insuredPerson;
+    public Long getClaimId() {
+        return claimId;
     }
 
-    public void setInsuredPerson(Customer insuredPerson) {
-        this.insuredPerson = insuredPerson;
-    }
-
-    public int getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setClaimId(Long claimId) {
+        this.claimId = claimId;
     }
 
     public Date getExamDate() {
@@ -77,35 +59,35 @@ public class Claim implements Serializable {
         this.examDate = examDate;
     }
 
-    public List<String> getDocuments() {
-        return documents;
+    public PolicyHolder getPolicyHolder() {
+        return policyHolder;
     }
 
-    public void setDocuments(List<String> documents) {
-        this.documents = documents;
+    public void setPolicyHolder(PolicyHolder policyHolder) {
+        this.policyHolder = policyHolder;
     }
 
-    public int getClaimAmount() {
-        return claimAmount;
+    public Long getPolicyHolderId() {
+        return policyHolderId;
     }
 
-    public void setClaimAmount(int claimAmount) {
-        this.claimAmount = claimAmount;
+    public void setPolicyHolderId(Long policyHolderId) {
+        this.policyHolderId = policyHolderId;
     }
 
-    public Status getStatus() {
+    public ClaimStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(ClaimStatus status) {
         this.status = status;
     }
 
-    public String getReceiverBankingInfo() {
-        return receiverBankingInfo;
+    public String getBankingInfo() {
+        return bankingInfo;
     }
 
-    public void setReceiverBankingInfo(String receiverBankingInfo) {
-        this.receiverBankingInfo = receiverBankingInfo;
+    public void setBankingInfo(String bankingInfo) {
+        this.bankingInfo = policyHolder.getBankName() + "-" + policyHolder.getBankNumber() + "-" + policyHolder.getFullName();
     }
 }

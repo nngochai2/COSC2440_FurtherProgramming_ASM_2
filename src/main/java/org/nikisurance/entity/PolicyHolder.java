@@ -1,18 +1,60 @@
 package org.nikisurance.entity;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
 @Entity
-@DiscriminatorValue("policy_holder")
-public class PolicyHolder extends Customer implements Serializable {
+public class PolicyHolder implements Serializable, ICustomer {
     private static final long serialVersionUID = 1L;
+    @Id
+    private String policyHolderID;
+    private String fullName;
+    private String bankName;
+    private String bankNumber;
 
-    public PolicyHolder() {}
+    @OneToOne(mappedBy = "policyHolder") // Mapped by refers to field in InsuranceCard
+    private InsuranceCard insuranceCard;
 
-    public PolicyHolder(String customerID, String fullName, String password) {
-        super(customerID, fullName, password);
+    public String getPolicyHolderID() {
+        return policyHolderID;
+    }
+
+    @Override
+    public String getFullName() {
+        return fullName;
+    }
+
+    @Override
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getBankNumber() {
+        return bankNumber;
+    }
+
+    public void setBankNumber(String bankNumber) {
+        this.bankNumber = bankNumber;
+    }
+
+    public InsuranceCard getInsuranceCard() {
+        return insuranceCard;
+    }
+
+    public void setInsuranceCard(InsuranceCard insuranceCard) {
+        this.insuranceCard = insuranceCard;
+    }
+
+    public void setPolicyHolderID(String policyHolderID) {
+        this.policyHolderID = policyHolderID;
     }
 }

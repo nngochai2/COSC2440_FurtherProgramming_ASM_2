@@ -13,11 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.sql.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UIController implements Initializable {

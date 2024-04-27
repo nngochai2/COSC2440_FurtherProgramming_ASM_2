@@ -1,5 +1,7 @@
 package org.nikisurance.entity;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,19 +9,27 @@ import java.util.Date;
  * @author Nguyen Ngoc Hai - s3978281
  */
 
+@Entity
 public class InsuranceCard implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long cardID;
+    @Column(unique = true)
     private int cardNumber;
+    private String policyHolderId; // Foreign key
+    @OneToOne
     private PolicyHolder policyHolder;
-    private Customer cardHolder; // Every customer has their one and only insurance card
-    private String policyOwner; // This is the one who provide the insurance policies
-    private Date expirationDate;
+    private Date issuedDate;
+    private Date expiryDate;
 
-    public InsuranceCard(int cardNumber, PolicyHolder policyHolder, Customer cardHolder, String policyOwner, Date expirationDate) {
-        this.cardNumber = cardNumber;
-        this.policyHolder = policyHolder;
-        this.cardHolder = cardHolder;
-        this.policyOwner = policyOwner;
-        this.expirationDate = expirationDate;
+    public InsuranceCard() {}
+
+    public long getCardID() {
+        return cardID;
+    }
+
+    public void setCardID(long cardID) {
+        this.cardID = cardID;
     }
 
     public int getCardNumber() {
@@ -30,6 +40,22 @@ public class InsuranceCard implements Serializable {
         this.cardNumber = cardNumber;
     }
 
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public Date getIssuedDate() {
+        return issuedDate;
+    }
+
+    public void setIssuedDate(Date issuedDate) {
+        this.issuedDate = issuedDate;
+    }
+
     public PolicyHolder getPolicyHolder() {
         return policyHolder;
     }
@@ -38,38 +64,28 @@ public class InsuranceCard implements Serializable {
         this.policyHolder = policyHolder;
     }
 
-    public Customer getCardHolder() {
-        return cardHolder;
+    public String getPolicyHolderId() {
+        return policyHolderId;
     }
 
-    public void setCardHolder(Customer cardHolder) {
-        this.cardHolder = cardHolder;
-    }
-
-    public String getPolicyOwner() {
-        return policyOwner;
-    }
-
-    public void setPolicyOwner(String policyOwner) {
-        this.policyOwner = policyOwner;
-    }
-
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setPolicyHolderId(String policyHolderId) {
+        this.policyHolderId = policyHolderId;
     }
 
     @Override
     public String toString() {
         return "InsuranceCard{" +
-                "cardNumber=" + cardNumber +
+                "cardID=" + cardID +
+                ", cardNumber=" + cardNumber +
+                ", policyHolderId='" + policyHolderId + '\'' +
                 ", policyHolder=" + policyHolder +
-                ", cardHolder=" + cardHolder +
-                ", policyOwner='" + policyOwner + '\'' +
-                ", expirationDate=" + expirationDate +
+                ", issuedDate=" + issuedDate +
+                ", expiryDate=" + expiryDate +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
