@@ -28,7 +28,8 @@ public abstract class Customer {
 
     public Customer() {}
 
-    public Customer(String fullName, String password) {
+    public Customer(String customerID, String fullName, String password) {
+        this.customerID = customerID;
         this.fullName = fullName;
         this.password = password;
     }
