@@ -36,6 +36,7 @@ public class UIController implements Initializable {
     private Parent root;
     private String inputRole;
     private final Logger logger = Logger.getLogger(this.getClass().getName());
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         String[] roles = {"Policy Holder", "Dependent", "Insurance Surveyors", "Insurance Managers", "System Admin"};

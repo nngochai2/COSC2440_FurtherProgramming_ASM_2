@@ -7,30 +7,35 @@ import org.nikisurance.entity.Admin;
 import persistence.CustomPersistenceUnitInfo;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
+
+        Map<String, Object> properties = new HashMap<>();
+
+        // Show the queries
+        properties.put("hibernate.show_sql", "true");
+
+        // Create the context
         EntityManagerFactory emf = new HibernatePersistenceProvider()
-                .createContainerEntityManagerFactory(new CustomPersistenceUnitInfo(), new HashMap<>());
-        EntityManager em = emf.createEntityManager(); // Represents the context
+                .createContainerEntityManagerFactory(new CustomPersistenceUnitInfo(), properties);
+
+        // Represents the manager of the context
+        EntityManager em = emf.createEntityManager();
 
         try {
+            // Start the transaction
             em.getTransaction().begin();
 
-//            // Generate sample data
-//            Admin admin = new Admin();
-//            admin.setId(2345617);
-//            admin.setUsername("Hai Ngoc");
-//            admin.setPassword("123456");
-//
-//            em.persist(admin); // Add this to the context --> NOT AN INSERT QUERY
-
             // Get an entity
+            Admin admin = new Admin();
+            admin.setId(123456);
+            admin.setUsername("Hoang");
+            admin.setPassword("123456");
+            em.persist(admin); // Add this to the context --> NOT AN INSERT QUERY
 
-            Admin a1 = em.find(Admin.class, 12345);
-            System.out.println(a1);
-
-            em.getTransaction().commit();
+            em.getTransaction().commit(); // End of the transaction
         } finally {
             em.close();
         }

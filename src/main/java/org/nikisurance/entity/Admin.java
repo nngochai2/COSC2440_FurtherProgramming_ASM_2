@@ -1,9 +1,9 @@
 package org.nikisurance.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.nikisurance.util.UUIDGenerator;
 
 @Entity
 @Table(name = "admin")
