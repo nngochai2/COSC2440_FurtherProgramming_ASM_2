@@ -1,9 +1,11 @@
 package org.nikisurance.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-import org.nikisurance.util.UUIDGenerator;
+
+/**
+ * @author Nguyen Ngoc Hai
+ * This class represents the administrator of the application
+ */
 
 @Entity
 @Table(name = "admin")

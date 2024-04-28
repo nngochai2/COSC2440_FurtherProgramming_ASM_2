@@ -1,19 +1,28 @@
 package org.nikisurance.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class InsuranceManager implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    private int id;
+
     private String name;
     private String password;
-    private ArrayList<InsuranceSurveyor> insuranceSurveyors;
-    private ArrayList<Claim> claims;
-    private ArrayList<Customer> customers;
 
     public InsuranceManager(String name, String password) {
         this.name = name;
         this.password = password;
     }
+
+    public InsuranceManager() {}
 
     public String getName() {
         return name;
@@ -29,29 +38,5 @@ public class InsuranceManager implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public ArrayList<InsuranceSurveyor> getInsuranceSurveyors() {
-        return insuranceSurveyors;
-    }
-
-    public void setInsuranceSurveyors(ArrayList<InsuranceSurveyor> insuranceSurveyors) {
-        this.insuranceSurveyors = insuranceSurveyors;
-    }
-
-    public ArrayList<Claim> getClaims() {
-        return claims;
-    }
-
-    public void setClaims(ArrayList<Claim> claims) {
-        this.claims = claims;
-    }
-
-    public ArrayList<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(ArrayList<Customer> customers) {
-        this.customers = customers;
     }
 }

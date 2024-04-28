@@ -6,7 +6,6 @@ public class InsuranceSurveyor {
     private String name;
     private String password;
     private ArrayList<Claim> claims;
-    private ArrayList<Customer> customers;
 
     public InsuranceSurveyor(String name, String password) {
         this.name = name;
@@ -35,13 +34,5 @@ public class InsuranceSurveyor {
 
     public void setClaims(ArrayList<Claim> claims) {
         this.claims = claims;
-    }
-
-    public ArrayList<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(ArrayList<Customer> customers) {
-        this.customers = customers;
     }
 }

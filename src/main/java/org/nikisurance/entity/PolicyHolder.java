@@ -4,6 +4,14 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 
+/**
+ * @author Nguyen Ngoc Hai
+ * This class represents the policy holder customers
+ * Different from the previous assignment, PolicyHolder and Dependent class will not
+ * inherit from an abstract class to avoid unwanted diffulites in the process of managing the database.
+ * Instead, this class (and Dependent class) will implement the ICustomer interface.
+ */
+
 @Entity
 public class PolicyHolder implements Serializable, ICustomer {
     private static final long serialVersionUID = 1L;

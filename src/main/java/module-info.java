@@ -6,6 +6,7 @@ module org.nikisurance {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.controls;
+    requires jdk.jdi;
 
     exports org.nikisurance.entity;
     exports org.nikisurance.util;
