@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.nikisurance.entity.Admin;
 import org.nikisurance.entity.PolicyHolder;
-import org.nikisurance.entity.User;
 import persistence.CustomPersistenceUnitInfo;
 
 import java.util.HashMap;
