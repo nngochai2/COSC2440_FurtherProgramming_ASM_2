@@ -10,25 +10,46 @@ import java.util.Date;
  */
 
 @Entity
+@Table(name = "Insurance_Card")
 public class InsuranceCard implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cardID;
-    @Column(unique = true)
+    @Column(name = "id")
+    private String cardID;
+
+    @Column(name = "card_number", unique = true)
     private int cardNumber;
-    private String policyHolderId; // Foreign key
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "policy_holder_id")
     private PolicyHolder policyHolder;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dependent_id")
+    private Dependent dependent;
+
+    @Column(name = "issued_date", nullable = false)
     private Date issuedDate;
+
+    @Column(name = "expiry_date", nullable = false)
     private Date expiryDate;
 
     public InsuranceCard() {}
 
-    public long getCardID() {
+    public InsuranceCard(String cardID, int cardNumber, Dependent dependent, Date expiryDate, Date issuedDate, PolicyHolder policyHolder) {
+        this.cardID = cardID;
+        this.cardNumber = cardNumber;
+        this.dependent = dependent;
+        this.expiryDate = expiryDate;
+        this.issuedDate = issuedDate;
+        this.policyHolder = policyHolder;
+    }
+
+    public String getCardID() {
         return cardID;
     }
 
-    public void setCardID(long cardID) {
+    public void setCardID(String cardID) {
         this.cardID = cardID;
     }
 
@@ -38,6 +59,14 @@ public class InsuranceCard implements Serializable {
 
     public void setCardNumber(int cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public Dependent getDependent() {
+        return dependent;
+    }
+
+    public void setDependent(Dependent dependent) {
+        this.dependent = dependent;
     }
 
     public Date getExpiryDate() {
@@ -62,30 +91,5 @@ public class InsuranceCard implements Serializable {
 
     public void setPolicyHolder(PolicyHolder policyHolder) {
         this.policyHolder = policyHolder;
-    }
-
-    public String getPolicyHolderId() {
-        return policyHolderId;
-    }
-
-    public void setPolicyHolderId(String policyHolderId) {
-        this.policyHolderId = policyHolderId;
-    }
-
-    @Override
-    public String toString() {
-        return "InsuranceCard{" +
-                "cardID=" + cardID +
-                ", cardNumber=" + cardNumber +
-                ", policyHolderId='" + policyHolderId + '\'' +
-                ", policyHolder=" + policyHolder +
-                ", issuedDate=" + issuedDate +
-                ", expiryDate=" + expiryDate +
-                '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 }

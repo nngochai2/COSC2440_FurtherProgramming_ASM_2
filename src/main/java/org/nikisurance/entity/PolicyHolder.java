@@ -1,8 +1,11 @@
 package org.nikisurance.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.nikisurance.util.IDGenerator;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Nguyen Ngoc Hai
@@ -13,29 +16,48 @@ import java.io.Serializable;
  */
 
 @Entity
-public class PolicyHolder implements Serializable, ICustomer {
-    private static final long serialVersionUID = 1L;
+@Table(name = "Policy_Holder")
+public class PolicyHolder implements Serializable {
     @Id
-    private String policyHolderID;
-    private String fullName;
-    private String bankName;
-    private String bankNumber;
+    @Column(name = "id")
+    @GenericGenerator(name = "customer_id", strategy = "/org/nikisurance/util/CustomerIdGenerator.java")
+    @GeneratedValue(generator = "customer_id")
+    private String id;
 
-    @OneToOne(mappedBy = "policyHolder") // Mapped by refers to field in InsuranceCard
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "bank_name", nullable = false)
+    private String bankName;
+
+    @Column(name = "bank_number", nullable = false)
+    private int bankNumber;
+
+    @OneToMany(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Dependent> dependents;
+
+    @OneToOne(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private InsuranceCard insuranceCard;
 
-    public String getPolicyHolderID() {
-        return policyHolderID;
+    public PolicyHolder(String customerId, String fullName, String password, String bankName, int bankNumber) {
+        this.id = customerId;
+        this.bankName = bankName;
+        this.bankNumber = bankNumber;
+    }
+    @ManyToOne
+    private Dependent dependent;
+
+    public PolicyHolder() {}
+
+    public int getBankNumber() {
+        return bankNumber;
     }
 
-    @Override
-    public String getFullName() {
-        return fullName;
-    }
-
-    @Override
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setBankNumber(int bandNumber) {
+        this.bankNumber = bandNumber;
     }
 
     public String getBankName() {
@@ -46,12 +68,36 @@ public class PolicyHolder implements Serializable, ICustomer {
         this.bankName = bankName;
     }
 
-    public String getBankNumber() {
-        return bankNumber;
+    public Dependent getDependent() {
+        return dependent;
     }
 
-    public void setBankNumber(String bankNumber) {
-        this.bankNumber = bankNumber;
+    public void setDependent(Dependent dependent) {
+        this.dependent = dependent;
+    }
+
+    public List<Dependent> getDependents() {
+        return dependents;
+    }
+
+    public void setDependents(List<Dependent> dependents) {
+        this.dependents = dependents;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public InsuranceCard getInsuranceCard() {
@@ -62,7 +108,11 @@ public class PolicyHolder implements Serializable, ICustomer {
         this.insuranceCard = insuranceCard;
     }
 
-    public void setPolicyHolderID(String policyHolderID) {
-        this.policyHolderID = policyHolderID;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

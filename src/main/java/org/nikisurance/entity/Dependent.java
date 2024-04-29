@@ -1,31 +1,67 @@
 package org.nikisurance.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 
 @Entity
-@Table
-public class Dependent implements Serializable, ICustomer {
-    private static final long serialVersionUID = 1L;
-
+@Table(name = "Dependent")
+public class Dependent implements Serializable {
     @Id
-    private String dependentId;
-    private String fullName;
-    private String policyHolderId; // Foreign key referencing PolicyHolder
+    @GenericGenerator(name = "customer_id", strategy = "/org/nikisurance/util/CustomerIdGenerator.java")
+    @GeneratedValue(generator = "customer_id")
+    @Column(name = "id")
+    private String id;
 
-    @ManyToOne
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(name = "password")
+    private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "policy_holder_id", nullable = false)
     private PolicyHolder policyHolder;
 
     public Dependent() {}
 
-    @Override
-    public String getFullName() {
-        return "";
+    public Dependent(String fullName, String id, String password, PolicyHolder policyHolder) {
+        this.fullName = fullName;
+        this.id = id;
+        this.password = password;
+        this.policyHolder = policyHolder;
     }
 
-    @Override
-    public void setFullName(String fullName) {
+    public String getFullName() {
+        return fullName;
+    }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public PolicyHolder getPolicyHolder() {
+        return policyHolder;
+    }
+
+    public void setPolicyHolder(PolicyHolder policyHolder) {
+        this.policyHolder = policyHolder;
     }
 }

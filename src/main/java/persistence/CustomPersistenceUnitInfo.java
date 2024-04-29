@@ -69,7 +69,11 @@ public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
 
     @Override
     public List<String> getManagedClassNames() {
-        return List.of("org.nikisurance.entity.Admin");
+        return List.of("org.nikisurance.entity.Admin",
+                "org.nikisurance.entity.PolicyHolder",
+                "org.nikisurance.entity.Dependent",
+                "org.nikisurance.entity.Claim",
+                "org.nikisurance.entity.InsuranceCard");
     }
 
     @Override

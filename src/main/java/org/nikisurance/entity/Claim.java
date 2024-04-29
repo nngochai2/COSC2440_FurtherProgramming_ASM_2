@@ -1,6 +1,7 @@
 package org.nikisurance.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,8 +14,9 @@ import java.util.Date;
 @Table
 public class Claim implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long claimId;
+    @GenericGenerator(name = "claim_id", strategy = "/org/nikisurance/util/ClaimIdGenerator.java")
+    @GeneratedValue(generator = "claim_id")
+    private String claimId;
     private Date claimDate;
     private Long policyHolderId; // Foreign key
     @ManyToOne
@@ -25,6 +27,7 @@ public class Claim implements Serializable {
     private int claimAmount;
     private ClaimStatus status;
 
+    public Claim() {}
 
     public int getClaimAmount() {
         return claimAmount;
@@ -42,11 +45,11 @@ public class Claim implements Serializable {
         this.claimDate = claimDate;
     }
 
-    public Long getClaimId() {
+    public String getClaimId() {
         return claimId;
     }
 
-    public void setClaimId(Long claimId) {
+    public void setClaimId(String claimId) {
         this.claimId = claimId;
     }
 

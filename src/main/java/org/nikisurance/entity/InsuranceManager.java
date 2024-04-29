@@ -8,12 +8,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 public class InsuranceManager implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
     private int id;
-
     private String name;
     private String password;
 
