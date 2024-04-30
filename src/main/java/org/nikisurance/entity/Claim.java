@@ -48,6 +48,10 @@ public class Claim implements Serializable {
     @Column(name = "receiver_bank_info", nullable = false)
     private String receiverBankingInfo;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private InsuranceSurveyor insuranceSurveyor;
+
     public Claim() {}
 
     public Claim(int cardNumber, int claimAmount, Date claimDate, String claimId, Date examDate, String insuredPerson, PolicyHolder policyHolder, Long policyHolderId, String receiverBankingInfo, ClaimStatus status) {

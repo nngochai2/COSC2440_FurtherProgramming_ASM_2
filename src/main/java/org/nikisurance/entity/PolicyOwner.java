@@ -17,7 +17,7 @@ public class PolicyOwner {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "policyOwner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "policyOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PolicyHolder> policyHolders;
 
     public PolicyOwner() {}

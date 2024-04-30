@@ -18,7 +18,8 @@ public class InsuranceSurveyor {
 
     public InsuranceSurveyor() {}
 
-    public InsuranceSurveyor(String name, String password) {
+    public InsuranceSurveyor(Long id, String name, String password) {
+        this.id = id;
         this.name = name;
         this.password = password;
     }
@@ -28,7 +29,6 @@ public class InsuranceSurveyor {
     }
 
     public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
