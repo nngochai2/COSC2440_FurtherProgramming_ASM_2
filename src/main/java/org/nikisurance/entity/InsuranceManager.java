@@ -7,30 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
-public class InsuranceManager implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+@DiscriminatorValue("InsuranceManager")
+public class InsuranceManager extends User implements Serializable {
 
-    private String name;
-    private String password;
+    @OneToMany
+    private List<InsuranceSurveyor> insuranceSurveyors;
 
     public InsuranceManager() {}
 
-    public String getName() {
-        return name;
+    public InsuranceManager(Long id, String name, String passwordHash, AdminRole role) {
+        super(id, name, passwordHash, role);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<InsuranceSurveyor> getInsuranceSurveyors() {
+        return insuranceSurveyors;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setInsuranceSurveyors(List<InsuranceSurveyor> insuranceSurveyors) {
+        this.insuranceSurveyors = insuranceSurveyors;
     }
 }
