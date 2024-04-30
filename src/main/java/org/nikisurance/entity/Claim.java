@@ -25,7 +25,8 @@ public class Claim implements Serializable {
     @Column(name = "policy_holder_id", nullable = false)
     private Long policyHolderId; // Foreign key
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "policy_holder_id")
     private PolicyHolder policyHolder;
 
     @Column(name = "insured_person", nullable = false)

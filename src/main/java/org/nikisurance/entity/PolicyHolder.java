@@ -2,8 +2,6 @@ package org.nikisurance.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.nikisurance.util.IDGenerator;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -38,6 +36,9 @@ public class PolicyHolder implements Serializable {
 
     @OneToMany(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Dependent> dependents;
+
+    @OneToMany(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Claim> claims;
 
     @OneToOne(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private InsuranceCard insuranceCard;
