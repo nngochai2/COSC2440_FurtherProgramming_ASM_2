@@ -34,6 +34,9 @@ public class PolicyHolder implements Serializable {
     @Column(name = "bank_number", nullable = false)
     private int bankNumber;
 
+    @Column(name = "owner_id", nullable = false)
+    private int policyOwnerId;
+
     @OneToMany(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Dependent> dependents;
 
@@ -42,6 +45,10 @@ public class PolicyHolder implements Serializable {
 
     @OneToOne(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private InsuranceCard insuranceCard;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private PolicyOwner policyOwner;
 
     public PolicyHolder(String customerId, String fullName, String password, String bankName, int bankNumber) {
         this.id = customerId;
@@ -115,5 +122,29 @@ public class PolicyHolder implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Claim> getClaims() {
+        return claims;
+    }
+
+    public void setClaims(List<Claim> claims) {
+        this.claims = claims;
+    }
+
+    public PolicyOwner getPolicyOwner() {
+        return policyOwner;
+    }
+
+    public void setPolicyOwner(PolicyOwner policyOwner) {
+        this.policyOwner = policyOwner;
+    }
+
+    public int getPolicyOwnerId() {
+        return policyOwnerId;
+    }
+
+    public void setPolicyOwnerId(int policyOwnerId) {
+        this.policyOwnerId = policyOwnerId;
     }
 }
