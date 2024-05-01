@@ -59,7 +59,6 @@ public class PasswordHash {
             } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
                 System.out.println("Error hashing password: " + e.getMessage());
             }
-
         }
     }
 }
