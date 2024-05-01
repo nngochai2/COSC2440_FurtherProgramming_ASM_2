@@ -62,4 +62,8 @@ public abstract class User {
     public void setRole(AdminRole role) {
         this.role = role;
     }
+
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
 }
