@@ -10,7 +10,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "Insurance_Card")
+@Table(name = "insurance_card")
 public class InsuranceCard implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

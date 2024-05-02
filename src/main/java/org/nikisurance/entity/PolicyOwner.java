@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Policy_Owner")
+@Table(name = "policy_owner")
 public class PolicyOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,5 +59,15 @@ public class PolicyOwner {
 
     public void setPolicyHolders(List<PolicyHolder> policyHolders) {
         this.policyHolders = policyHolders;
+    }
+
+    @Override
+    public String toString() {
+        return "PolicyOwner{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", policyHolders=" + policyHolders +
+                '}';
     }
 }

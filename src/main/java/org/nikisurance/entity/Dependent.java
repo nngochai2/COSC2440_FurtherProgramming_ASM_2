@@ -8,7 +8,7 @@ import org.nikisurance.util.StringPrefixedSequenceGenerator;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Dependent")
+@Table(name = "dependent")
 public class Dependent implements Serializable {
     @Id
     @GenericGenerator(name = "dependent_id_generator", strategy = "org.nikisurance.util.StringPrefixedSequenceGenerator",

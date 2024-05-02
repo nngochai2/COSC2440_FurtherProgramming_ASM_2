@@ -11,7 +11,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "Claim")
+@Table(name = "claim")
 public class Claim implements Serializable {
     @Id
     @GenericGenerator(name = "claim_id", strategy = "org.nikisurance.util.ClaimIdGenerator")

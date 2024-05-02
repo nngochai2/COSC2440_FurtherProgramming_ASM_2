@@ -16,7 +16,7 @@ import org.nikisurance.util.StringPrefixedSequenceGenerator;
  */
 
 @Entity
-@Table(name = "Policy_Holder")
+@Table(name = "policy_holder")
 public class PolicyHolder implements Serializable {
     @Id
     @Column(name = "id")
@@ -53,7 +53,6 @@ public class PolicyHolder implements Serializable {
     private int policyOwnerId;
 
     @ManyToOne
-//    @JoinColumn(name = "owner_id")
     private PolicyOwner policyOwner;
 
     public PolicyHolder() {}
@@ -152,5 +151,22 @@ public class PolicyHolder implements Serializable {
 
     public void setPolicyOwnerId(int policyOwnerId) {
         this.policyOwnerId = policyOwnerId;
+    }
+
+    @Override
+    public String toString() {
+        return "PolicyHolder{" +
+                "bankName='" + bankName + '\'' +
+                ", id='" + id + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", password='" + password + '\'' +
+                ", bankNumber=" + bankNumber +
+                ", dependents=" + dependents +
+                ", claims=" + claims +
+                ", insuranceCard=" + insuranceCard +
+                ", policyOwnerId=" + policyOwnerId +
+                ", policyOwner=" + policyOwner +
+                ", dependent=" + dependent +
+                '}';
     }
 }

@@ -8,10 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import org.hibernate.jpa.HibernatePersistenceProvider;
-import org.nikisurance.entity.Admin;
-import org.nikisurance.entity.PolicyHolder;
-import persistence.CustomPersistenceUnitInfo;
+import org.nikisurance.entity.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +24,16 @@ public class Main extends Application {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
         EntityManager em = emf.createEntityManager();
+        Map<String, String> properties = new HashMap<>();
+        properties.put("hibernate.show_sql", "true");
 
         try {
             em.getTransaction().begin();
-            em.getTransaction().commit();
 
+            PolicyOwner policyOwner = em.find(PolicyOwner.class, 1);
+            System.out.println(policyOwner);
+
+            em.getTransaction().commit();
         } finally {
             em.close();
         }
