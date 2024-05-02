@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "Claim")
 public class Claim implements Serializable {
     @Id
-    @GenericGenerator(name = "claim_id", strategy = "/org/nikisurance/util/ClaimIdGenerator.java")
+    @GenericGenerator(name = "claim_id", strategy = "org.nikisurance.util.ClaimIdGenerator")
     @GeneratedValue(generator = "claim_id")
     @Column(name = "id")
     private String claimId;
@@ -26,7 +26,6 @@ public class Claim implements Serializable {
     private Long policyHolderId; // Foreign key
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "policy_holder_id")
     private PolicyHolder policyHolder;
 
     @Column(name = "insured_person", nullable = false)
@@ -49,7 +48,7 @@ public class Claim implements Serializable {
     private String receiverBankingInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+//    @JoinColumn(name = "id")
     private InsuranceSurveyor insuranceSurveyor;
 
     public Claim() {}
@@ -145,5 +144,13 @@ public class Claim implements Serializable {
 
     public void setStatus(ClaimStatus status) {
         this.status = status;
+    }
+
+    public InsuranceSurveyor getInsuranceSurveyor() {
+        return insuranceSurveyor;
+    }
+
+    public void setInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
+        this.insuranceSurveyor = insuranceSurveyor;
     }
 }

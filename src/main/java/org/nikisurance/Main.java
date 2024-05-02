@@ -1,9 +1,6 @@
 package org.nikisurance;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,11 +25,21 @@ public class Main extends Application {
     private EntityManager em;
 
     public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
         launch(args);
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/Main.fxml")));
             Scene scene = new Scene(root);
@@ -51,33 +58,8 @@ public class Main extends Application {
         }
     }
 
-    private void initializeEntityManager() {
-        Map<String, Object> properties = new HashMap<>();
-
-        // Show the queries
-        properties.put("hibernate.show_sql", "true");
-
-        // Create the context
-        emf = new HibernatePersistenceProvider().createContainerEntityManagerFactory(new CustomPersistenceUnitInfo(), properties);
-
-        // Represents the manager of the context
-        em = emf.createEntityManager();
-    }
-
-    private void closeEntityManager() {
-        if (em != null && em.isOpen()) {
-            em.close();
-        }
-        if (emf != null && emf.isOpen()) {
-            emf.close();
-        }
-    }
-
     public <T> T login(Class<T> userType, String username, String password) {
-        this.initializeEntityManager();
         try {
-            em.getTransaction().begin();
-
             // Query to find the user by username
             String queryString = "SELECT u FROM" + userType.getSimpleName() + " u WHERE u.username = :username";
             TypedQuery<T> query = em.createQuery(queryString, userType);
@@ -95,8 +77,6 @@ public class Main extends Application {
         } catch (NoResultException ex) {
             System.out.println(userType.getSimpleName() + " with username '" + username + "' not found.");
             return null;
-        } finally {
-            closeEntityManager();
         }
     }
 

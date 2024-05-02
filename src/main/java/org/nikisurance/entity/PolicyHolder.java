@@ -1,9 +1,12 @@
 package org.nikisurance.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.annotations.Parameter;
+import org.nikisurance.util.StringPrefixedSequenceGenerator;
 
 /**
  * @author Nguyen Ngoc Hai
@@ -17,8 +20,12 @@ import java.util.List;
 public class PolicyHolder implements Serializable {
     @Id
     @Column(name = "id")
-    @GenericGenerator(name = "customer_id", strategy = "/org/nikisurance/util/CustomerIdGenerator.java")
-    @GeneratedValue(generator = "customer_id")
+    @GenericGenerator(name = "policy_holder_id_generator", strategy = "org.nikisurance.util.StringPrefixedSequenceGenerator",
+    parameters = {
+            @Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER, value = "c-"),
+            @Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%07d")
+    })
+    @GeneratedValue(generator = "policy_holder_id_generator")
     private String id;
 
     @Column(name = "full_name", nullable = false)
@@ -33,9 +40,6 @@ public class PolicyHolder implements Serializable {
     @Column(name = "bank_number", nullable = false)
     private int bankNumber;
 
-    @Column(name = "owner_id", nullable = false)
-    private int policyOwnerId;
-
     @OneToMany(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Dependent> dependents;
 
@@ -45,19 +49,22 @@ public class PolicyHolder implements Serializable {
     @OneToOne(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private InsuranceCard insuranceCard;
 
+    @Column(name = "owner_id", nullable = false)
+    private int policyOwnerId;
+
     @ManyToOne
-    @JoinColumn(name = "id")
+//    @JoinColumn(name = "owner_id")
     private PolicyOwner policyOwner;
+
+    public PolicyHolder() {}
 
     public PolicyHolder(String customerId, String fullName, String password, String bankName, int bankNumber) {
         this.id = customerId;
         this.bankName = bankName;
         this.bankNumber = bankNumber;
     }
-    @ManyToOne
-    private Dependent dependent;
-
-    public PolicyHolder() {}
+    @OneToMany
+    private List<Dependent> dependent;
 
     public int getBankNumber() {
         return bankNumber;
@@ -75,11 +82,11 @@ public class PolicyHolder implements Serializable {
         this.bankName = bankName;
     }
 
-    public Dependent getDependent() {
+    public List<Dependent> getDependent() {
         return dependent;
     }
 
-    public void setDependent(Dependent dependent) {
+    public void setDependent(List<Dependent> dependent) {
         this.dependent = dependent;
     }
 

@@ -2,6 +2,8 @@ package org.nikisurance.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.nikisurance.util.StringPrefixedSequenceGenerator;
 
 import java.io.Serializable;
 
@@ -9,8 +11,12 @@ import java.io.Serializable;
 @Table(name = "Dependent")
 public class Dependent implements Serializable {
     @Id
-    @GenericGenerator(name = "customer_id", strategy = "/org/nikisurance/util/CustomerIdGenerator.java")
-    @GeneratedValue(generator = "customer_id")
+    @GenericGenerator(name = "dependent_id_generator", strategy = "org.nikisurance.util.StringPrefixedSequenceGenerator",
+    parameters = {
+            @Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER, value = "c-"),
+            @Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%07d")
+    })
+    @GeneratedValue(generator = "dependent_id_generator")
     @Column(name = "id")
     private String id;
 

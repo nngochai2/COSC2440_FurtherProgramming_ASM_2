@@ -1,5 +1,6 @@
 package persistence;
 
+import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.SharedCacheMode;
 import jakarta.persistence.ValidationMode;
 import jakarta.persistence.spi.ClassTransformer;
@@ -19,12 +20,14 @@ public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
         properties.put("jakarta.persistence.jdbc.url", "jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres");
         properties.put("jakarta.persistence.jdbc.user", "postgres.pswhvvykrqmtbcudgjmt");
         properties.put("jakarta.persistence.jdbc.password", "Dungdechepbai135");
+        properties.put("hibernate.hikari.maximumPoolSize", "10");
+        properties.put("hibernate.hikari.minimumIdle", "5");
+        properties.put("hibernate.id.new_generator_mappings", "true");
+        properties.put("hibernate.id.optimizer.pooled.table", "sequence_generator_table");
 
-        // HikariCP specific properties
-        properties.put("hibernate.connection.provider_class", "com.zaxxer.hikari.hibernate.HikariConnectionProvider");
-        properties.put("hikariConfig.maximumPoolSize", "10");  // Adjust pool size as needed
-        properties.put("hikariConfig.minimumIdle", "5");     // Adjust minimum idle connections as needed
-        // Add other relevant Hikari properties
+        // Define the generator name and the class to use
+        properties.put("hibernate.id.optimizer.pooled.policy_holder_id_generator", "org.nikisurance.util.CustomerIdGenerator");
+        properties.put("hibernate.id.optimizer.pooled.dependent_id_generator", "org.nikisurance.util.CustomerIdGenerator");
     }
 
     @Override
@@ -44,7 +47,11 @@ public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
 
     @Override
     public DataSource getJtaDataSource() {
-        return null;
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl("jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres");
+        dataSource.setUsername("postgres.pswhvvykrqmtbcudgjmt");
+        dataSource.setPassword("Dungdechepbai135");
+        return dataSource;
     }
 
     @Override
@@ -73,7 +80,10 @@ public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
                 "org.nikisurance.entity.PolicyHolder",
                 "org.nikisurance.entity.Dependent",
                 "org.nikisurance.entity.Claim",
-                "org.nikisurance.entity.InsuranceCard");
+                "org.nikisurance.entity.InsuranceCard",
+                "org.nikisurance.entity.PolicyOwner",
+                "org.nikisurance.entity.InsuranceSurveyor",
+                "org.nikisurance.entity.InsuranceManager");
     }
 
     @Override

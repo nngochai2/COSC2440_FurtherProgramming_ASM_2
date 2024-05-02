@@ -7,12 +7,11 @@ import org.hibernate.id.IdentifierGenerator;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class ClaimIdGenerator implements IdentifierGenerator {
-
+    private final AtomicLong claimSequence = new AtomicLong();
     @Override
     public Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
         String prefix = "f-";
         int claimIdLength = 10;
-        AtomicLong claimSequence = new AtomicLong();
         long sequenceNumber = claimSequence.incrementAndGet();
         return prefix + padNumber(sequenceNumber, claimIdLength - prefix.length());
     }

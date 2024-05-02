@@ -19,7 +19,6 @@ public abstract class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_type")
     private AdminRole role;
 
     public User() {}
