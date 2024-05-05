@@ -11,10 +11,13 @@ import java.io.Serializable;
 @Table(name = "dependent")
 public class Dependent implements Serializable {
     @Id
-    @GenericGenerator(name = "dependent_id_generator", strategy = "org.nikisurance.util.StringPrefixedSequenceGenerator",
-    parameters = {
-            @Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER, value = "c-"),
-            @Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%07d")
+    @GenericGenerator(
+            name = "dependent_id_generator",
+            strategy = "org.nikisurance.util.StringPrefixedSequenceGenerator",
+            parameters = {
+                @Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER, value = "c-"),
+                @Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%07d"),
+                @Parameter(name = "increment_size", value = "1")
     })
     @GeneratedValue(generator = "dependent_id_generator")
     @Column(name = "id")
