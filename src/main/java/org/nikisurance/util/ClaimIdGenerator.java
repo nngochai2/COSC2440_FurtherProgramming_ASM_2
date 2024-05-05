@@ -1,31 +1,35 @@
 package org.nikisurance.util;
 
 import org.hibernate.HibernateException;
+import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.IdentifierGenerator;
+import org.hibernate.id.enhanced.SequenceStyleGenerator;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.Type;
+import org.hibernate.type.spi.TypeConfiguration;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.io.Serializable;
+import java.util.Properties;
 
-public class ClaimIdGenerator implements IdentifierGenerator {
-    private final AtomicLong claimSequence = new AtomicLong();
+public class ClaimIdGenerator extends SequenceStyleGenerator {
+    public static final String VALUE_PREFIX_PARAMETER = "valuePrefix";
+    public static final String VALUE_PREFIX_DEFAULT = "f-";
+    private String valuePrefix;
+
+    public static final String NUMBER_FORMAT_PARAMETER = "numberFormat";
+    public static final String NUMBER_FORMAT_DEFAULT = "%010d";
+    private String numberFormat;
+
     @Override
-    public Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-        String prefix = "f-";
-        int claimIdLength = 10;
-        long sequenceNumber = claimSequence.incrementAndGet();
-        return prefix + padNumber(sequenceNumber, claimIdLength - prefix.length());
+    public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+        return valuePrefix
+                + String.format(numberFormat, super.generate(session, object));
     }
 
-    /**
-     * This method is used to ensure that the generated number is of the desired length.
-     *
-     * @param number the sequence number
-     * @param length length of the spared spaces that need to be padded
-     * @return padded number
-     */
-    private static String padNumber(long number, int length) {
-        String numberStr = String.valueOf(number);
-        return "0".repeat(Math.max(0, length - numberStr.length())) +
-                numberStr;
+    @Override
+    public void configure(Type type, Properties params, ServiceRegistry serviceRegistry) throws MappingException {
+        super.configure(new TypeConfiguration().getBasicTypeRegistry().getRegisteredType(Long.class), params, serviceRegistry);
+        valuePrefix = params.getProperty(VALUE_PREFIX_PARAMETER, VALUE_PREFIX_DEFAULT);
+        numberFormat = params.getProperty(NUMBER_FORMAT_PARAMETER, NUMBER_FORMAT_DEFAULT);
     }
 }

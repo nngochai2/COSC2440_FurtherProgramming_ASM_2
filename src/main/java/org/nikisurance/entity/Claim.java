@@ -2,6 +2,8 @@ package org.nikisurance.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.nikisurance.util.ClaimIdGenerator;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +16,15 @@ import java.util.Date;
 @Table(name = "claim")
 public class Claim implements Serializable {
     @Id
-    @GenericGenerator(name = "claim_id", strategy = "org.nikisurance.util.ClaimIdGenerator")
+    @GenericGenerator(
+            name = "claim_id_generator",
+            strategy = "org.nikisurance.util.ClaimIdGenerator",
+            parameters = {
+                    @Parameter(name = ClaimIdGenerator.VALUE_PREFIX_PARAMETER, value = "f-"),
+                    @Parameter(name = ClaimIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%010d"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
     @GeneratedValue(generator = "claim_id")
     @Column(name = "id")
     private String claimId;
