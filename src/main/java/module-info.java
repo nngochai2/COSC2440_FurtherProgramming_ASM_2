@@ -8,6 +8,7 @@ module org.nikisurance {
     requires javafx.controls;
     requires jdk.jdi;
     requires com.zaxxer.hikari;
+    requires jdk.jshell;
 
     exports org.nikisurance.entity;
     exports org.nikisurance.util;

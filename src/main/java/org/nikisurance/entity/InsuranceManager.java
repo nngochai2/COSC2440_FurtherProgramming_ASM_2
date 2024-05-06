@@ -3,12 +3,11 @@ package org.nikisurance.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue("InsuranceManager")
-public class InsuranceManager extends User implements Serializable {
+public class InsuranceManager extends Person implements Serializable {
 
     @OneToMany
     private List<InsuranceSurveyor> insuranceSurveyors;
@@ -25,5 +24,13 @@ public class InsuranceManager extends User implements Serializable {
 
     public void setInsuranceSurveyors(List<InsuranceSurveyor> insuranceSurveyors) {
         this.insuranceSurveyors = insuranceSurveyors;
+    }
+
+    public void addInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
+        this.insuranceSurveyors.add(insuranceSurveyor);
+    }
+
+    public void removeInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
+        this.insuranceSurveyors.remove(insuranceSurveyor);
     }
 }

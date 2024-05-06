@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type")
-@Table(name = "user")
-public class User {
+@DiscriminatorColumn(name = "person_role")
+@Table(name = "person")
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -18,12 +18,13 @@ public class User {
     @Column(name = "password_hash")
     private String password;
 
+    @Column(name = "person_role", insertable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     private AdminRole role;
 
-    public User() {}
+    public Person() {}
 
-    public User(Long id, String name, String password, AdminRole role) {
+    public Person(Long id, String name, String password, AdminRole role) {
         this.id = id;
         this.name = name;
         this.password = password;

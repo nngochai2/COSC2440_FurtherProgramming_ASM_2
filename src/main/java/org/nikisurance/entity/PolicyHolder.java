@@ -140,4 +140,11 @@ public class PolicyHolder implements Serializable {
     public void setPolicyOwner(PolicyOwner policyOwner) {
         this.policyOwner = policyOwner;
     }
+
+    @Override
+    public String toString() {
+        return "PolicyHolder{" +
+                "fullName='" + fullName + '\'' +
+                '}';
+    }
 }

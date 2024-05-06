@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 
 @Entity
 @DiscriminatorValue("Admin")
-public class Admin extends User {
+public class Admin extends Person {
     public Admin() {}
 
     public Admin(Long id, String name, String passwordHash, AdminRole role) {

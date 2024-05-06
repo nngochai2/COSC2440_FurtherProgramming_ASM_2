@@ -13,12 +13,10 @@ import java.util.Date;
 @Table(name = "insurance_card")
 public class InsuranceCard implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String cardID;
-
-    @Column(name = "card_number", unique = true)
-    private int cardNumber;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "card_id_generator")
+    @SequenceGenerator(name = "card_id_generator", sequenceName = "card_id_sequence", allocationSize = 1)
+    private Long cardID;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "policy_holder_id")
@@ -36,29 +34,20 @@ public class InsuranceCard implements Serializable {
 
     public InsuranceCard() {}
 
-    public InsuranceCard(String cardID, int cardNumber, Dependent dependent, Date expiryDate, Date issuedDate, PolicyHolder policyHolder) {
+    public InsuranceCard(Long cardID, Dependent dependent, Date expiryDate, Date issuedDate, PolicyHolder policyHolder) {
         this.cardID = cardID;
-        this.cardNumber = cardNumber;
         this.dependent = dependent;
         this.expiryDate = expiryDate;
         this.issuedDate = issuedDate;
         this.policyHolder = policyHolder;
     }
 
-    public String getCardID() {
+    public Long getCardID() {
         return cardID;
     }
 
-    public void setCardID(String cardID) {
+    public void setCardID(Long cardID) {
         this.cardID = cardID;
-    }
-
-    public int getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
     }
 
     public Dependent getDependent() {
