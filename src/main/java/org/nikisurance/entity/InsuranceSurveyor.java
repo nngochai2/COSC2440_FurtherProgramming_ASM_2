@@ -8,11 +8,19 @@ import java.io.Serializable;
 @DiscriminatorValue("InsuranceSurveyor")
 public class InsuranceSurveyor extends User implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
-    private InsuranceSurveyor insuranceSurveyor;
+    private InsuranceManager insuranceManager;
 
     public InsuranceSurveyor() {}
 
     public InsuranceSurveyor(Long id, String name, String passwordHash, AdminRole role) {
         super(id, name, passwordHash, role);
+    }
+
+    public InsuranceManager getInsuranceManager() {
+        return insuranceManager;
+    }
+
+    public void setInsuranceManager(InsuranceManager insuranceManager) {
+        this.insuranceManager = insuranceManager;
     }
 }

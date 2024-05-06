@@ -52,20 +52,12 @@ public class PolicyHolder implements Serializable {
     @OneToOne(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private InsuranceCard insuranceCard;
 
-    @Column(name = "owner_id", nullable = false)
-    private Long policyOwnerId;
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
     private PolicyOwner policyOwner;
 
     public PolicyHolder() {}
 
-    public PolicyHolder(String customerId, String fullName, String password, String bankName, Long bankNumber) {
-        this.id = customerId;
-        this.bankName = bankName;
-        this.bankNumber = bankNumber;
-    }
     @OneToMany
     private List<Dependent> dependent;
 
@@ -147,30 +139,5 @@ public class PolicyHolder implements Serializable {
 
     public void setPolicyOwner(PolicyOwner policyOwner) {
         this.policyOwner = policyOwner;
-    }
-
-    public Long getPolicyOwnerId() {
-        return policyOwnerId;
-    }
-
-    public void setPolicyOwnerId(Long policyOwnerId) {
-        this.policyOwnerId = policyOwnerId;
-    }
-
-    @Override
-    public String toString() {
-        return "PolicyHolder{" +
-                "bankName='" + bankName + '\'' +
-                ", id='" + id + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", password='" + password + '\'' +
-                ", bankNumber=" + bankNumber +
-                ", dependents=" + dependents +
-                ", claims=" + claims +
-                ", insuranceCard=" + insuranceCard +
-                ", policyOwnerId=" + policyOwnerId +
-                ", policyOwner=" + policyOwner +
-                ", dependent=" + dependent +
-                '}';
     }
 }

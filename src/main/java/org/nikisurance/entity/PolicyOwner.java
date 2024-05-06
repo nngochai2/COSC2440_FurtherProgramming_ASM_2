@@ -9,7 +9,7 @@ import java.util.List;
 public class PolicyOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "owner_id")
     private Long id;
 
     @Column(name = "name")
@@ -18,7 +18,7 @@ public class PolicyOwner {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "policyOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "policyOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<PolicyHolder> policyHolders;
 
     public PolicyOwner() {}

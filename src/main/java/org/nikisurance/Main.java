@@ -34,17 +34,19 @@ public class Main extends Application {
             PolicyOwner policyOwner = em.find(PolicyOwner.class, 1);
             System.out.println(policyOwner);
 
-            // Sample method to generate a policy holder
-            PolicyHolder policyHolder = new PolicyHolder();
-            policyHolder.setPolicyOwner(policyOwner);
-            policyHolder.setFullName("Nguyen Ngoc Hai");
-            policyHolder.setPassword("123456");
-            policyHolder.setBankName("MB Bank");
-            policyHolder.setBankNumber(668813052004L);
-            policyHolder.setPolicyOwnerId(1L);
+//            // Sample method to generate a policy holder
+//            PolicyHolder policyHolder = new PolicyHolder();
+//            policyHolder.setPolicyOwner(policyOwner);
+//            policyHolder.setFullName("Nguyen Ngoc Hai");
+//            policyHolder.setPassword("123456");
+//            policyHolder.setBankName("MB Bank");
+//            policyHolder.setBankNumber(668813052004L);
+//            policyHolder.setPolicyOwnerId(1L);
+//
+//            em.persist(policyHolder);
 
-            em.persist(policyHolder);
-
+//            User user = em.find(User.class, 1);
+//            System.out.println(user);
 
             em.getTransaction().commit();
         } finally {

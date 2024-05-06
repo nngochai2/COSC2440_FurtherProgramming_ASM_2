@@ -36,6 +36,7 @@ public class Claim implements Serializable {
     private Long policyHolderId; // Foreign key
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "policy_holder_id", insertable = false, updatable = false)
     private PolicyHolder policyHolder;
 
     @Column(name = "insured_person", nullable = false)
@@ -57,8 +58,11 @@ public class Claim implements Serializable {
     @Column(name = "receiver_bank_info", nullable = false)
     private String receiverBankingInfo;
 
+    @Column(name = "surveyor_id")
+    private Long surveyorId;
+
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id")
+    @JoinColumn(name = "surveyor_id", insertable = false, updatable = false)
     private InsuranceSurveyor insuranceSurveyor;
 
     public Claim() {}
