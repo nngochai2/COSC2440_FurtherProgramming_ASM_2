@@ -4,5 +4,4 @@ import jakarta.persistence.EntityManagerFactory;
 
 public class AuthService {
 
-
 }

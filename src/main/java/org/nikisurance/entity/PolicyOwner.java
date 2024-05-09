@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "policy_owner")
-public class PolicyOwner {
+public class PolicyOwner extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "owner_id")

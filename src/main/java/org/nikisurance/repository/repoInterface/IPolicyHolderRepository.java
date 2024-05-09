@@ -9,5 +9,5 @@ public interface IPolicyHolderRepository {
     PolicyHolder findPolicyHolder(String policyHolderId);
     List<PolicyHolder> findAllPolicyHolders();
     void updatePolicyHolder(PolicyHolder policyHolder);
-    PolicyHolder removePolicyHolder(String policyHolderId);
+    void removePolicyHolder(String policyHolderId);
 }

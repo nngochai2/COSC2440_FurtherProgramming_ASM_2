@@ -7,7 +7,7 @@ import org.nikisurance.repository.repoInterface.IPolicyHolderRepository;
 
 import java.util.List;
 
-public class PolicyHolderRepository extends EntityRepository implements IPolicyHolderRepository {
+public class PolicyHolderRepositoryImpl extends EntityRepository implements IPolicyHolderRepository {
     @Override
     public void addPolicyHolder(PolicyHolder policyHolder) {
         em.getTransaction().begin();
@@ -39,13 +39,11 @@ public class PolicyHolderRepository extends EntityRepository implements IPolicyH
         em.getTransaction().commit();
     }
 
-
     @Override
-    public PolicyHolder removePolicyHolder(String policyHolderId) {
+    public void removePolicyHolder(String policyHolderId) {
         em.getTransaction().begin();
         PolicyHolder policyHolderToRemove = findPolicyHolder(policyHolderId);
         em.remove(policyHolderToRemove);
         em.getTransaction().commit();
-        return policyHolderToRemove;
     }
 }
