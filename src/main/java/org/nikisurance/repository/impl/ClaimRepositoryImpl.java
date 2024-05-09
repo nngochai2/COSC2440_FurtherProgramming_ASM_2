@@ -1,6 +1,5 @@
 package org.nikisurance.repository.impl;
 
-import jakarta.persistence.EntityManager;
 import org.nikisurance.entity.Claim;
 import org.nikisurance.repository.EntityRepository;
 import org.nikisurance.repository.repoInterface.IClaimRepository;
@@ -46,6 +45,4 @@ public class ClaimRepositoryImpl extends EntityRepository implements IClaimRepos
     public List<Claim> getClaimsFromDateToDate(int fromDate, int toDate) {
         return List.of();
     }
-
-
 }
