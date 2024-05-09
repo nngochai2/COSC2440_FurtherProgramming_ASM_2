@@ -1,6 +1,31 @@
 package org.nikisurance.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
+import org.nikisurance.entity.Claim;
+import org.nikisurance.repository.impl.ClaimRepositoryImpl;
 
-public class ClaimsController {
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ClaimsController implements Initializable {
+    private ObservableList<Claim> claimsData;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    public void populateData(ClaimRepositoryImpl claimRepository) {
+        claimsData = FXCollections.observableArrayList();
+    }
+
+    private void getClaimFromDatabase() {
+        ClaimRepositoryImpl claimRepository = new ClaimRepositoryImpl();
+        List<Claim> claims = claimRepository.getAllClaims();
+        claimsData = FXCollections.observableArrayList(claims);
+        claimRepository.close();
+    }
 }

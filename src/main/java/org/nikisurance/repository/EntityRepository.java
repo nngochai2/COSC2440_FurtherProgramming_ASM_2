@@ -5,8 +5,8 @@ import jakarta.persistence.EntityManager;
 public abstract class EntityRepository {
     protected final EntityManager em;
 
-    protected EntityRepository(EntityManager em) {
-        this.em = em;
+    protected EntityRepository() {
+        em = EMFactory.getInstance().getEntityManager();
     }
 
     public void close() {

@@ -8,12 +8,6 @@ import org.nikisurance.repository.repoInterface.IClaimRepository;
 import java.util.List;
 
 public class ClaimRepositoryImpl extends EntityRepository implements IClaimRepository {
-    private final EntityManager em;
-
-    public ClaimRepositoryImpl(EntityManager em, EntityManager em1) {
-        super(em);
-        this.em = em1;
-    }
 
     @Override
     public Claim getClaimById(int id) {

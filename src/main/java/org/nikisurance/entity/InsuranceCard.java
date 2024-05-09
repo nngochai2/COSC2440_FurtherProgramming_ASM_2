@@ -81,4 +81,9 @@ public class InsuranceCard implements Serializable {
     public void setPolicyHolder(PolicyHolder policyHolder) {
         this.policyHolder = policyHolder;
     }
+
+    @Override
+    public String toString() {
+        return cardID.toString();
+    }
 }
