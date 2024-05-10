@@ -17,7 +17,7 @@ import org.nikisurance.util.StringPrefixedSequenceGenerator;
 
 @Entity
 @Table(name = "policy_holder")
-public class PolicyHolder implements Serializable {
+public class PolicyHolder extends User implements Serializable {
     @Id
     @Column(name = "id")
     @GenericGenerator(
@@ -146,5 +146,10 @@ public class PolicyHolder implements Serializable {
         return "PolicyHolder{" +
                 "fullName='" + fullName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
     }
 }

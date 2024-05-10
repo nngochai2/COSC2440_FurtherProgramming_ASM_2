@@ -6,6 +6,10 @@ import org.nikisurance.repository.repoInterface.IDependentRepository;
 
 import java.util.List;
 
+/**
+ * @author Team 15
+ */
+
 public class DependentRepositoryImpl extends EntityRepository implements IDependentRepository {
 
     @Override

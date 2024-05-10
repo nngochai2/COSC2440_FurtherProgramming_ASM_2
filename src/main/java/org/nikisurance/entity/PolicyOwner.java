@@ -71,4 +71,9 @@ public class PolicyOwner extends User {
                 ", policyHolders=" + policyHolders +
                 '}';
     }
+
+    @Override
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
 }

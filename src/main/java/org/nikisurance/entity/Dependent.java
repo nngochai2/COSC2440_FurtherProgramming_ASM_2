@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "dependent")
-public class Dependent implements Serializable {
+public class Dependent extends User implements Serializable {
     @Id
     @GenericGenerator(
             name = "dependent_id_generator",
@@ -72,5 +72,10 @@ public class Dependent implements Serializable {
 
     public void setPolicyHolder(PolicyHolder policyHolder) {
         this.policyHolder = policyHolder;
+    }
+
+    @Override
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
     }
 }
