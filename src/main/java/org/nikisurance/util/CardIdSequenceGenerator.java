@@ -6,6 +6,12 @@ import org.hibernate.id.IdentifierGenerator;
 
 import java.io.Serializable;
 
+/**
+ * @author Team 15
+ * This class is responsible for generating the card numbers of the insurance cards.
+ * These numbers represent the ID of the cards
+ */
+
 public class CardIdSequenceGenerator implements IdentifierGenerator {
 
     @Override
