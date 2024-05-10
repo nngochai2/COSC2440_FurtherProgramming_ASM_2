@@ -6,6 +6,7 @@ import org.hibernate.annotations.Parameter;
 import org.nikisurance.util.StringPrefixedSequenceGenerator;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "dependent")
@@ -32,6 +33,9 @@ public class Dependent extends User implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "policy_holder_id", nullable = false)
     private PolicyHolder policyHolder;
+
+    @OneToMany
+    private List<Claim> claims;
 
     public Dependent() {}
 
@@ -72,6 +76,14 @@ public class Dependent extends User implements Serializable {
 
     public void setPolicyHolder(PolicyHolder policyHolder) {
         this.policyHolder = policyHolder;
+    }
+
+    public List<Claim> getClaims() {
+        return claims;
+    }
+
+    public void setClaims(List<Claim> claims) {
+        this.claims = claims;
     }
 
     @Override

@@ -130,6 +130,23 @@ public class PolicyHolder extends User implements Serializable {
         this.policyOwner = policyOwner;
     }
 
+    public void addClaim(Claim claim) {
+        claims.add(claim);
+    }
+
+    public void removeClaim(Claim claim) {
+        claims.remove(claim);
+    }
+
+    public void addDependent(Dependent dependent) {
+        dependent.setPolicyHolder(this);
+        dependents.add(dependent);
+    }
+
+    public void removeDependent(Dependent dependent) {
+        dependents.remove(dependent);
+    }
+
     @Override
     public String toString() {
         return "PolicyHolder{" +

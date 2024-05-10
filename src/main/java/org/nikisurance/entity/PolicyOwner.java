@@ -76,4 +76,12 @@ public class PolicyOwner extends User {
     public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
+
+    public void addPolicyHolder(PolicyHolder policyHolder) {
+        policyHolders.add(policyHolder);
+    }
+
+    public void removePolicyHolder(PolicyHolder policyHolder) {
+        policyHolders.remove(policyHolder);
+    }
 }
