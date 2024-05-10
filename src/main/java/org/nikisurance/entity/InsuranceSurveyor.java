@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue("InsuranceSurveyor")
-public class InsuranceSurveyor extends Person implements Serializable {
+public class InsuranceSurveyor extends Provider implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private InsuranceManager insuranceManager;
 

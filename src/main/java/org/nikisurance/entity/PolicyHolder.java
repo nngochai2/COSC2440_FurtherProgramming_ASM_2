@@ -58,9 +58,6 @@ public class PolicyHolder extends User implements Serializable {
 
     public PolicyHolder() {}
 
-    @OneToMany
-    private List<Dependent> dependent;
-
     public Long getBankNumber() {
         return bankNumber;
     }
@@ -75,14 +72,6 @@ public class PolicyHolder extends User implements Serializable {
 
     public void setBankName(String bankName) {
         this.bankName = bankName;
-    }
-
-    public List<Dependent> getDependent() {
-        return dependent;
-    }
-
-    public void setDependent(List<Dependent> dependent) {
-        this.dependent = dependent;
     }
 
     public List<Dependent> getDependents() {
