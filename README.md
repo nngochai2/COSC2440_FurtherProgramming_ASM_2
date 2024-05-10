@@ -2,8 +2,8 @@
 This is an approach to implement Hibernate and JPA
 
 **What is Object-Relational Impedance Mismatch (ORIM)?**
-- While hte objects in object-oriented application follow the OOP principles, objects in the backend follow database normalization principles
-- --> Different reprensentation requirements
+While the objects in object-oriented application follow the OOP principles, objects in the backend follow database normalization principles
+--> Different reprensentation requirements
 
 **Why using JPA/Hibernate?**
 - Hibernate handles ORIM problems by replacing direct and persistent database accesses with high-level object handling functions
