@@ -3,20 +3,21 @@ package org.nikisurance.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
     public String getFullName() {
