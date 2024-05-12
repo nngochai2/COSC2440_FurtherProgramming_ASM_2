@@ -9,10 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import org.nikisurance.entity.*;
+import org.nikisurance.repository.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,30 +22,49 @@ public class Main extends Application {
     private final Logger logger = Logger.getLogger(Main.class.getName());
     private EntityManagerFactory emf;
     private EntityManager em;
+    private static final Scanner scanner = new Scanner(System.in);
+
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
-        EntityManager em = emf.createEntityManager();
-        Map<String, String> properties = new HashMap<>();
-        properties.put("hibernate.show_sql", "true");
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
+//        EntityManager em = emf.createEntityManager();
+//        Map<String, String> properties = new HashMap<>();
+//        properties.put("hibernate.show_sql", "true");
+//
+//        try {
+//            em.getTransaction().begin();
+//
+//            // Sample method to get a policy owner
+//            PolicyOwner policyOwner = em.find(PolicyOwner.class, 1);
+//            System.out.println(policyOwner);
+//
+//            InsuranceManager insuranceManager = new InsuranceManager();
+//            insuranceManager.setName("Hai Pro");
+//            insuranceManager.setPassword("Hai123456");
+//            insuranceManager.setRole(ProviderRole.INSURANCE_MANAGER);
+//            em.persist(insuranceManager);
+//
+//            em.getTransaction().commit();
+//        } finally {
+//            em.close();
+//        }
 
-        try {
-            em.getTransaction().begin();
+        ClaimRepositoryImpl claimRepository = new ClaimRepositoryImpl();
+        DependentRepositoryImpl dependentRepository = new DependentRepositoryImpl();
+        InsuranceCardRepositoryImpl insuranceCardRepository = new InsuranceCardRepositoryImpl();
+        InsuranceManagerRepositoryImpl insuranceManagerRepository = new InsuranceManagerRepositoryImpl();
+        InsuranceSurveyorRepositoryImpl insuranceSurveyorRepository = new InsuranceSurveyorRepositoryImpl();
+        PolicyHolderRepositoryImpl policyHolderRepository = new PolicyHolderRepositoryImpl();
+        InsuranceCardRepositoryImpl insuranceCardRepositoryImpl = new InsuranceCardRepositoryImpl();
 
-            // Sample method to get a policy owner
-            PolicyOwner policyOwner = em.find(PolicyOwner.class, 1);
-            System.out.println(policyOwner);
+        System.out.println("\n=============================================================== WELCOME TO INSURANCE CLAIMS MANAGEMENT SYSTEM! ===============================================================");
+        System.out.println("Enter your username:");
+        String username = scanner.nextLine();
 
-            InsuranceManager insuranceManager = new InsuranceManager();
-            insuranceManager.setName("Hai Pro");
-            insuranceManager.setPassword("Hai123456");
-            insuranceManager.setRole(AdminRole.INSURANCE_MANAGER);
-            em.persist(insuranceManager);
+        System.out.println("Enter your password:");
+        String password = scanner.nextLine();
 
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
+        this.login()
         launch(args);
     }
 
@@ -80,7 +101,7 @@ public class Main extends Application {
                 System.out.println("Logged in successfully.");
                 return user;
             } else {
-                System.out.println("Login failed.");
+                System.err.println("Login failed.");
                 return null;
             }
         } catch (NoResultException ex) {

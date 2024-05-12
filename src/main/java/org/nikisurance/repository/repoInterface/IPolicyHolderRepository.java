@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface IPolicyHolderRepository {
     void addPolicyHolder(PolicyHolder policyHolder);
-    PolicyHolder findPolicyHolder(String policyHolderId);
+    PolicyHolder findPolicyHolder(Long policyHolderId);
     List<PolicyHolder> findAllPolicyHolders();
     void updatePolicyHolder(PolicyHolder policyHolder);
-    void removePolicyHolder(String policyHolderId);
+    void removePolicyHolder(Long policyHolderId);
 }

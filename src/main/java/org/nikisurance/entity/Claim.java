@@ -35,10 +35,6 @@ public class Claim implements Serializable {
     @Column(name = "policy_holder_id", nullable = false)
     private Long policyHolderId; // Foreign key
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "policy_holder_id", insertable = false, updatable = false)
-    private PolicyHolder policyHolder;
-
     @Column(name = "insured_person", nullable = false)
     private String insuredPerson;
 
@@ -67,14 +63,13 @@ public class Claim implements Serializable {
 
     public Claim() {}
 
-    public Claim(int cardNumber, int claimAmount, Date claimDate, String claimId, Date examDate, String insuredPerson, PolicyHolder policyHolder, Long policyHolderId, String receiverBankingInfo, ClaimStatus status) {
+    public Claim(int cardNumber, int claimAmount, Date claimDate, String claimId, Date examDate, String insuredPerson, Long policyHolderId, String receiverBankingInfo, ClaimStatus status) {
         this.cardNumber = cardNumber;
         this.claimAmount = claimAmount;
         this.claimDate = claimDate;
         this.claimId = claimId;
         this.examDate = examDate;
         this.insuredPerson = insuredPerson;
-        this.policyHolder = policyHolder;
         this.policyHolderId = policyHolderId;
         this.receiverBankingInfo = receiverBankingInfo;
         this.status = status;
@@ -126,14 +121,6 @@ public class Claim implements Serializable {
 
     public void setInsuredPerson(String insuredPerson) {
         this.insuredPerson = insuredPerson;
-    }
-
-    public PolicyHolder getPolicyHolder() {
-        return policyHolder;
-    }
-
-    public void setPolicyHolder(PolicyHolder policyHolder) {
-        this.policyHolder = policyHolder;
     }
 
     public Long getPolicyHolderId() {

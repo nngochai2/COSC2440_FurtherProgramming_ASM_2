@@ -14,7 +14,7 @@ public class InsuranceManager extends Provider implements Serializable {
 
     public InsuranceManager() {}
 
-    public InsuranceManager(Long id, String name, String passwordHash, AdminRole role) {
+    public InsuranceManager(Long id, String name, String passwordHash, ProviderRole role) {
         super(id, name, passwordHash, role);
     }
 

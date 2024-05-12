@@ -18,13 +18,8 @@ public class InsuranceCard implements Serializable {
     @SequenceGenerator(name = "card_id_generator", sequenceName = "card_id_sequence", allocationSize = 1)
     private Long cardID;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "policy_holder_id")
-    private PolicyHolder policyHolder;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dependent_id")
-    private Dependent dependent;
+    @OneToOne
+    private Beneficiary cardHolder;
 
     @Column(name = "issued_date", nullable = false)
     private Date issuedDate;
@@ -32,15 +27,8 @@ public class InsuranceCard implements Serializable {
     @Column(name = "expiry_date", nullable = false)
     private Date expiryDate;
 
-    public InsuranceCard() {}
 
-    public InsuranceCard(Long cardID, Dependent dependent, Date expiryDate, Date issuedDate, PolicyHolder policyHolder) {
-        this.cardID = cardID;
-        this.dependent = dependent;
-        this.expiryDate = expiryDate;
-        this.issuedDate = issuedDate;
-        this.policyHolder = policyHolder;
-    }
+    public InsuranceCard() {}
 
     public Long getCardID() {
         return cardID;
@@ -48,14 +36,6 @@ public class InsuranceCard implements Serializable {
 
     public void setCardID(Long cardID) {
         this.cardID = cardID;
-    }
-
-    public Dependent getDependent() {
-        return dependent;
-    }
-
-    public void setDependent(Dependent dependent) {
-        this.dependent = dependent;
     }
 
     public Date getExpiryDate() {
@@ -72,14 +52,6 @@ public class InsuranceCard implements Serializable {
 
     public void setIssuedDate(Date issuedDate) {
         this.issuedDate = issuedDate;
-    }
-
-    public PolicyHolder getPolicyHolder() {
-        return policyHolder;
-    }
-
-    public void setPolicyHolder(PolicyHolder policyHolder) {
-        this.policyHolder = policyHolder;
     }
 
     @Override

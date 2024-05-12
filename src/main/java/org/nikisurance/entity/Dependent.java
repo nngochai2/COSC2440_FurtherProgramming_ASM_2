@@ -10,65 +10,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "dependent")
-public class Dependent extends User implements Serializable {
-    @Id
-    @GenericGenerator(
-            name = "dependent_id_generator",
-            strategy = "org.nikisurance.util.StringPrefixedSequenceGenerator",
-            parameters = {
-                @Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER, value = "c-"),
-                @Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMAT_PARAMETER, value = "%07d"),
-                @Parameter(name = "increment_size", value = "1")
-    })
-    @GeneratedValue(generator = "dependent_id_generator")
-    @Column(name = "id")
-    private String id;
-
-    @Column(name = "full_name")
-    private String fullName;
-
-    @Column(name = "password")
-    private String password;
-
+public class Dependent extends Beneficiary implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "policy_holder_id", nullable = false)
     private PolicyHolder policyHolder;
 
-    @OneToMany
-    private List<Claim> claims;
-
     public Dependent() {}
-
-    public Dependent(String fullName, String id, String password, PolicyHolder policyHolder) {
-        this.fullName = fullName;
-        this.id = id;
-        this.password = password;
-        this.policyHolder = policyHolder;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public PolicyHolder getPolicyHolder() {
         return policyHolder;
@@ -76,18 +23,5 @@ public class Dependent extends User implements Serializable {
 
     public void setPolicyHolder(PolicyHolder policyHolder) {
         this.policyHolder = policyHolder;
-    }
-
-    public List<Claim> getClaims() {
-        return claims;
-    }
-
-    public void setClaims(List<Claim> claims) {
-        this.claims = claims;
-    }
-
-    @Override
-    public boolean checkPassword(String password) {
-        return this.password.equals(password);
     }
 }

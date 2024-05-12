@@ -16,7 +16,7 @@ public class PolicyHolderRepositoryImpl extends EntityRepository implements IPol
     }
 
     @Override
-    public PolicyHolder findPolicyHolder(String policyHolderId) {
+    public PolicyHolder findPolicyHolder(Long policyHolderId) {
         return em.find(PolicyHolder.class, policyHolderId);
     }
 
@@ -40,7 +40,7 @@ public class PolicyHolderRepositoryImpl extends EntityRepository implements IPol
     }
 
     @Override
-    public void removePolicyHolder(String policyHolderId) {
+    public void removePolicyHolder(Long policyHolderId) {
         em.getTransaction().begin();
         PolicyHolder policyHolderToRemove = findPolicyHolder(policyHolderId);
         em.remove(policyHolderToRemove);
