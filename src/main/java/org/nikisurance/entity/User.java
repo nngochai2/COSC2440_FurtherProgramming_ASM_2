@@ -3,8 +3,9 @@ package org.nikisurance.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "user")
 public abstract class User {
     @Id
     @Column(name = "id")

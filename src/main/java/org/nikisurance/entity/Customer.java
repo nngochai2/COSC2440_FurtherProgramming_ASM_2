@@ -1,9 +1,6 @@
 package org.nikisurance.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,8 +10,10 @@ import java.util.Set;
  */
 
 @Entity
-@Table
-@PrimaryKeyJoinColumn
+@DiscriminatorValue("CUSTOMER")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "customer_type", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "customer")
 public class Customer extends User {
     // Relationship with claims
     @OneToMany

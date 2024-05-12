@@ -3,6 +3,7 @@ package org.nikisurance.entity;
 import jakarta.persistence.*;
 
 @Entity
+@DiscriminatorValue("BENEFICIARY")
 @Table
 public class Beneficiary extends Customer {
     private String email;
