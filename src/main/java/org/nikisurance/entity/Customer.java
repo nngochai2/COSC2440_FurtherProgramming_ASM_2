@@ -2,8 +2,7 @@ package org.nikisurance.entity;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 
 /**
  * @author Team 15
@@ -14,16 +13,5 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "customer_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "customer")
-public class Customer extends User {
-    // Relationship with claims
-    @OneToMany
-    private Set<Claim> claims = new HashSet<>();
-
-    public Set<Claim> getClaims() {
-        return claims;
-    }
-
-    public void setClaims(Set<Claim> claims) {
-        this.claims = claims;
-    }
+public class Customer extends User implements Serializable {
 }

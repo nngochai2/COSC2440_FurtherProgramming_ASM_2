@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Nguyen Ngoc Hai
@@ -15,6 +16,7 @@ import java.util.List;
  */
 
 @Entity
+@DiscriminatorValue("POLICYHOLDER")
 @Table(name = "policy_holder")
 public class PolicyHolder extends Beneficiary implements Serializable {
     @Column(name = "bank_name", nullable = false)
@@ -29,7 +31,6 @@ public class PolicyHolder extends Beneficiary implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private PolicyOwner policyOwner;
-
     public PolicyHolder() {}
 
     public String getBankName() {

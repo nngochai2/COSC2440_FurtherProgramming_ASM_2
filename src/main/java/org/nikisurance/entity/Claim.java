@@ -152,4 +152,20 @@ public class Claim implements Serializable {
     public void setInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
         this.insuranceSurveyor = insuranceSurveyor;
     }
+
+    public Beneficiary getBeneficiary() {
+        return beneficiary;
+    }
+
+    public void setBeneficiary(Beneficiary beneficiary) {
+        this.beneficiary = beneficiary;
+    }
+
+    public Long getSurveyorId() {
+        return surveyorId;
+    }
+
+    public void setSurveyorId(Long surveyorId) {
+        this.surveyorId = surveyorId;
+    }
 }

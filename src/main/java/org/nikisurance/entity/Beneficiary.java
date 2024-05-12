@@ -2,12 +2,22 @@ package org.nikisurance.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @DiscriminatorValue("BENEFICIARY")
-@Table
-public class Beneficiary extends Customer {
+@DiscriminatorColumn(name = "beneficiary_type", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "beneficiary")
+public class Beneficiary extends Customer implements Serializable {
+    @Column(name = "email")
     private String email;
-    private String phoneNumber;
+
+    @Column(name = "phone_number")
+    private Long phoneNumber;
+
+    @Column(name = "address")
     private String address;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,6 +30,9 @@ public class Beneficiary extends Customer {
             fetch = FetchType.LAZY
     )
     private InsuranceCard insuranceCard;
+
+    @OneToMany
+    private Set<Claim> claims = new HashSet<>();
 
     public Beneficiary() {}
 
@@ -47,11 +60,11 @@ public class Beneficiary extends Customer {
         this.insuranceCard = insuranceCard;
     }
 
-    public String getPhoneNumber() {
+    public Long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -61,5 +74,13 @@ public class Beneficiary extends Customer {
 
     public void setPolicyOwner(PolicyOwner policyOwner) {
         this.policyOwner = policyOwner;
+    }
+
+    public Set<Claim> getClaims() {
+        return claims;
+    }
+
+    public void setClaims(Set<Claim> claims) {
+        this.claims = claims;
     }
 }

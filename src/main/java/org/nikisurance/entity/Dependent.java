@@ -1,14 +1,11 @@
 package org.nikisurance.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-import org.nikisurance.util.StringPrefixedSequenceGenerator;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
+@DiscriminatorValue("DEPENDENT")
 @Table(name = "dependent")
 public class Dependent extends Beneficiary implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
