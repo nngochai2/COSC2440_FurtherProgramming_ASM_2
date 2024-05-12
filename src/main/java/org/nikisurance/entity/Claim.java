@@ -32,8 +32,8 @@ public class Claim implements Serializable {
     @Column(name = "claim_date", nullable = false)
     private Date claimDate;
 
-    @Column(name = "policy_holder_id", nullable = false)
-    private Long policyHolderId; // Foreign key
+    @Column(nullable = false)
+    private Long beneficiaryId; // Foreign key
 
     @Column(name = "insured_person", nullable = false)
     private String insuredPerson;
@@ -61,19 +61,10 @@ public class Claim implements Serializable {
     @JoinColumn(name = "surveyor_id", insertable = false, updatable = false)
     private InsuranceSurveyor insuranceSurveyor;
 
-    public Claim() {}
+    @ManyToOne
+    private Beneficiary beneficiary;
 
-    public Claim(int cardNumber, int claimAmount, Date claimDate, String claimId, Date examDate, String insuredPerson, Long policyHolderId, String receiverBankingInfo, ClaimStatus status) {
-        this.cardNumber = cardNumber;
-        this.claimAmount = claimAmount;
-        this.claimDate = claimDate;
-        this.claimId = claimId;
-        this.examDate = examDate;
-        this.insuredPerson = insuredPerson;
-        this.policyHolderId = policyHolderId;
-        this.receiverBankingInfo = receiverBankingInfo;
-        this.status = status;
-    }
+    public Claim() {}
 
     public int getCardNumber() {
         return cardNumber;
@@ -123,19 +114,26 @@ public class Claim implements Serializable {
         this.insuredPerson = insuredPerson;
     }
 
-    public Long getPolicyHolderId() {
-        return policyHolderId;
+    public Long getBeneficiaryId() {
+        return beneficiaryId;
     }
 
-    public void setPolicyHolderId(Long policyHolderId) {
-        this.policyHolderId = policyHolderId;
+    public void setBeneficiaryId(Long beneficiaryId) {
+        this.beneficiaryId = beneficiaryId;
     }
 
     public String getReceiverBankingInfo() {
         return receiverBankingInfo;
     }
 
-    public void setReceiverBankingInfo(String receiverBankingInfo) {
+    public void setReceiverBankingInfo(Beneficiary beneficiary, String receiverBankingInfo) {
+        if (beneficiary != null) {
+            if (beneficiary instanceof PolicyHolder) {
+                receiverBankingInfo = ((PolicyHolder) beneficiary).getBankName() + ((PolicyHolder) beneficiary).getBankNumber() + beneficiary.getFullName().toUpperCase();
+            } else if (beneficiary instanceof Dependent) {
+                receiverBankingInfo = ((Dependent) beneficiary).getPolicyHolder().getBankName() + ((Dependent) beneficiary).getPolicyHolder().getBankName() + ((Dependent) beneficiary).getPolicyHolder().getFullName().toUpperCase();
+            }
+        }
         this.receiverBankingInfo = receiverBankingInfo;
     }
 

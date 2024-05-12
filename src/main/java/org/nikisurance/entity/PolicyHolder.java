@@ -2,12 +2,10 @@ package org.nikisurance.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.annotations.Parameter;
-import org.nikisurance.util.StringPrefixedSequenceGenerator;
 
 /**
  * @author Nguyen Ngoc Hai
@@ -72,5 +70,23 @@ public class PolicyHolder extends Beneficiary implements Serializable {
             dependent.setPolicyHolder(this);
             dependents.add(dependent);
         }
+    }
+
+    public void removeDependent(Dependent dependent) {
+        dependents.remove(dependent);
+    }
+
+    public void addClaim(Claim claim) {
+        claim.setBeneficiaryId(this.getId());
+        getClaims().add(claim);
+    }
+
+    public void removeClaim(Claim claim) {
+        getClaims().remove(claim);
+    }
+
+    public void addClaimForDependent(Dependent dependent, Claim claim) {
+        claim.setBeneficiaryId(dependent.getId());
+        dependent.getClaims().add(claim);
     }
 }

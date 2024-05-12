@@ -12,10 +12,6 @@ public class InsuranceSurveyor extends Provider implements Serializable {
 
     public InsuranceSurveyor() {}
 
-    public InsuranceSurveyor(Long id, String name, String passwordHash, ProviderRole role) {
-        super(id, name, passwordHash, role);
-    }
-
     public InsuranceManager getInsuranceManager() {
         return insuranceManager;
     }

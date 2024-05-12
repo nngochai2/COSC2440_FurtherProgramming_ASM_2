@@ -8,15 +8,10 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("InsuranceManager")
 public class InsuranceManager extends Provider implements Serializable {
-
     @OneToMany
     private List<InsuranceSurveyor> insuranceSurveyors;
 
     public InsuranceManager() {}
-
-    public InsuranceManager(Long id, String name, String passwordHash, ProviderRole role) {
-        super(id, name, passwordHash, role);
-    }
 
     public List<InsuranceSurveyor> getInsuranceSurveyors() {
         return insuranceSurveyors;

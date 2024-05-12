@@ -25,7 +25,7 @@ public class Main extends Application {
     private static final Scanner scanner = new Scanner(System.in);
 
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
 //        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
 //        EntityManager em = emf.createEntityManager();
 //        Map<String, String> properties = new HashMap<>();
@@ -63,8 +63,6 @@ public class Main extends Application {
 
         System.out.println("Enter your password:");
         String password = scanner.nextLine();
-
-        this.login()
         launch(args);
     }
 
