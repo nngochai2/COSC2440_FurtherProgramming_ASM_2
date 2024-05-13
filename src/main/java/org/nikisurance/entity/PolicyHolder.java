@@ -90,18 +90,11 @@ public class PolicyHolder extends Beneficiary implements Serializable {
         claim.setBeneficiaryId(dependent.getId());
         dependent.getClaims().add(claim);
     }
-
-    public static class Builder {
+    public static class Builder extends Beneficiary.Builder{
         private String bankName;
         private Long bankNumber;
         private List<Dependent> dependents;
         private PolicyOwner policyOwner;
-        // Inherited fields
-        private String email;
-        private Long phoneNumber;
-        private String address;
-        private InsuranceCard insuranceCard;
-        private Set<Claim> claims;
 
         public Builder withBankName(String bankName) {
             this.bankName = bankName;
@@ -120,31 +113,6 @@ public class PolicyHolder extends Beneficiary implements Serializable {
 
         public Builder withPolicyOwner(PolicyOwner policyOwner) {
             this.policyOwner = policyOwner;
-            return this;
-        }
-
-        public Builder withEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder withPhoneNumber(Long phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public Builder withAddress(String address) {
-            this.address = address;
-            return this;
-        }
-
-        public Builder withInsuranceCard(InsuranceCard insuranceCard) {
-            this.insuranceCard = insuranceCard;
-            return this;
-        }
-
-        public Builder withClaims(Set<Claim> claims) {
-            this.claims = claims;
             return this;
         }
 

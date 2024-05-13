@@ -1,4 +1,5 @@
 package org.nikisurance;
+import org.nikisurance.service.*;
 
 import jakarta.persistence.*;
 import javafx.application.Application;
@@ -11,10 +12,7 @@ import javafx.stage.Stage;
 import org.nikisurance.entity.*;
 import org.nikisurance.repository.impl.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,10 +26,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         properties.put("hibernate.show_sql", "true");
-
-
-
-
 //        ClaimRepositoryImpl claimRepository = new ClaimRepositoryImpl();
 //        DependentRepositoryImpl dependentRepository = new DependentRepositoryImpl();
 //        InsuranceCardRepositoryImpl insuranceCardRepository = new InsuranceCardRepositoryImpl();
@@ -49,6 +43,34 @@ public class Main extends Application {
 //        System.out.println("Enter your password:");
 //        String password = scanner.nextLine();
         launch(args);
+
+        // Instantiate the service classes
+        ClaimService claimService = new ClaimService();
+        CustomerService customerService = new CustomerService();
+        InsuranceCardService insuranceCardService = new InsuranceCardService();
+
+        // Use the service classes to create entities
+        Claim claim = claimService.makeClaim()
+                .withClaimId("c-0000000001")
+                .withClaimDate(new Date())
+                .withInsuredPerson("John Doe")
+                .withCardNumber(123456789)
+                .withExamDate(new Date())
+                .withClaimAmount(1000)
+                .withStatus(ClaimStatus.NEW)
+                .withReceiverBankingInfo("Bank Info")
+                .withSurveyorId(1L)
+                .build();
+
+        PolicyHolder policyHolder = customerService.makePolicyHolder()
+                .withBankName("Bank Name")
+                .withBankNumber(123456789L)
+                .withEmail("john.doe@example.com")
+                .withPhoneNumber(1234567890L)
+                .withAddress("123 Street, City, Country")
+                .withInsuranceCard(insuranceCardService.makeCard().build())
+                .build();
+
     }
 
     @Override
