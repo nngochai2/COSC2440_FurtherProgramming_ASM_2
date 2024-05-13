@@ -58,4 +58,44 @@ public class InsuranceCard implements Serializable {
     public String toString() {
         return cardID.toString();
     }
+
+    public static class Builder {
+        private Long cardID;
+        private Beneficiary cardHolder;
+        private Date issuedDate;
+        private Date expiryDate;
+
+        public Builder withCardID(Long cardID) {
+            this.cardID = cardID;
+            return this;
+        }
+
+        public Builder withCardHolder(Beneficiary cardHolder) {
+            this.cardHolder = cardHolder;
+            return this;
+        }
+
+        public Builder withIssuedDate(Date issuedDate) {
+            this.issuedDate = issuedDate;
+            return this;
+        }
+
+        public Builder withExpiryDate(Date expiryDate) {
+            this.expiryDate = expiryDate;
+            return this;
+        }
+
+        public InsuranceCard build() {
+            if (issuedDate == null || expiryDate == null) {
+                throw new IllegalStateException("Missing required fields.");
+            }
+            InsuranceCard card = new InsuranceCard();
+            card.cardID = this.cardID;
+            card.cardHolder = this.cardHolder;
+            card.issuedDate = this.issuedDate;
+            card.expiryDate = this.expiryDate;
+            return card;
+        }
+    }
+
 }

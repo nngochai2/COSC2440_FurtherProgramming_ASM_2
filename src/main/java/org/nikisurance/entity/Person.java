@@ -52,4 +52,34 @@ public abstract class Person {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public static class Builder {
+        // Add fields that you want to set using the builder
+        private String username;
+        private String password;
+        private String fullName;
+
+        public Builder withUsername(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder withPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder withFullName(String fullName) {
+            this.fullName = fullName;
+            return this;
+        }
+
+        public Customer build() {
+            Customer customer = new Customer();
+            customer.setUsername(this.username);
+            customer.setPassword(this.password);
+            customer.setFullName(this.fullName);
+            return customer;
+        }
+    }
 }

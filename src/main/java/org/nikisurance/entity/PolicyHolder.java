@@ -90,4 +90,82 @@ public class PolicyHolder extends Beneficiary implements Serializable {
         claim.setBeneficiaryId(dependent.getId());
         dependent.getClaims().add(claim);
     }
+
+    public static class Builder {
+        private String bankName;
+        private Long bankNumber;
+        private List<Dependent> dependents;
+        private PolicyOwner policyOwner;
+        // Inherited fields
+        private String email;
+        private Long phoneNumber;
+        private String address;
+        private InsuranceCard insuranceCard;
+        private Set<Claim> claims;
+
+        public Builder withBankName(String bankName) {
+            this.bankName = bankName;
+            return this;
+        }
+
+        public Builder withBankNumber(Long bankNumber) {
+            this.bankNumber = bankNumber;
+            return this;
+        }
+
+        public Builder withDependents(List<Dependent> dependents) {
+            this.dependents = dependents == null ? new ArrayList<>() : new ArrayList<>(dependents);
+            return this;
+        }
+
+        public Builder withPolicyOwner(PolicyOwner policyOwner) {
+            this.policyOwner = policyOwner;
+            return this;
+        }
+
+//        // Inherited fields methods
+//        public Builder withEmail(String email) {
+//            this.email = email;
+//            return this;
+//        }
+//
+//        public Builder withPhoneNumber(Long phoneNumber) {
+//            this.phoneNumber = phoneNumber;
+//            return this;
+//        }
+//
+//        public Builder withAddress(String address) {
+//            this.address = address;
+//            return this;
+//        }
+//
+//        public Builder withInsuranceCard(InsuranceCard insuranceCard) {
+//            this.insuranceCard = insuranceCard;
+//            return this;
+//        }
+//
+//        public Builder withClaims(Set<Claim> claims) {
+//            this.claims = claims == null ? new HashSet<>() : new HashSet<>(claims);
+//            return this;
+//        }
+
+        public PolicyHolder build() {
+            if (bankName == null || bankNumber == null) {
+                throw new IllegalStateException("Missing required fields: bankName and bankNumber.");
+            }
+            PolicyHolder policyHolder = new PolicyHolder();
+            policyHolder.setBankName(this.bankName);
+            policyHolder.setBankNumber(this.bankNumber);
+            policyHolder.setDependents(this.dependents);
+            policyHolder.setPolicyOwner(this.policyOwner);
+            // Set inherited fields
+//            policyHolder.setEmail(this.email);
+//            policyHolder.setPhoneNumber(this.phoneNumber);
+//            policyHolder.setAddress(this.address);
+//            policyHolder.setInsuranceCard(this.insuranceCard);
+//            policyHolder.setClaims(this.claims);
+            return policyHolder;
+        }
+    }
+
 }

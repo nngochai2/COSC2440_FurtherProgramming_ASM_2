@@ -169,4 +169,95 @@ public class Claim implements Serializable {
     public void setSurveyorId(Long surveyorId) {
         this.surveyorId = surveyorId;
     }
+
+    public static class Builder {
+        private String claimId;
+        private Date claimDate;
+        private Long beneficiaryId;
+        private String insuredPerson;
+        private int cardNumber;
+        private Date examDate;
+        private int claimAmount;
+        private ClaimStatus status;
+        private String receiverBankingInfo;
+        private Long surveyorId;
+        private InsuranceSurveyor insuranceSurveyor;
+        private Beneficiary beneficiary;
+
+        public Builder withClaimId(String claimId) {
+            this.claimId = claimId;
+            return this;
+        }
+
+        public Builder withClaimDate(Date claimDate) {
+            this.claimDate = claimDate;
+            return this;
+        }
+
+        public Builder withInsuredPerson(String insuredPerson) {
+            this.insuredPerson = insuredPerson;
+            return this;
+        }
+
+        public Builder withCardNumber(int cardNumber) {
+            this.cardNumber = cardNumber;
+            return this;
+        }
+
+        public Builder withExamDate(Date examDate) {
+            this.examDate = examDate;
+            return this;
+        }
+
+        public Builder withClaimAmount(int claimAmount) {
+            this.claimAmount = claimAmount;
+            return this;
+        }
+
+        public Builder withStatus(ClaimStatus status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder withReceiverBankingInfo(String receiverBankingInfo) {
+            this.receiverBankingInfo = receiverBankingInfo;
+            return this;
+        }
+
+        public Builder withSurveyorId(Long surveyorId) {
+            this.surveyorId = surveyorId;
+            return this;
+        }
+
+        public Builder withInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
+            this.insuranceSurveyor = insuranceSurveyor;
+            return this;
+        }
+
+        public Builder withBeneficiary(Beneficiary beneficiary) {
+            this.beneficiary = beneficiary;
+            return this;
+        }
+
+        public Claim build() {
+            if (claimDate == null || claimAmount <= 0 || insuredPerson == null || claimId == null || status == null) {
+                throw new IllegalStateException("Missing required fields or field conditions not met.");
+            }
+            Claim claim = new Claim();
+            claim.claimId = this.claimId;
+            claim.claimDate = this.claimDate;
+            claim.beneficiaryId = this.beneficiaryId;
+            claim.insuredPerson = this.insuredPerson;
+            claim.cardNumber = this.cardNumber;
+            claim.examDate = this.examDate;
+            claim.claimAmount = this.claimAmount;
+            claim.status = this.status;
+            claim.receiverBankingInfo = this.receiverBankingInfo;
+            claim.surveyorId = this.surveyorId;
+            claim.insuranceSurveyor = this.insuranceSurveyor;
+            claim.beneficiary = this.beneficiary;
+            return claim;
+        }
+    }
 }
+
