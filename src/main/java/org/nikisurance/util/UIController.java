@@ -36,15 +36,7 @@ public class UIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String[] roles = {"Policy Holder", "Dependent", "Insurance Surveyors", "Insurance Managers", "System Admin"};
-        comboBox.getItems().addAll(roles);
-    }
 
-    public String getInputRole() {
-        comboBox.setOnAction(actionEvent -> {
-            inputRole = comboBox.getValue();
-        });
-        return inputRole;
     }
 
     public void switchToClaimView(ActionEvent event) throws IOException {

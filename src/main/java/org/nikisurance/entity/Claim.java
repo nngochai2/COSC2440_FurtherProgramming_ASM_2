@@ -32,7 +32,7 @@ public class Claim implements Serializable {
     @Column(name = "claim_date", nullable = false)
     private Date claimDate;
 
-    @Column(nullable = false)
+    @Column(name = "beneficiary_id",nullable = false)
     private Long beneficiaryId; // Foreign key
 
     @Column(name = "insured_person", nullable = false)
@@ -61,7 +61,8 @@ public class Claim implements Serializable {
     @JoinColumn(name = "surveyor_id", insertable = false, updatable = false)
     private InsuranceSurveyor insuranceSurveyor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "beneficiary_id", insertable = false, updatable = false)
     private Beneficiary beneficiary;
 
     public Claim() {}

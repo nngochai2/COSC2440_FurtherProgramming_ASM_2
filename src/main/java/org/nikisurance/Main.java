@@ -20,49 +20,34 @@ import java.util.logging.Logger;
 
 public class Main extends Application {
     private final Logger logger = Logger.getLogger(Main.class.getName());
-    private EntityManagerFactory emf;
-    private EntityManager em;
     private static final Scanner scanner = new Scanner(System.in);
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
+    private static final EntityManager em = emf.createEntityManager();
+    private static final Map<String, String> properties = new HashMap<>();
 
 
-    public void main(String[] args) {
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
-//        EntityManager em = emf.createEntityManager();
-//        Map<String, String> properties = new HashMap<>();
-//        properties.put("hibernate.show_sql", "true");
+    public static void main(String[] args) {
+        properties.put("hibernate.show_sql", "true");
+
+
+
+
+//        ClaimRepositoryImpl claimRepository = new ClaimRepositoryImpl();
+//        DependentRepositoryImpl dependentRepository = new DependentRepositoryImpl();
+//        InsuranceCardRepositoryImpl insuranceCardRepository = new InsuranceCardRepositoryImpl();
+//        InsuranceManagerRepositoryImpl insuranceManagerRepository = new InsuranceManagerRepositoryImpl();
+//        InsuranceSurveyorRepositoryImpl insuranceSurveyorRepository = new InsuranceSurveyorRepositoryImpl();
+//        PolicyHolderRepositoryImpl policyHolderRepository = new PolicyHolderRepositoryImpl();
+//        InsuranceCardRepositoryImpl insuranceCardRepositoryImpl = new InsuranceCardRepositoryImpl();
+
+
+
+//        System.out.println("\n=============================================================== WELCOME TO INSURANCE CLAIMS MANAGEMENT SYSTEM! ===============================================================");
+//        System.out.println("Enter your username:");
+//        String username = scanner.nextLine();
 //
-//        try {
-//            em.getTransaction().begin();
-//
-//            // Sample method to get a policy owner
-//            PolicyOwner policyOwner = em.find(PolicyOwner.class, 1);
-//            System.out.println(policyOwner);
-//
-//            InsuranceManager insuranceManager = new InsuranceManager();
-//            insuranceManager.setName("Hai Pro");
-//            insuranceManager.setPassword("Hai123456");
-//            insuranceManager.setRole(ProviderRole.INSURANCE_MANAGER);
-//            em.persist(insuranceManager);
-//
-//            em.getTransaction().commit();
-//        } finally {
-//            em.close();
-//        }
-
-        ClaimRepositoryImpl claimRepository = new ClaimRepositoryImpl();
-        DependentRepositoryImpl dependentRepository = new DependentRepositoryImpl();
-        InsuranceCardRepositoryImpl insuranceCardRepository = new InsuranceCardRepositoryImpl();
-        InsuranceManagerRepositoryImpl insuranceManagerRepository = new InsuranceManagerRepositoryImpl();
-        InsuranceSurveyorRepositoryImpl insuranceSurveyorRepository = new InsuranceSurveyorRepositoryImpl();
-        PolicyHolderRepositoryImpl policyHolderRepository = new PolicyHolderRepositoryImpl();
-        InsuranceCardRepositoryImpl insuranceCardRepositoryImpl = new InsuranceCardRepositoryImpl();
-
-        System.out.println("\n=============================================================== WELCOME TO INSURANCE CLAIMS MANAGEMENT SYSTEM! ===============================================================");
-        System.out.println("Enter your username:");
-        String username = scanner.nextLine();
-
-        System.out.println("Enter your password:");
-        String password = scanner.nextLine();
+//        System.out.println("Enter your password:");
+//        String password = scanner.nextLine();
         launch(args);
     }
 
@@ -86,34 +71,24 @@ public class Main extends Application {
         }
     }
 
-    public <T> T login(Class<T> userType, String username, String password) {
+    public Person login(String username, String password) {
         try {
-            // Query to find the user by username
-            String queryString = "SELECT u FROM" + userType.getSimpleName() + " u WHERE u.username = :username";
-            TypedQuery<T> query = em.createQuery(queryString, userType);
+            // Query to find the person by username
+            String queryString = "SELECT u FROM Person u WHERE u.username = :username";
+            TypedQuery<Person> query = em.createQuery(queryString, Person.class);
             query.setParameter("username", username);
-            T user = query.getSingleResult();
+            Person person = query.getSingleResult();
 
-            // Check if the retrieved user has the correct password
-            if (user != null && getPassword(user).equals(password)) {
+            // Check if the retrieved person has the correct password
+            if (person != null && person.getPassword().equals(password)) {
                 System.out.println("Logged in successfully.");
-                return user;
+                return person;
             } else {
                 System.err.println("Login failed.");
                 return null;
             }
         } catch (NoResultException ex) {
-            System.out.println(userType.getSimpleName() + " with username '" + username + "' not found.");
-            return null;
-        }
-    }
-
-    private <T> String getPassword(T user) {
-        if (user instanceof Admin) {
-            return ((Admin) user).getPassword();
-        } else if (user instanceof PolicyHolder) {
-            return ((PolicyHolder) user).getPassword();
-        } else {
+            System.out.println("Person with username '" + username + "' not found.");
             return null;
         }
     }

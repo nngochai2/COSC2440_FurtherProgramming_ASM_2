@@ -13,5 +13,5 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "customer_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "customer")
-public class Customer extends User implements Serializable {
+public class Customer extends Person implements Serializable {
 }

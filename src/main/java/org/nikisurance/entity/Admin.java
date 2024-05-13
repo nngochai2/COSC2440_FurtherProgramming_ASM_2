@@ -10,6 +10,6 @@ import jakarta.persistence.*;
 @Entity
 @DiscriminatorValue("ADMIN")
 @Table(name = "admin")
-public class Admin extends User {
+public class Admin extends Person {
     public Admin() {}
 }
