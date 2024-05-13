@@ -123,31 +123,30 @@ public class PolicyHolder extends Beneficiary implements Serializable {
             return this;
         }
 
-//        // Inherited fields methods
-//        public Builder withEmail(String email) {
-//            this.email = email;
-//            return this;
-//        }
-//
-//        public Builder withPhoneNumber(Long phoneNumber) {
-//            this.phoneNumber = phoneNumber;
-//            return this;
-//        }
-//
-//        public Builder withAddress(String address) {
-//            this.address = address;
-//            return this;
-//        }
-//
-//        public Builder withInsuranceCard(InsuranceCard insuranceCard) {
-//            this.insuranceCard = insuranceCard;
-//            return this;
-//        }
-//
-//        public Builder withClaims(Set<Claim> claims) {
-//            this.claims = claims == null ? new HashSet<>() : new HashSet<>(claims);
-//            return this;
-//        }
+        public Builder withEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder withPhoneNumber(Long phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public Builder withAddress(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder withInsuranceCard(InsuranceCard insuranceCard) {
+            this.insuranceCard = insuranceCard;
+            return this;
+        }
+
+        public Builder withClaims(Set<Claim> claims) {
+            this.claims = claims;
+            return this;
+        }
 
         public PolicyHolder build() {
             if (bankName == null || bankNumber == null) {
@@ -158,12 +157,11 @@ public class PolicyHolder extends Beneficiary implements Serializable {
             policyHolder.setBankNumber(this.bankNumber);
             policyHolder.setDependents(this.dependents);
             policyHolder.setPolicyOwner(this.policyOwner);
-            // Set inherited fields
-//            policyHolder.setEmail(this.email);
-//            policyHolder.setPhoneNumber(this.phoneNumber);
-//            policyHolder.setAddress(this.address);
-//            policyHolder.setInsuranceCard(this.insuranceCard);
-//            policyHolder.setClaims(this.claims);
+            policyHolder.setEmail(this.email);
+            policyHolder.setPhoneNumber(this.phoneNumber);
+            policyHolder.setAddress(this.address);
+            policyHolder.setInsuranceCard(this.insuranceCard);
+            policyHolder.setClaims(this.claims);
             return policyHolder;
         }
     }

@@ -85,12 +85,12 @@ public class Beneficiary extends Customer implements Serializable {
     }
 
     public static class Builder {
-        private String email;
-        private Long phoneNumber;
-        private String address;
-        private PolicyOwner policyOwner;
-        private InsuranceCard insuranceCard;
-        private Set<Claim> claims;
+        public String email;
+        public Long phoneNumber;
+        public String address;
+        public PolicyOwner policyOwner;
+        public InsuranceCard insuranceCard;
+        public Set<Claim> claims;
 
         public Builder withEmail(String email) {
             this.email = email;
