@@ -14,4 +14,14 @@ import java.io.Serializable;
 @DiscriminatorColumn(name = "customer_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "customer")
 public class Customer extends Person implements Serializable {
+    @Column(name = "customer_type", insertable = false, updatable = false)
+    private String customerType;
+
+    public String getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(String customerType) {
+        this.customerType = customerType;
+    }
 }

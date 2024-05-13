@@ -20,7 +20,11 @@ public class Beneficiary extends Customer implements Serializable {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "beneficiary_type", insertable = false, updatable = false)
+    private String beneficiaryType;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
     private PolicyOwner policyOwner;
 
     @OneToOne(cascade = {
@@ -29,12 +33,15 @@ public class Beneficiary extends Customer implements Serializable {
             mappedBy = "cardHolder",
             fetch = FetchType.LAZY
     )
+
     private InsuranceCard insuranceCard;
 
     @OneToMany
     private Set<Claim> claims = new HashSet<>();
 
-    public Beneficiary() {}
+    public Beneficiary() {
+        setCustomerType("BENEFICIARY");
+    }
 
     public String getAddress() {
         return address;
@@ -82,5 +89,13 @@ public class Beneficiary extends Customer implements Serializable {
 
     public void setClaims(Set<Claim> claims) {
         this.claims = claims;
+    }
+
+    public String getBeneficiaryType() {
+        return beneficiaryType;
+    }
+
+    public void setBeneficiaryType(String beneficiaryType) {
+        this.beneficiaryType = beneficiaryType;
     }
 }

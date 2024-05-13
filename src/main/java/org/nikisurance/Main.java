@@ -11,10 +11,7 @@ import javafx.stage.Stage;
 import org.nikisurance.entity.*;
 import org.nikisurance.repository.impl.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,7 +45,55 @@ public class Main extends Application {
 //
 //        System.out.println("Enter your password:");
 //        String password = scanner.nextLine();
+
+        PolicyOwner policyOwner = new PolicyOwner();
+        policyOwner.setUsername("nikilon");
+        policyOwner.setPassword("nikilon");
+        policyOwner.setFullName("Nguyen Chi Nghia");
+
+        PolicyHolder policyHolder = new PolicyHolder();
+        policyHolder.setUsername("hainguyen");
+        policyHolder.setPassword("hainguyen");
+        policyHolder.setFullName("Nguyen Ngoc Hai");
+        policyHolder.setBankName("MB Bank");
+        policyHolder.setBankNumber(12345678L);
+        policyHolder.setEmail("hainguyen@gmail.com");
+        policyHolder.setPhoneNumber(123456789L);
+        policyHolder.setAddress("Hanoi, Vietnam");
+        policyHolder.setPolicyOwner(policyOwner);
+        policyHolder.setCustomerType("BENEFICIARY");
+        policyHolder.setBeneficiaryType("POLICYHOLDER");
+
+
+        PolicyHolderRepositoryImpl policyHolderRepository = new PolicyHolderRepositoryImpl();
+        policyHolderRepository.addPolicyHolder(policyHolder);
+
+        InsuranceCard insuranceCard = new InsuranceCard();
+        insuranceCard.setCardHolder(policyHolder);
+        Date date = new Date();
+        insuranceCard.setIssuedDate(date);
+        insuranceCard.setExpiryDate(date);
+
+        policyHolder.setInsuranceCard(insuranceCard);
+
+        Set<Beneficiary> beneficiaries = new HashSet<>();
+        beneficiaries.add(policyHolder);
+        policyOwner.setBeneficiaries(beneficiaries);
+
+        PolicyOwnerRepositoryImpl policyOwnerRepository = new PolicyOwnerRepositoryImpl();
+        policyOwnerRepository.addPolicyOwner(policyOwner);
+
+        InsuranceCardRepositoryImpl insuranceCardRepository = new InsuranceCardRepositoryImpl();
+        insuranceCardRepository.addInsuranceCard(insuranceCard);
+
+        BeneficiaryRepositoryImpl beneficiaryRepository = new BeneficiaryRepositoryImpl();
+        beneficiaryRepository.addBeneficiary(policyHolder);
+
         launch(args);
+
+        policyHolderRepository.close();
+        beneficiaryRepository.close();
+        policyOwnerRepository.close();
     }
 
     @Override

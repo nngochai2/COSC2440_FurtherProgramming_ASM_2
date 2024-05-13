@@ -22,6 +22,7 @@ public class PolicyHolderRepositoryImpl extends EntityRepository implements IPol
 
     @Override
     public List<PolicyHolder> findAllPolicyHolders() {
+        em.getTransaction().begin();
         TypedQuery<PolicyHolder> query = em.createQuery("select p from PolicyHolder p", PolicyHolder.class);
         return query.getResultList();
     }

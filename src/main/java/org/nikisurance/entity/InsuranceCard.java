@@ -54,6 +54,14 @@ public class InsuranceCard implements Serializable {
         this.issuedDate = issuedDate;
     }
 
+    public Beneficiary getCardHolder() {
+        return cardHolder;
+    }
+
+    public void setCardHolder(Beneficiary cardHolder) {
+        this.cardHolder = cardHolder;
+    }
+
     @Override
     public String toString() {
         return cardID.toString();

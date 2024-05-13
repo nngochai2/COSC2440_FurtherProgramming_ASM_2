@@ -29,9 +29,11 @@ public class PolicyHolder extends Beneficiary implements Serializable {
     private List<Dependent> dependents;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "id")
     private PolicyOwner policyOwner;
-    public PolicyHolder() {}
+    public PolicyHolder() {
+        setBeneficiaryType("POLICYHOLDER");
+    }
 
     public String getBankName() {
         return bankName;
