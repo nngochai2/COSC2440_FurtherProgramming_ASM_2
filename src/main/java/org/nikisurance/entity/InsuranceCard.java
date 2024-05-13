@@ -18,7 +18,8 @@ public class InsuranceCard implements Serializable {
     @SequenceGenerator(name = "card_id_generator", sequenceName = "card_id_sequence", allocationSize = 1)
     private Long cardID;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "beneficiary_id")
     private Beneficiary cardHolder;
 
     @Column(name = "issued_date", nullable = false)

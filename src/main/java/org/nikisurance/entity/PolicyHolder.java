@@ -25,7 +25,7 @@ public class PolicyHolder extends Beneficiary implements Serializable {
     @Column(name = "bank_number", nullable = false)
     private Long bankNumber;
 
-    @OneToMany(mappedBy = "policyHolder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "policyHolder", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<Dependent> dependents;
 
     @ManyToOne(fetch = FetchType.LAZY)

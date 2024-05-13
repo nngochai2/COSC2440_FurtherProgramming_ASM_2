@@ -10,9 +10,22 @@ import java.util.List;
 public class BeneficiaryRepositoryImpl extends EntityRepository implements IBeneficiaryRepository {
     @Override
     public void addBeneficiary(Beneficiary beneficiary) {
-        em.getTransaction().begin();
-        em.persist(beneficiary);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            // Check if the entity is already managed
+            if (!em.contains(beneficiary)) {
+                // If not, merge it to ensure it's in a managed state
+                beneficiary = em.merge(beneficiary);
+            }
+            // Persist the entity
+            em.persist(beneficiary);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            // Handle or log the exception
+        }
     }
 
     @Override
