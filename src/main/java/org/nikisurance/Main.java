@@ -25,7 +25,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         properties.put("hibernate.show_sql", "true");
-
+        em.getTransaction().begin();
 
 
 
@@ -88,6 +88,8 @@ public class Main extends Application {
 
         BeneficiaryRepositoryImpl beneficiaryRepository = new BeneficiaryRepositoryImpl();
         beneficiaryRepository.addBeneficiary(policyHolder);
+
+        em.getTransaction().commit();
 
         launch(args);
 

@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name = "policy_owner")
 public class PolicyOwner extends Customer implements Serializable {
 
-    @OneToMany(mappedBy = "policyOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "policyOwner", cascade = CascadeType.MERGE, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Beneficiary> beneficiaries;
 
     public PolicyOwner() {}
