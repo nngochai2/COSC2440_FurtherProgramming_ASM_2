@@ -36,7 +36,7 @@ public class Beneficiary extends Customer implements Serializable {
 
     private InsuranceCard insuranceCard;
 
-    @OneToMany
+    @OneToMany(mappedBy = "beneficiary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Claim> claims = new HashSet<>();
 
     public Beneficiary() {
