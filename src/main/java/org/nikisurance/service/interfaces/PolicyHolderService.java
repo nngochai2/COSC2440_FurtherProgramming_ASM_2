@@ -5,8 +5,8 @@ import org.nikisurance.entity.PolicyHolder;
 import java.util.List;
 
 public interface PolicyHolderService {
-    PolicyHolder getPolicyHolder();
+    PolicyHolder getPolicyHolder(Long id);
     PolicyHolder addPolicyHolder(PolicyHolder policyHolder);
     List<PolicyHolder> getAllPolicyHolders();
-    void deletePolicyHolder(PolicyHolder policyHolder);
+    void deletePolicyHolder(Long id);
 }
