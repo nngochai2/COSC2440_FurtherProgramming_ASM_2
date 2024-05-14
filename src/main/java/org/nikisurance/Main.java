@@ -7,7 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.nikisurance.entity.*;
 import org.nikisurance.repository.impl.*;
 
@@ -56,6 +58,8 @@ public class Main extends Application {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/Main.fxml")));
             Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            stage.initStyle(StageStyle.TRANSPARENT);
             stage.setTitle("Nikisurance");
             stage.setScene(scene);
             stage.setResizable(false);
@@ -63,8 +67,8 @@ public class Main extends Application {
 
             // Method to call logout method before closing the application using "X" button
             stage.setOnCloseRequest(windowEvent -> {
-                windowEvent.consume();
-                logout(stage);
+//                windowEvent.consume();
+//                logout(stage);
             });
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Exception occurred while loading FXML file", e);

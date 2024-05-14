@@ -48,17 +48,17 @@ public class UIController implements Initializable {
     }
 
     // Method to close the application
-    public void logout(ActionEvent event) {
-        // Asking for user confirmation
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Logout");
-        alert.setHeaderText("You are about to log out!");
-        alert.setContentText("Do you want to close the application?");
-
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            stage = (Stage) welcomeMenu.getScene().getWindow(); // Current stage
-            System.out.println("You have successfully logged out!");
-            stage.close();
-        }
-    }
+//    public void logout(ActionEvent event) {
+//        // Asking for user confirmation
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Logout");
+//        alert.setHeaderText("You are about to log out!");
+//        alert.setContentText("Do you want to close the application?");
+//
+//        if (alert.showAndWait().get() == ButtonType.OK) {
+//            stage = (Stage) welcomeMenu.getScene().getWindow(); // Current stage
+//            System.out.println("You have successfully logged out!");
+//            stage.close();
+//        }
+//    }
 }
