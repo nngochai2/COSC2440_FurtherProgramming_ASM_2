@@ -72,4 +72,9 @@ public class PolicyHolderController extends ClaimController {
         }
     }
 
+    @FXML
+    private void handleAddDependantButtonAction(MouseEvent event) {
+
+    }
+
 }

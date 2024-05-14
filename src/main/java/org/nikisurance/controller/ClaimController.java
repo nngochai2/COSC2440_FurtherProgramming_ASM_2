@@ -22,17 +22,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Controller
 public class ClaimController implements Initializable {
 
     private static final String UPLOAD_DIR = "";
+
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     @Autowired
     private ClaimService claimService;
@@ -74,6 +81,7 @@ public class ClaimController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeClaimTable();
+        setupFilteringAndSorting();
     }
 
     public void initializeClaimTable() {
@@ -101,6 +109,10 @@ public class ClaimController implements Initializable {
         filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredClaims.setPredicate(createPredicate());
         });
+
+        claimStatusComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            filteredClaims.setPredicate(createPredicate());
+        });
     }
 
     private Predicate<Claim> createPredicate() {
@@ -113,7 +125,7 @@ public class ClaimController implements Initializable {
             return matchedFilter && matchStatus;
         };
     }
-    
+
     private boolean claimMatchesFilter(Claim claim, String filterText) {
         String lowerCaseFilterText = filterText.toLowerCase();
         if (claim.getClaimId().toLowerCase().contains(lowerCaseFilterText)) {
@@ -136,29 +148,42 @@ public class ClaimController implements Initializable {
 
     @FXML
     private void handleUploadButtonClicked(ActionEvent event) {
-        // Open file chooser dialog to select image files
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-        List<File> selectedFiles = fileChooser.showOpenMultipleDialog(stage);
+        // Get the selected claim from the table
+        Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
 
-        if (selectedFiles != null) {
-            for (File file : selectedFiles) {
+        if (selectedClaim != null) {
+            // Open file chooser dialog to select image files
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+            List<File> selectedFiles = fileChooser.showOpenMultipleDialog(stage);
 
+            if (selectedFiles != null) {
+                for (File file : selectedFiles) {
+                    try {
+                        uploadFile(file, selectedClaim.getClaimId());
+                    } catch (IOException e) {
+                        logger.log(Level.SEVERE, "IOException found.", e);
+                    }
+                }
             }
+        } else {
+            // Handle case when no claim is selected
+            System.out.println("No claim selected.");
         }
     }
 
-    private void uploadFile(File file, String claimId) {
+    private void uploadFile(File file, String claimId) throws IOException {
         String newFileName = this.generateFileName(file.getName(), claimId);
 
-        File renamedFile = new File(file.getParentFile(), newFileName);
-        boolean success = file.renameTo(renamedFile);
-
-        if (success) {
-
-        } else {
-
+        File uploadDir = new File(UPLOAD_DIR);
+        if (!uploadDir.exists()) {
+            if (!uploadDir.mkdirs()) {
+                throw new IOException("Failed to create upload directory: " + UPLOAD_DIR);
+            }
         }
+
+        File renamedFile = new File(uploadDir, newFileName);
+        Files.copy(file.toPath(), renamedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     private String generateFileName(String originalFilename, String claimId) {

@@ -12,8 +12,8 @@ module org.nikisurance {
     requires spring.beans;
     requires spring.context;
     requires spring.data.jpa;
-    requires spring.web;
     requires jakarta.servlet;
+    requires commons.fileupload;
 
     exports org.nikisurance.entity;
     exports org.nikisurance.util;
