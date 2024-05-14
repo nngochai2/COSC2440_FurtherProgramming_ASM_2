@@ -9,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import org.nikisurance.entity.*;
-import org.nikisurance.repository.impl.*;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -65,37 +64,6 @@ public class Main extends Application {
         policyHolder.setBeneficiaryType("POLICYHOLDER");
 
 
-        PolicyHolderRepositoryImpl policyHolderRepository = new PolicyHolderRepositoryImpl();
-        policyHolderRepository.addPolicyHolder(policyHolder);
-
-        InsuranceCard insuranceCard = new InsuranceCard();
-        insuranceCard.setCardHolder(policyHolder);
-        Date date = new Date();
-        insuranceCard.setIssuedDate(date);
-        insuranceCard.setExpiryDate(date);
-
-        policyHolder.setInsuranceCard(insuranceCard);
-
-        Set<Beneficiary> beneficiaries = new HashSet<>();
-        beneficiaries.add(policyHolder);
-        policyOwner.setBeneficiaries(beneficiaries);
-
-        PolicyOwnerRepositoryImpl policyOwnerRepository = new PolicyOwnerRepositoryImpl();
-        policyOwnerRepository.addPolicyOwner(policyOwner);
-
-        InsuranceCardRepositoryImpl insuranceCardRepository = new InsuranceCardRepositoryImpl();
-        insuranceCardRepository.addInsuranceCard(insuranceCard);
-
-        BeneficiaryRepositoryImpl beneficiaryRepository = new BeneficiaryRepositoryImpl();
-        beneficiaryRepository.addBeneficiary(policyHolder);
-
-        em.getTransaction().commit();
-
-        launch(args);
-
-        policyHolderRepository.close();
-        beneficiaryRepository.close();
-        policyOwnerRepository.close();
     }
 
     @Override
