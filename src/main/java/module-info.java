@@ -13,6 +13,7 @@ module org.nikisurance {
     requires spring.context;
     requires spring.data.jpa;
     requires spring.web;
+    requires jakarta.servlet;
 
     exports org.nikisurance.entity;
     exports org.nikisurance.util;

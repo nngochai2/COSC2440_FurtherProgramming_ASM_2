@@ -6,6 +6,7 @@ import org.hibernate.annotations.Parameter;
 import org.nikisurance.util.ClaimIdGenerator;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -29,6 +30,11 @@ public class Claim implements Serializable {
     @Column(name = "id")
     private String claimId;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "exam_date", nullable = false)
+    private Date examDate;
+
+    @Temporal(TemporalType.DATE)
     @Column(name = "claim_date", nullable = false)
     private Date claimDate;
 
@@ -41,11 +47,8 @@ public class Claim implements Serializable {
     @Column(name = "card_number", nullable = false)
     private int cardNumber;
 
-    @Column(name = "exam_date", nullable = false)
-    private Date examDate;
-
     @Column(name = "claim_amount", nullable = false)
-    private int claimAmount;
+    private double claimAmount;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -56,6 +59,12 @@ public class Claim implements Serializable {
 
     @Column(name = "surveyor_id")
     private Long surveyorId;
+
+    @Column(name = "document_name")
+    private String documentName;
+
+    @Column(name = "document_path")
+    private String documentPath;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "surveyor_id", insertable = false, updatable = false)
@@ -75,8 +84,12 @@ public class Claim implements Serializable {
         this.cardNumber = cardNumber;
     }
 
-    public int getClaimAmount() {
+    public double getClaimAmount() {
         return claimAmount;
+    }
+
+    public void setClaimAmount(double claimAmount) {
+        this.claimAmount = claimAmount;
     }
 
     public void setClaimAmount(int claimAmount) {
@@ -87,7 +100,7 @@ public class Claim implements Serializable {
         return claimDate;
     }
 
-    public void setClaimDate(Date claimDate) {
+    public void setClaimDate(LocalDate claimDate) {
         this.claimDate = claimDate;
     }
 
@@ -103,7 +116,7 @@ public class Claim implements Serializable {
         return examDate;
     }
 
-    public void setExamDate(Date examDate) {
+    public void setExamDate(LocalDate examDate) {
         this.examDate = examDate;
     }
 
@@ -168,5 +181,29 @@ public class Claim implements Serializable {
 
     public void setSurveyorId(Long surveyorId) {
         this.surveyorId = surveyorId;
+    }
+
+    public String getDocumentName() {
+        return documentName;
+    }
+
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
+    }
+
+    public void setExamDate(Date examDate) {
+        this.examDate = examDate;
+    }
+
+    public String getDocumentPath() {
+        return documentPath;
+    }
+
+    public void setDocumentPath(String documentPath) {
+        this.documentPath = documentPath;
+    }
+
+    public void setClaimDate(Date claimDate) {
+        this.claimDate = claimDate;
     }
 }

@@ -22,8 +22,7 @@ import java.util.ResourceBundle;
 @Controller
 public class InsuranceSurveyorController implements Initializable {
 
-    @Autowired
-    private ClaimService claimService;
+    private final ClaimService claimService;
 
     @FXML
     private TableView<Claim> claimTable;
@@ -48,10 +47,16 @@ public class InsuranceSurveyorController implements Initializable {
 
     @FXML
     private TextField claimIdField;
+
     @FXML
     private TextField additionalInfoField;
 
     private ObservableList<Claim> claimsData;
+
+    @Autowired
+    public InsuranceSurveyorController(ClaimService claimService) {
+        this.claimService = claimService;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
