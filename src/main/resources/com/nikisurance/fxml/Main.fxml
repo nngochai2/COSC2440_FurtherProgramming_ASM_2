@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.util.UIController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.util.UIController">
     <children>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane prefHeight="460.0" prefWidth="684.0" style="-fx-background-color: transparent;">
             <children>
-                <AnchorPane prefHeight="403.0" prefWidth="262.0" style="-fx-background-color: #064420;" styleClass="gradient" stylesheets="@../css/loginDesign.css">
+                <AnchorPane layoutX="256.0" layoutY="58.0" prefHeight="291.0" prefWidth="339.0" style="-fx-background-color: #FFF; -fx-background-radius: 25;">
                     <children>
-                        <Text fill="#fdfaf6" layoutX="62.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NIKISURANCE">
+                        <TextField fx:id="nameTextField" layoutX="85.0" layoutY="82.0" prefHeight="26.0" prefWidth="230.0" promptText="Name" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
+                     <font>
+                        <Font size="12.0" />
+                     </font></TextField>
+                        <PasswordField fx:id="passwordTextField" layoutX="85.0" layoutY="122.0" prefHeight="26.0" prefWidth="230.0" promptText="Password" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
+                     <font>
+                        <Font size="12.0" />
+                     </font></PasswordField>
+                        <Button fx:id="loginButton" layoutX="157.0" layoutY="195.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;" text="Login" textFill="#fdfaf6">
                             <font>
-                                <Font name="Calibri Bold" size="24.0" />
-                            </font>
-                        </Text>
-                    </children>
-                </AnchorPane>
-                <AnchorPane layoutX="261.0" prefHeight="403.0" prefWidth="339.0" style="-fx-background-color: #FDFAF6;">
-                    <children>
-                        <TextField fx:id="nameTextField" layoutX="54.0" layoutY="175.0" prefHeight="26.0" prefWidth="230.0" promptText="Name" style="-fx-background-color: E4EFE7;" />
-                        <PasswordField fx:id="passwordTextField" layoutX="54.0" layoutY="215.0" prefHeight="26.0" prefWidth="230.0" promptText="Password" style="-fx-background-color: #E4EFE7;" />
-                        <Button fx:id="loginButton" layoutX="126.0" layoutY="288.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #064420;" text="Login" textFill="#fdfaf6">
-                            <font>
-                                <Font name="Calibri Bold" size="12.0" />
+                                <Font name="System Bold" size="11.0" />
                             </font></Button>
-                        <Text fill="#064420" layoutX="64.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login Account">
-                            <font>
-                                <Font name="Calibri Bold" size="36.0" />
-                            </font>
-                        </Text>
-                        <Hyperlink layoutX="54.0" layoutY="250.0" text="Forgot password?" textFill="#064420" />
-                        <Label fx:id="loginMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="4.0" layoutY="122.0" prefHeight="18.0" prefWidth="330.0" textFill="#c90000">
+                        <Hyperlink layoutX="85.0" layoutY="157.0" text="Forgot Password" textFill="#2a363f">
+                     <font>
+                        <Font size="12.0" />
+                     </font></Hyperlink>
+                        <Label fx:id="loginMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="113.0" prefHeight="18.0" prefWidth="330.0" textFill="#c90000">
                             <font>
                                 <Font name="Calibri Italic" size="14.0" />
                             </font>
                         </Label>
                     </children>
                 </AnchorPane>
+            <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="386.0" prefWidth="285.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;">
+               <children>
+                  <Text fill="WHITE" layoutX="57.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance">
+                     <font>
+                        <Font name="Apple LiGothic Medium" size="44.0" />
+                     </font>
+                  </Text>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="100.0" layoutX="21.0" layoutY="129.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="100.0" />
+               </children>
+            </AnchorPane>
             </children>
         </AnchorPane>
     </children>
