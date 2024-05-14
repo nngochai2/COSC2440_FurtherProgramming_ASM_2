@@ -1,7 +1,8 @@
 package org.nikisurance.service;
 
-import jakarta.persistence.EntityManagerFactory;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class AuthService {
 
 }

@@ -10,6 +10,8 @@ module org.nikisurance {
     requires com.zaxxer.hikari;
     requires jdk.jshell;
     requires spring.beans;
+    requires spring.context;
+    requires spring.data.jpa;
 
     exports org.nikisurance.entity;
     exports org.nikisurance.util;
