@@ -9,4 +9,5 @@ public interface ClaimService {
     Claim getClaim(String id);
     List<Claim> getAllClaims();
     void deleteClaim(Claim claim);
+    Claim updateClaim(Claim claim);
 }
