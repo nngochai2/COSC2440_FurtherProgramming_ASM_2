@@ -23,6 +23,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -103,15 +104,27 @@ public class ClaimController implements Initializable {
         populateTable();
     }
 
+//    public void populateTable() {
+//        getClaimsFromDB();
+//        filteredClaims = new FilteredList<>(claimsData, p -> true);
+//        sortedClaims = new SortedList<>(claimsData);
+//        sortedClaims.comparatorProperty().bind(claimTable.comparatorProperty());
+//        claimTable.setItems(claimsData);
+//
+//        claimStatusComboBox.setItems(FXCollections.observableArrayList(ClaimStatus.values()));
+//    }
+
+
     public void populateTable() {
         getClaimsFromDB();
         filteredClaims = new FilteredList<>(claimsData, p -> true);
-        sortedClaims = new SortedList<>(claimsData);
+        sortedClaims = new SortedList<>(filteredClaims); // Sử dụng filteredClaims
         sortedClaims.comparatorProperty().bind(claimTable.comparatorProperty());
-        claimTable.setItems(claimsData);
+        claimTable.setItems(sortedClaims); // Sử dụng sortedClaims
 
         claimStatusComboBox.setItems(FXCollections.observableArrayList(ClaimStatus.values()));
     }
+
 
     public void setupFilteringAndSorting() {
         filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -122,6 +135,7 @@ public class ClaimController implements Initializable {
             filteredClaims.setPredicate(createPredicate());
         });
     }
+
 
     private Predicate<Claim> createPredicate() {
         String filterText = filterTextField.getText();
@@ -409,5 +423,58 @@ public class ClaimController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    // filter claims by status
+    @FXML
+    private void filterNewClaims(ActionEvent event) {
+        filterClaimsByStatus(ClaimStatus.NEW);
+    }
+
+    // filter claims by status
+    @FXML
+    private void filterProcessingClaims(ActionEvent event) {
+        filterClaimsByStatus(ClaimStatus.PROCESSING);
+    }
+
+    // filter claims by status
+    @FXML
+    private void filterApprovedClaims(ActionEvent event) {
+        filterClaimsByStatus(ClaimStatus.APPROVED);
+    }
+
+    // filter claims by status
+    @FXML
+    private void filterRejectedClaims(ActionEvent event) {
+        filterClaimsByStatus(ClaimStatus.REJECTED);
+    }
+
+    private void filterClaimsByStatus(ClaimStatus status) {
+        filteredClaims.setPredicate(claim -> claim.getStatus() == status);
+        claimTable.setItems(filteredClaims);
+    }
+
+    // sort claims by claim date
+    @FXML
+    private void sortClaimDateAsc(ActionEvent event) {
+        sortedClaims.setComparator(Comparator.comparing(Claim::getClaimDate));
+    }
+
+    // sort claims by claim date
+    @FXML
+    private void sortClaimDateDesc(ActionEvent event) {
+        sortedClaims.setComparator(Comparator.comparing(Claim::getClaimDate).reversed());
+    }
+
+    // sort claims by claim amount
+    @FXML
+    private void sortClaimAmountAsc(ActionEvent event) {
+        sortedClaims.setComparator(Comparator.comparing(Claim::getClaimAmount));
+    }
+
+    // sort claims by claim amount
+    @FXML
+    private void sortClaimAmountDesc(ActionEvent event) {
+        sortedClaims.setComparator(Comparator.comparing(Claim::getClaimAmount).reversed());
     }
 }
