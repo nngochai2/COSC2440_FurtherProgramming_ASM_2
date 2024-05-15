@@ -66,7 +66,7 @@ public class Main extends Application {
         policyHolder.setCustomerType("BENEFICIARY");
         policyHolder.setBeneficiaryType("POLICYHOLDER");
 
-
+        launch(args);
     }
 
     @Override
