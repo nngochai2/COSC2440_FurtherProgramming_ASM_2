@@ -136,7 +136,6 @@ public class ClaimController implements Initializable {
         });
     }
 
-
     private Predicate<Claim> createPredicate() {
         String filterText = filterTextField.getText();
         ClaimStatus selectedStatus = claimStatusComboBox.getValue();
@@ -170,10 +169,6 @@ public class ClaimController implements Initializable {
 
     @FXML
     private void handleUploadDocumentButtonClicked(ActionEvent event) {
-        if (!isAuthorized("UPLOAD_DOCUMENT")) {
-            showAlert(Alert.AlertType.ERROR, "Access Denied", "You do not have permission to upload documents.");
-            return;
-        }
         // Get the selected claim from the table
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
 
@@ -223,10 +218,6 @@ public class ClaimController implements Initializable {
      */
     @FXML
     private void handleAddClaim(ActionEvent event) {
-        if (!isAuthorized("ADD_CLAIM")) {
-            showAlert(Alert.AlertType.ERROR, "Access Denied", "You do not have permission to add claims.");
-            return;
-        }
         try {
             double claimAmount = Double.parseDouble(claimAmountTextField.getText());
             Date examDate = java.sql.Date.valueOf(examDatePicker.getValue());
@@ -248,10 +239,6 @@ public class ClaimController implements Initializable {
      */
     @FXML
     private void handleDeleteClaim(ActionEvent event) {
-        if (!isAuthorized("DELETE_CLAIM")) {
-            showAlert(Alert.AlertType.ERROR, "Access Denied", "You do not have permission to delete claims.");
-            return;
-        }
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
         if (selectedClaim != null) {
             claimService.deleteClaim(selectedClaim);
@@ -268,10 +255,6 @@ public class ClaimController implements Initializable {
      */
     @FXML
     private void handleUpdateClaim(ActionEvent event) {
-        if (!isAuthorized("UPDATE_CLAIM")) {
-            showAlert(Alert.AlertType.ERROR, "Access Denied", "You do not have permission to update claims.");
-            return;
-        }
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
         if (selectedClaim != null) {
             try {
@@ -298,10 +281,6 @@ public class ClaimController implements Initializable {
      */
     @FXML
     private void handleRequireMoreInfo(ActionEvent event) {
-        if (!isAuthorized("REQUIRE_MORE_INFO")) {
-            showAlert(Alert.AlertType.ERROR, "Access Denied", "You do not have permission to request more information.");
-            return;
-        }
         Claim selectedClaim = claimService.getClaim(claimIdField.getText());
         if (selectedClaim != null) {
             claimDetailsArea.setText(formatClaimDetails(selectedClaim));
@@ -329,10 +308,6 @@ public class ClaimController implements Initializable {
      */
     @FXML
     private void handleProposeClaim(ActionEvent event) {
-        if (!isAuthorized("PROPOSE_CLAIM")) {
-            showAlert(Alert.AlertType.ERROR, "Access Denied", "You do not have permission to propose claims.");
-            return;
-        }
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
         if (selectedClaim != null && selectedClaim.getStatus() == ClaimStatus.NEW) {
             selectedClaim.setStatus(ClaimStatus.PROCESSING);
@@ -350,10 +325,6 @@ public class ClaimController implements Initializable {
      */
     @FXML
     private void handleApproveClaim(ActionEvent event) {
-        if (!isAuthorized("APPROVE_CLAIM")) {
-            showAlert(Alert.AlertType.ERROR, "Access Denied", "You do not have permission to approve claims.");
-            return;
-        }
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
         if (selectedClaim != null && selectedClaim.getStatus() == ClaimStatus.PROCESSING) {
             try {
@@ -375,10 +346,6 @@ public class ClaimController implements Initializable {
      */
     @FXML
     private void handleRejectClaim(ActionEvent event) {
-        if (!isAuthorized("REJECT_CLAIM")) {
-            showAlert(Alert.AlertType.ERROR, "Access Denied", "You do not have permission to reject claims.");
-            return;
-        }
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
         if (selectedClaim != null && selectedClaim.getStatus() == ClaimStatus.PROCESSING) {
             try {
@@ -394,28 +361,6 @@ public class ClaimController implements Initializable {
         }
     }
 
-    private boolean isAuthorized(String action) {
-        Person loggedInPerson = UserSession.getInstance().getLoggedInPerson();
-
-        switch (action) {
-            case "ADD_CLAIM":
-            case "RETRIEVE_CLAIM":
-                return loggedInPerson instanceof PolicyHolder || loggedInPerson instanceof PolicyOwner;
-            case "UPDATE_CLAIM":
-            case "DELETE_CLAIM":
-                return loggedInPerson instanceof PolicyOwner;
-            case "REQUIRE_MORE_INFO":
-            case "PROPOSE_CLAIM":
-                return loggedInPerson instanceof InsuranceSurveyor;
-            case "APPROVE_CLAIM":
-            case "REJECT_CLAIM":
-                return loggedInPerson instanceof InsuranceManager;
-            case "UPLOAD_DOCUMENT":
-                return loggedInPerson instanceof PolicyHolder || loggedInPerson instanceof PolicyOwner || loggedInPerson instanceof InsuranceSurveyor || loggedInPerson instanceof InsuranceManager;
-            default:
-                return false;
-        }
-    }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
