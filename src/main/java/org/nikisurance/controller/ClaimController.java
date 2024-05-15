@@ -9,10 +9,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.nikisurance.entity.Claim;
@@ -37,7 +34,7 @@ import java.util.logging.Logger;
 @Controller
 public class ClaimController implements Initializable {
 
-    private static final String UPLOAD_DIR = "";
+    private static final String UPLOAD_DIR = "C:/";
 
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
@@ -73,6 +70,13 @@ public class ClaimController implements Initializable {
 
     @FXML
     private Stage stage;
+
+    @FXML
+    private DatePicker examDatePicker;
+
+    @FXML
+    private TextField claimAmountTextField;
+
 
     protected ObservableList<Claim> claimsData;
     protected FilteredList<Claim> filteredClaims;
@@ -147,7 +151,7 @@ public class ClaimController implements Initializable {
     }
 
     @FXML
-    private void handleUploadButtonClicked(ActionEvent event) {
+    private void handleUploadDocumentButtonClicked(ActionEvent event) {
         // Get the selected claim from the table
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
 
@@ -189,5 +193,42 @@ public class ClaimController implements Initializable {
     private String generateFileName(String originalFilename, String claimId) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         return claimId + "_" + timeStamp + "_" + originalFilename;
+    }
+
+    /**
+     * This function handles the add claim procedure. Customer will have to enter the exam date and their desired claim amount.
+     * @param event
+     */
+    @FXML
+    private void handleAddClaim(ActionEvent event) {
+        try {
+            double claimAmount = Double.parseDouble(claimAmountTextField.getText());
+            Date examDate = java.sql.Date.valueOf(examDatePicker.getValue());
+
+            Claim newClaim = new Claim();
+            newClaim.setClaimDate(new Date());
+            newClaim.setExamDate(examDate);
+            newClaim.setClaimAmount(claimAmount);
+
+            claimService.addClaim(newClaim);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "");
+        }
+    }
+
+    /**
+     * This function handles the delete claim procedure
+     * @param event
+     */
+    @FXML
+    private void handleDeleteClaim(ActionEvent event) {
+        Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
+        if (selectedClaim != null) {
+            claimService.deleteClaim(selectedClaim);
+            claimsData.remove(selectedClaim);
+            System.out.println("Claim deleted successfully.");
+        } else {
+            System.out.println("No claim selected");
+        }
     }
 }

@@ -100,9 +100,6 @@ public class Claim implements Serializable {
         return claimDate;
     }
 
-    public void setClaimDate(LocalDate claimDate) {
-        this.claimDate = claimDate;
-    }
 
     public String getClaimId() {
         return claimId;
@@ -114,10 +111,6 @@ public class Claim implements Serializable {
 
     public Date getExamDate() {
         return examDate;
-    }
-
-    public void setExamDate(LocalDate examDate) {
-        this.examDate = examDate;
     }
 
     public String getInsuredPerson() {
