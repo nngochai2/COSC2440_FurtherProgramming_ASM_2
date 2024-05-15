@@ -12,8 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.nikisurance.entity.Claim;
-import org.nikisurance.entity.ClaimStatus;
+import org.nikisurance.entity.*;
 import org.nikisurance.service.interfaces.ClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +23,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -77,6 +77,11 @@ public class ClaimController implements Initializable {
     @FXML
     private TextField claimAmountTextField;
 
+    @FXML
+    private TextField claimIdField;
+
+    @FXML
+    private TextArea claimDetailsArea;
 
     protected ObservableList<Claim> claimsData;
     protected FilteredList<Claim> filteredClaims;
@@ -99,15 +104,27 @@ public class ClaimController implements Initializable {
         populateTable();
     }
 
+//    public void populateTable() {
+//        getClaimsFromDB();
+//        filteredClaims = new FilteredList<>(claimsData, p -> true);
+//        sortedClaims = new SortedList<>(claimsData);
+//        sortedClaims.comparatorProperty().bind(claimTable.comparatorProperty());
+//        claimTable.setItems(claimsData);
+//
+//        claimStatusComboBox.setItems(FXCollections.observableArrayList(ClaimStatus.values()));
+//    }
+
+
     public void populateTable() {
         getClaimsFromDB();
         filteredClaims = new FilteredList<>(claimsData, p -> true);
-        sortedClaims = new SortedList<>(claimsData);
+        sortedClaims = new SortedList<>(filteredClaims); // Sử dụng filteredClaims
         sortedClaims.comparatorProperty().bind(claimTable.comparatorProperty());
-        claimTable.setItems(claimsData);
+        claimTable.setItems(sortedClaims); // Sử dụng sortedClaims
 
         claimStatusComboBox.setItems(FXCollections.observableArrayList(ClaimStatus.values()));
     }
+
 
     public void setupFilteringAndSorting() {
         filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -230,5 +247,179 @@ public class ClaimController implements Initializable {
         } else {
             System.out.println("No claim selected");
         }
+    }
+
+    /**
+     * This function handles the update claim procedure
+     * @param event
+     */
+    @FXML
+    private void handleUpdateClaim(ActionEvent event) {
+        Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
+        if (selectedClaim != null) {
+            try {
+                double claimAmount = Double.parseDouble(claimAmountTextField.getText());
+                Date examDate = java.sql.Date.valueOf(examDatePicker.getValue());
+
+                selectedClaim.setClaimAmount(claimAmount);
+                selectedClaim.setExamDate(examDate);
+
+                claimService.updateClaim(selectedClaim);
+                claimTable.refresh();
+                System.out.println("Claim updated successfully.");
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Error while updating claim", e);
+            }
+        } else {
+            System.out.println("No claim selected.");
+        }
+    }
+
+    /**
+     * This function handles the require more information procedure
+     * @param event
+     */
+    @FXML
+    private void handleRequireMoreInfo(ActionEvent event) {
+        Claim selectedClaim = claimService.getClaim(claimIdField.getText());
+        if (selectedClaim != null) {
+            claimDetailsArea.setText(formatClaimDetails(selectedClaim));
+            try {
+                selectedClaim.setStatus(ClaimStatus.PROCESSING);
+                claimService.updateClaim(selectedClaim);
+                claimTable.refresh();
+                System.out.println("Requested more information for the claim.");
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Error while requesting more information.", e);
+            }
+        } else {
+            System.out.println("No claim found with ID: " + claimIdField.getText());
+        }
+    }
+
+    private String formatClaimDetails(Claim claim) {
+        return String.format("Claim ID: %s\nClaim Date: %s\nExam Date: %s\nClaim Amount: %.2f\nClaim Status: %s\nBanking Info: %s",
+                claim.getClaimId(), claim.getClaimDate(), claim.getExamDate(), claim.getClaimAmount(), claim.getStatus(), claim.getReceiverBankingInfo());
+    }
+
+    /**
+     * This function handles the propose claim procedure
+     * @param event
+     */
+    @FXML
+    private void handleProposeClaim(ActionEvent event) {
+        Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
+        if (selectedClaim != null && selectedClaim.getStatus() == ClaimStatus.NEW) {
+            selectedClaim.setStatus(ClaimStatus.PROCESSING);
+            claimService.updateClaim(selectedClaim);
+            claimTable.refresh();
+            showAlert(Alert.AlertType.INFORMATION, "Claim Proposed", "Claim ID: " + selectedClaim.getClaimId() + " proposed to managers.");
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Invalid Claim", "Only NEW claims can be proposed.");
+        }
+    }
+
+    /**
+     * This function handles the approve claim procedure
+     * @param event
+     */
+    @FXML
+    private void handleApproveClaim(ActionEvent event) {
+        Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
+        if (selectedClaim != null && selectedClaim.getStatus() == ClaimStatus.PROCESSING) {
+            try {
+                selectedClaim.setStatus(ClaimStatus.APPROVED);
+                claimService.updateClaim(selectedClaim);
+                claimTable.refresh();
+                System.out.println("Claim approved.");
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Error while approving claim", e);
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Invalid Claim", "Only PROCESSING claims can be approved.");
+        }
+    }
+
+    /**
+     * This function handles the reject claim procedure
+     * @param event
+     */
+    @FXML
+    private void handleRejectClaim(ActionEvent event) {
+        Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
+        if (selectedClaim != null && selectedClaim.getStatus() == ClaimStatus.PROCESSING) {
+            try {
+                selectedClaim.setStatus(ClaimStatus.REJECTED);
+                claimService.updateClaim(selectedClaim);
+                claimTable.refresh();
+                System.out.println("Claim rejected.");
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Error while rejecting claim", e);
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Invalid Claim", "Only PROCESSING claims can be rejected.");
+        }
+    }
+
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // filter claims by status
+    @FXML
+    private void filterNewClaims(ActionEvent event) {
+        filterClaimsByStatus(ClaimStatus.NEW);
+    }
+
+    // filter claims by status
+    @FXML
+    private void filterProcessingClaims(ActionEvent event) {
+        filterClaimsByStatus(ClaimStatus.PROCESSING);
+    }
+
+    // filter claims by status
+    @FXML
+    private void filterApprovedClaims(ActionEvent event) {
+        filterClaimsByStatus(ClaimStatus.APPROVED);
+    }
+
+    // filter claims by status
+    @FXML
+    private void filterRejectedClaims(ActionEvent event) {
+        filterClaimsByStatus(ClaimStatus.REJECTED);
+    }
+
+    private void filterClaimsByStatus(ClaimStatus status) {
+        filteredClaims.setPredicate(claim -> claim.getStatus() == status);
+        claimTable.setItems(filteredClaims);
+    }
+
+    // sort claims by claim date
+    @FXML
+    private void sortClaimDateAsc(ActionEvent event) {
+        sortedClaims.setComparator(Comparator.comparing(Claim::getClaimDate));
+    }
+
+    // sort claims by claim date
+    @FXML
+    private void sortClaimDateDesc(ActionEvent event) {
+        sortedClaims.setComparator(Comparator.comparing(Claim::getClaimDate).reversed());
+    }
+
+    // sort claims by claim amount
+    @FXML
+    private void sortClaimAmountAsc(ActionEvent event) {
+        sortedClaims.setComparator(Comparator.comparing(Claim::getClaimAmount));
+    }
+
+    // sort claims by claim amount
+    @FXML
+    private void sortClaimAmountDesc(ActionEvent event) {
+        sortedClaims.setComparator(Comparator.comparing(Claim::getClaimAmount).reversed());
     }
 }
