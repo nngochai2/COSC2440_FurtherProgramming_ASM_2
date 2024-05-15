@@ -39,16 +39,6 @@ public class PolicyHolderController extends ClaimController implements Initializ
     }
 
 
-
-    @FXML
-    private void handleDeleteClaimButtonAction(MouseEvent event) {
-        Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
-        if (selectedClaim != null && selectedClaim.getStatus() == ClaimStatus.NEW) {
-            claimService.deleteClaim(selectedClaim);
-            populateTable();
-        }
-    }
-
     @FXML
     private void handleAddDependantButtonAction(MouseEvent event) {
 

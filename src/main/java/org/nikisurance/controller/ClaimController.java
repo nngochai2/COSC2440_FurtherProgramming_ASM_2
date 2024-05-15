@@ -83,14 +83,35 @@ public class ClaimController implements Initializable {
     @FXML
     private TextArea claimDetailsArea;
 
+    // Allow the policy holder to choose to file a claim for themselves or for their dependent
+    private ComboBox<Beneficiary> claimantComboBox;
+
     protected ObservableList<Claim> claimsData;
     protected FilteredList<Claim> filteredClaims;
     protected SortedList<Claim> sortedClaims;
 
+    private Person currentUser;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeClaimTable();
-        setupFilteringAndSorting();
+        this.currentUser = UserSession.getInstance().getLoggedInPerson(); // Get the logged-in user
+        this.initializeClaimTable();
+        this.setupFilteringAndSorting();
+        this.populateClaimantComboBox();
+    }
+
+    private void populateClaimantComboBox() {
+        if (currentUser instanceof PolicyHolder) {
+            ObservableList<Beneficiary> options = FXCollections.observableArrayList();
+            options.add((PolicyHolder) currentUser);
+
+            // Add dependents
+            List<Dependent> dependents = ((PolicyHolder) currentUser).getDependents();
+            if (dependents != null) {
+                options.addAll(dependents);
+            }
+            claimantComboBox.setItems(options);
+        }
     }
 
     public void initializeClaimTable() {
@@ -200,7 +221,7 @@ public class ClaimController implements Initializable {
             System.out.println("No claim selected.");
         }
     }
-    
+
     private void uploadFile(File file, String claimId) throws IOException {
         String newFileName = this.generateFileName(file.getName(), claimId);
 
@@ -226,15 +247,37 @@ public class ClaimController implements Initializable {
         try {
             double claimAmount = Double.parseDouble(claimAmountTextField.getText());
             Date examDate = java.sql.Date.valueOf(examDatePicker.getValue());
+            Person selectedClaimant = claimantComboBox.getValue();
 
-            Claim newClaim = new Claim();
-            newClaim.setClaimDate(new Date());
-            newClaim.setExamDate(examDate);
-            newClaim.setClaimAmount(claimAmount);
+            if (selectedClaimant != null) {
+                Claim newClaim = new Claim();
+                newClaim.setClaimDate(new Date());
+                newClaim.setInsuredPerson(selectedClaimant.getFullName());
+                newClaim.setExamDate(examDate);
+                newClaim.setClaimAmount(claimAmount);
+                newClaim.setStatus(ClaimStatus.NEW);
 
-            claimService.addClaim(newClaim);
+                if (selectedClaimant instanceof PolicyHolder) {
+                    newClaim.setBeneficiaryId(currentUser.getId());
+                    newClaim.setReceiverBankingInfo((Beneficiary) currentUser, null); // Set receiverBankingInfo internally
+                } else if (selectedClaimant instanceof Dependent) {
+                    Dependent dependent = (Dependent) selectedClaimant;
+                    newClaim.setBeneficiaryId(dependent.getId());
+                    newClaim.setReceiverBankingInfo(dependent, null); // Set the receiverBankingInfo internally
+                }
+
+                claimService.addClaim(newClaim);
+                claimsData.add(newClaim);
+
+                // Clear form fields (if necessary
+                claimAmountTextField.clear();
+                examDatePicker.setValue(null);
+                claimantComboBox.setValue(null);
+            } else {
+                System.err.println("No claimant selected");
+            }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "");
+            logger.log(Level.SEVERE, "Error while adding claim", e);
         }
     }
 
@@ -245,6 +288,7 @@ public class ClaimController implements Initializable {
         if (selectedClaim != null) {
             claimService.deleteClaim(selectedClaim);
             claimsData.remove(selectedClaim);
+            populateTable();
             System.out.println("Claim deleted successfully.");
         } else {
             System.out.println("No claim selected");
@@ -296,10 +340,6 @@ public class ClaimController implements Initializable {
                 claim.getClaimId(), claim.getClaimDate(), claim.getExamDate(), claim.getClaimAmount(), claim.getStatus(), claim.getReceiverBankingInfo());
     }
 
-    /**
-     * This function handles the propose claim procedure
-     * @param event
-     */
     @FXML
     private void handleProposeClaim(ActionEvent event) {
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
@@ -334,10 +374,7 @@ public class ClaimController implements Initializable {
         }
     }
 
-    /**
-     * This function handles the reject claim procedure
-     * @param event
-     */
+
     @FXML
     private void handleRejectClaim(ActionEvent event) {
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
@@ -354,7 +391,6 @@ public class ClaimController implements Initializable {
             showAlert(Alert.AlertType.WARNING, "Invalid Claim", "Only PROCESSING claims can be rejected.");
         }
     }
-
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

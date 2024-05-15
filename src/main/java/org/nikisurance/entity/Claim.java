@@ -136,13 +136,17 @@ public class Claim implements Serializable {
     public void setReceiverBankingInfo(Beneficiary beneficiary, String receiverBankingInfo) {
         if (beneficiary != null) {
             if (beneficiary instanceof PolicyHolder) {
-                receiverBankingInfo = ((PolicyHolder) beneficiary).getBankName() + ((PolicyHolder) beneficiary).getBankNumber() + beneficiary.getFullName().toUpperCase();
+                PolicyHolder policyHolder = (PolicyHolder) beneficiary;
+                receiverBankingInfo = policyHolder.getBankName() + policyHolder.getBankNumber() + policyHolder.getFullName().toUpperCase();
             } else if (beneficiary instanceof Dependent) {
-                receiverBankingInfo = ((Dependent) beneficiary).getPolicyHolder().getBankName() + ((Dependent) beneficiary).getPolicyHolder().getBankName() + ((Dependent) beneficiary).getPolicyHolder().getFullName().toUpperCase();
+                Dependent dependent = (Dependent) beneficiary;
+                PolicyHolder policyHolder = dependent.getPolicyHolder();
+                receiverBankingInfo = policyHolder.getBankName() + policyHolder.getBankNumber() + policyHolder.getFullName().toUpperCase();
             }
         }
         this.receiverBankingInfo = receiverBankingInfo;
     }
+
 
     public ClaimStatus getStatus() {
         return status;

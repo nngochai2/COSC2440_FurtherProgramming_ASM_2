@@ -40,7 +40,6 @@ public class LoginController implements Initializable {
         if (person != null){
             showAlert(Alert.AlertType.INFORMATION, "Login successful!", "Welcome " + person.getFullName());
             UserSession.getInstance().setLoggedInPerson(person); // Set logged in user
-            navigateToMainAppView();
             // Method to navigate to main application view
         } else {
             showAlert(Alert.AlertType.ERROR, "Login failed!", "Invalid username or password.");
