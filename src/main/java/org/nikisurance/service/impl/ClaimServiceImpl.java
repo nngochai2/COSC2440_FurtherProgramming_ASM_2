@@ -36,7 +36,7 @@ public class ClaimServiceImpl implements ClaimService {
     public void deleteClaim(Claim claim) {
         claimRepository.delete(claim);
     }
-    public Claim updateClaim(Claim claim) {
-        return claimRepository.save(claim);
+    public void updateClaim(Claim claim) {
+        claimRepository.save(claim);
     }
 }
