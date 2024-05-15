@@ -104,26 +104,26 @@ public class ClaimController implements Initializable {
         populateTable();
     }
 
-//    public void populateTable() {
-//        getClaimsFromDB();
-//        filteredClaims = new FilteredList<>(claimsData, p -> true);
-//        sortedClaims = new SortedList<>(claimsData);
-//        sortedClaims.comparatorProperty().bind(claimTable.comparatorProperty());
-//        claimTable.setItems(claimsData);
-//
-//        claimStatusComboBox.setItems(FXCollections.observableArrayList(ClaimStatus.values()));
-//    }
-
-
     public void populateTable() {
         getClaimsFromDB();
         filteredClaims = new FilteredList<>(claimsData, p -> true);
-        sortedClaims = new SortedList<>(filteredClaims); // Sử dụng filteredClaims
+        sortedClaims = new SortedList<>(claimsData);
         sortedClaims.comparatorProperty().bind(claimTable.comparatorProperty());
-        claimTable.setItems(sortedClaims); // Sử dụng sortedClaims
+        claimTable.setItems(claimsData);
 
         claimStatusComboBox.setItems(FXCollections.observableArrayList(ClaimStatus.values()));
     }
+
+
+//    public void populateTable() {
+//        getClaimsFromDB();
+//        filteredClaims = new FilteredList<>(claimsData, p -> true);
+//        sortedClaims = new SortedList<>(filteredClaims); // Sử dụng filteredClaims
+//        sortedClaims.comparatorProperty().bind(claimTable.comparatorProperty());
+//        claimTable.setItems(sortedClaims); // Sử dụng sortedClaims
+//
+//        claimStatusComboBox.setItems(FXCollections.observableArrayList(ClaimStatus.values()));
+//    }
 
 
     public void setupFilteringAndSorting() {
@@ -147,6 +147,13 @@ public class ClaimController implements Initializable {
         };
     }
 
+    /**
+     * This method could be applied to allow user browsing for a specific claim by entering some claim details
+     * @param claim the specified claim
+     * @param filterText keywords for the targeted claim
+     * @return boolean
+     */
+
     private boolean claimMatchesFilter(Claim claim, String filterText) {
         String lowerCaseFilterText = filterText.toLowerCase();
         if (claim.getClaimId().toLowerCase().contains(lowerCaseFilterText)) {
@@ -162,6 +169,7 @@ public class ClaimController implements Initializable {
         } else return claim.getReceiverBankingInfo().toLowerCase().contains(lowerCaseFilterText);
     }
 
+    // Retrieve claims from the database and display them as an observable array list
     private void getClaimsFromDB() {
         List<Claim> claimList = claimService.getAllClaims();
         claimsData = FXCollections.observableArrayList(claimList);
@@ -192,7 +200,7 @@ public class ClaimController implements Initializable {
             System.out.println("No claim selected.");
         }
     }
-
+    
     private void uploadFile(File file, String claimId) throws IOException {
         String newFileName = this.generateFileName(file.getName(), claimId);
 
@@ -212,10 +220,7 @@ public class ClaimController implements Initializable {
         return claimId + "_" + timeStamp + "_" + originalFilename;
     }
 
-    /**
-     * This function handles the add claim procedure. Customer will have to enter the exam date and their desired claim amount.
-     * @param event
-     */
+    // Method to handle the add claim function on the UI
     @FXML
     private void handleAddClaim(ActionEvent event) {
         try {
@@ -233,10 +238,7 @@ public class ClaimController implements Initializable {
         }
     }
 
-    /**
-     * This function handles the delete claim procedure
-     * @param event
-     */
+
     @FXML
     private void handleDeleteClaim(ActionEvent event) {
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
@@ -249,10 +251,6 @@ public class ClaimController implements Initializable {
         }
     }
 
-    /**
-     * This function handles the update claim procedure
-     * @param event
-     */
     @FXML
     private void handleUpdateClaim(ActionEvent event) {
         Claim selectedClaim = claimTable.getSelectionModel().getSelectedItem();
@@ -275,10 +273,6 @@ public class ClaimController implements Initializable {
         }
     }
 
-    /**
-     * This function handles the require more information procedure
-     * @param event
-     */
     @FXML
     private void handleRequireMoreInfo(ActionEvent event) {
         Claim selectedClaim = claimService.getClaim(claimIdField.getText());
@@ -320,7 +314,7 @@ public class ClaimController implements Initializable {
     }
 
     /**
-     * This function handles the approve claim procedure
+     * This function handles the approving claim procedure
      * @param event
      */
     @FXML
