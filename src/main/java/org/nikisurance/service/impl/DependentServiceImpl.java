@@ -37,4 +37,9 @@ public class DependentServiceImpl implements DependentService {
     public void deleteDependent(Long id) {
         dependentRepository.deleteById(id);
     }
+
+    @Override
+    public Dependent updateDependent(Dependent dependent) {
+        return dependentRepository.save(dependent);
+    }
 }

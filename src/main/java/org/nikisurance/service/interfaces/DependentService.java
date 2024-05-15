@@ -9,4 +9,5 @@ public interface DependentService {
     Dependent getDependent(Long id);
     List<Dependent> getAllDependents();
     void deleteDependent(Long id);
+    Dependent updateDependent(Dependent dependent);
 }
