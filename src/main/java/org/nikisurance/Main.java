@@ -2,6 +2,7 @@ package org.nikisurance;
 
 import jakarta.persistence.*;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -90,6 +91,7 @@ public class Main extends Application {
         }
     }
 
+    @FXML
     public Person login(String username, String password) {
         try {
             // Query to find the person by username
