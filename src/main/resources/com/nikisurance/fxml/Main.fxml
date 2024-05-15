@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -48,6 +49,7 @@
                      </font>
                   </Text>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="100.0" layoutX="21.0" layoutY="129.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="100.0" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" layoutX="258.0" layoutY="38.0" selectionFill="#465058" size="18" />
                </children>
             </AnchorPane>
             </children>
