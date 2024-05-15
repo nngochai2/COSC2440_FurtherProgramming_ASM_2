@@ -2,10 +2,14 @@ package org.nikisurance.controller;
 
 import jakarta.persistence.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.nikisurance.entity.Person;
 
 import java.net.URL;
@@ -35,6 +39,8 @@ public class LoginController implements Initializable {
         Person person = login(username, password);
         if (person != null){
             showAlert(Alert.AlertType.INFORMATION, "Login successful!", "Welcome " + person.getFullName());
+            UserSession.getInstance().setLoggedInPerson(person); // Set logged in user
+            navigateToMainAppView();
             // Method to navigate to main application view
         } else {
             showAlert(Alert.AlertType.ERROR, "Login failed!", "Invalid username or password.");
@@ -60,6 +66,10 @@ public class LoginController implements Initializable {
         } catch (NoResultException ex) {
             System.err.println("Person with username '" + username + "' not found");
             return null;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -69,5 +79,18 @@ public class LoginController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private void navigateToMainAppView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/Main.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to navigate to main application view.");
+        }
     }
 }
