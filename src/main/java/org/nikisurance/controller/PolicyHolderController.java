@@ -31,8 +31,6 @@ public class PolicyHolderController extends ClaimController implements Initializ
     @FXML
     private TableColumn<Dependent, String> dependentNameColumn;
 
-    private ObservableList<Dependent> dependentsData;
-
     @FXML
     private TextField dependentFullNameTextField;
 
@@ -73,7 +71,7 @@ public class PolicyHolderController extends ClaimController implements Initializ
         PolicyHolder policyHolder = (PolicyHolder) UserSession.getInstance().getLoggedInPerson();
         if (policyHolder != null) {
             ObservableList<Dependent> dependents = FXCollections.observableArrayList();
-            dependentsData = FXCollections.observableArrayList(dependents);
+            ObservableList<Dependent> dependentsData = FXCollections.observableArrayList(dependents);
             dependentTable.setItems(dependentsData);
         }
     }
