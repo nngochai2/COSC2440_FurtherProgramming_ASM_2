@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nikisurance.fxml.AdminUI">
+   <children>
+      <AnchorPane layoutX="184.0" layoutY="-1.0" prefHeight="501.0" prefWidth="616.0" style="-fx-background-radius: 25;" />
+      <AnchorPane layoutX="-1.0" style="-fx-background-radius: 25;">
+         <children>
+            <VBox prefHeight="500.0" prefWidth="221.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;">
+               <children>
+                  <Pane prefHeight="140.0" prefWidth="242.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="47.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance" wrappingWidth="152.9047393798828">
+                           <font>
+                              <Font name="Apple LiGothic Medium" size="35.0" />
+                           </font>
+                        </Text>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="76.0" layoutX="22.0" layoutY="32.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="76.0" />
+                     </children>
+                  </Pane>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Dashboard" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="ci-dashboard" iconSize="23" text="    " />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Claims" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="ci-baggage-claim" iconSize="23" text="    " />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Users" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="ci-user" iconSize="23" text="    " />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Providers" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="ci-user-admin" iconSize="23" text="    " />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Settings" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="ci-settings" iconSize="23" text="    " />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
