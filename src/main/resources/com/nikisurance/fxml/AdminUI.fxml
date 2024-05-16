@@ -9,12 +9,20 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nikisurance.fxml.AdminUI">
+<AnchorPane fx:id="sideBar" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: TRANSPARENT; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.controller.SystemAdminController">
    <children>
-      <AnchorPane layoutX="184.0" layoutY="-1.0" prefHeight="501.0" prefWidth="616.0" style="-fx-background-radius: 25;" />
+      <AnchorPane layoutX="161.0" prefHeight="539.0" prefWidth="639.0" style="-fx-background-radius: 25;">
+         <children>
+            <Pane fx:id="pnDashboard" prefHeight="539.0" prefWidth="639.0" style="-fx-background-radius: 25; -fx-background-color: #450920;" />
+            <Pane fx:id="pnClaims" prefHeight="539.0" prefWidth="639.0" style="-fx-background-radius: 25; -fx-background-color: #A53860;" />
+            <Pane fx:id="pnUsers" prefHeight="539.0" prefWidth="639.0" style="-fx-background-radius: 25; -fx-background-color: #FFA5AB;" />
+            <Pane fx:id="pnProviders" prefHeight="539.0" prefWidth="639.0" style="-fx-background-radius: 25; -fx-background-color: #DA627D;" />
+            <Pane fx:id="pnSettings" prefHeight="539.0" prefWidth="639.0" style="-fx-background-radius: 25; -fx-background-color: #F9DBBD;" />
+         </children>
+      </AnchorPane>
       <AnchorPane layoutX="-1.0" style="-fx-background-radius: 25;">
          <children>
-            <VBox prefHeight="500.0" prefWidth="221.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;">
+            <VBox prefHeight="539.0" prefWidth="221.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;">
                <children>
                   <Pane prefHeight="140.0" prefWidth="242.0">
                      <children>
@@ -26,7 +34,7 @@
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="76.0" layoutX="22.0" layoutY="32.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="76.0" />
                      </children>
                   </Pane>
-                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Dashboard" textFill="WHITE">
+                  <JFXButton fx:id="btnDashboard" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="50.0" prefWidth="244.0" text="Dashboard" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -34,7 +42,7 @@
                         <FontIcon iconColor="WHITE" iconLiteral="ci-dashboard" iconSize="23" text="    " />
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Claims" textFill="WHITE">
+                  <JFXButton fx:id="btnClaims" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="50.0" prefWidth="244.0" text="Claims" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -42,7 +50,7 @@
                         <FontIcon iconColor="WHITE" iconLiteral="ci-baggage-claim" iconSize="23" text="    " />
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Users" textFill="WHITE">
+                  <JFXButton fx:id="btnUsers" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="50.0" prefWidth="244.0" text="Users" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -50,7 +58,7 @@
                         <FontIcon iconColor="WHITE" iconLiteral="ci-user" iconSize="23" text="    " />
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Providers" textFill="WHITE">
+                  <JFXButton fx:id="btnProviders" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="50.0" prefWidth="244.0" text="Providers" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -58,12 +66,20 @@
                         <FontIcon iconColor="WHITE" iconLiteral="ci-user-admin" iconSize="23" text="    " />
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="55.0" prefWidth="244.0" text="Settings" textFill="WHITE">
+                  <JFXButton fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="50.0" prefWidth="244.0" text="Settings" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                      <graphic>
                         <FontIcon iconColor="WHITE" iconLiteral="ci-settings" iconSize="23" text="    " />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="10.0" prefHeight="50.0" prefWidth="244.0" text="Sign Out" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="WHITE" iconLiteral="ci-logout" iconSize="23" text="    " />
                      </graphic>
                   </JFXButton>
                </children>

@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.nikisurance.controller.LoginController;
+import org.nikisurance.controller.SystemAdminController;
 import org.nikisurance.entity.*;
 
 import java.util.*;
@@ -73,11 +74,13 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/Main.fxml")));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/AdminUI.fxml")));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            LoginController loginController = loader.getController();
-            loginController.setStage(stage);
+//            LoginController loginController = loader.getController();
+//            loginController.setStage(stage);
+            SystemAdminController systemAdminController = loader.getController();
+            systemAdminController.setStage(stage);
             scene.setFill(Color.TRANSPARENT);
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.setTitle("Nikisurance");
