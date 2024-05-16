@@ -129,15 +129,15 @@ public class LoginController implements Initializable {
         if (person instanceof Admin) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/AdminUI.fxml")));
         } else if (person instanceof PolicyHolder) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/PolicyHolderUI.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/PolicyHolderUI.fxml")));
         } else if (person instanceof Dependent) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/DependentUI.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("com/nikisurance/fxml/DependentUI.fxml")));
         } else if (person instanceof PolicyOwner) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/PolicyOwnerUI.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("com/nikisurance/fxml/PolicyOwnerUI.fxml")));
         } else if (person instanceof InsuranceManager) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/InsuranceManagerUI.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("com/nikisurance/fxml/InsuranceManagerUI.fxml")));
         } else if (person instanceof InsuranceSurveyor) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/InsuranceSurveyorUI.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("com/nikisurance/fxml/InsuranceSurveyorUI.fxml")));
         } else {
             showAlert(Alert.AlertType.ERROR, "Login failed!", "Unknown user type.");
         }
