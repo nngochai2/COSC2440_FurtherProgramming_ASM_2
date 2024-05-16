@@ -1,6 +1,7 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.Claim;
+import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.repository.ClaimRepository;
 import org.nikisurance.service.interfaces.ClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class ClaimServiceImpl implements ClaimService {
     }
     public void updateClaim(Claim claim) {
         claimRepository.save(claim);
+    }
+
+    @Override
+    public long getCountByStatus(ClaimStatus status) {
+        return claimRepository.countByStatus(status);
     }
 }

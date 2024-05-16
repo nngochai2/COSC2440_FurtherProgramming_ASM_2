@@ -34,16 +34,6 @@
                             <yAxis>
                                 <NumberAxis label="Number of Claims" />
                             </yAxis>
-                            <data>
-                                <XYChart.Series>
-                                    <data>
-                                        <XYChart.Data fx:value="Filed" />
-                                        <XYChart.Data fx:value="Processing" />
-                                        <XYChart.Data fx:value="Approved" />
-                                        <XYChart.Data fx:value="Rejected" />
-                                    </data>
-                                </XYChart.Series>
-                            </data>
                         </BarChart>
                     </children>
                 </Pane>

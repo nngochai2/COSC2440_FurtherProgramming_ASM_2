@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -19,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.entity.Customer;
 import org.nikisurance.service.interfaces.ClaimService;
 import org.nikisurance.service.interfaces.CustomerService;
@@ -101,6 +104,9 @@ public class SystemAdminController implements Initializable {
     @FXML
     private JFXButton btnSignout;
 
+    @FXML
+    private BarChart<String, Number> claimsBarChart;
+
     private double x = 0, y = 0;
 
     private Stage stage;
@@ -117,6 +123,15 @@ public class SystemAdminController implements Initializable {
             stage.setX(mouseEvent.getScreenX() - x);
             stage.setY(mouseEvent.getScreenY() - y);
         });
+    }
+
+    private void loadClaimsData() {
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data<>("New", claimService.getCountByStatus(ClaimStatus.NEW)));
+        series.getData().add(new XYChart.Data<>("Processing", claimService.getCountByStatus(ClaimStatus.PROCESSING)));
+        series.getData().add(new XYChart.Data<>("Approved", claimService.getCountByStatus(ClaimStatus.APPROVED)));
+        series.getData().add(new XYChart.Data<>("Rejected", claimService.getCountByStatus(ClaimStatus.REJECTED)));
+        claimsBarChart.getData().add(series);
     }
 
     @FXML
