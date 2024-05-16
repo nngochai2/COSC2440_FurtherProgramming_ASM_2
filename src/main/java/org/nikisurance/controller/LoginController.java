@@ -121,11 +121,13 @@ public class LoginController implements Initializable {
     }
 
     public void redirectToUserUI(Person person) throws IOException {
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        Parent root = null;
+        if (stage == null) {
+            stage = (Stage) loginButton.getScene().getWindow();
+        }
+        root = null;
 
         if (person instanceof Admin) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/AdminUI.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/AdminUI.fxml")));
         } else if (person instanceof PolicyHolder) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/PolicyHolderUI.fxml")));
         } else if (person instanceof Dependent) {
@@ -140,7 +142,7 @@ public class LoginController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Login failed!", "Unknown user type.");
         }
 
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
