@@ -11,10 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.nikisurance.entity.Person;
+import org.nikisurance.entity.*;
 import org.w3c.dom.events.MouseEvent;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -58,7 +60,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    public void handleLoginButtonAction(){
+    public void handleLoginButtonAction() throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -66,7 +68,9 @@ public class LoginController implements Initializable {
         if (person != null){
             showAlert(Alert.AlertType.INFORMATION, "Login successful!", "Welcome " + person.getFullName());
             UserSession.getInstance().setLoggedInPerson(person); // Set logged in user
-            // Method to navigate to main application view
+
+            // Navigate to main application view
+            this.redirectToUserUI(person);
         } else {
             showAlert(Alert.AlertType.ERROR, "Login failed!", "Invalid username or password.");
         }
@@ -106,19 +110,6 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
-    private void navigateToMainAppView() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/Main.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to navigate to main application view.");
-        }
-    }
-
     public void setStage(Stage stage){
         this.stage = stage;
     }
@@ -129,17 +120,29 @@ public class LoginController implements Initializable {
         stage.close();
     }
 
-    // Method to close the application
-    public void logout(Stage stage) {
-        // Asking for user confirmation
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Logout");
-        alert.setHeaderText("You are about to logout!");
-        alert.setContentText("Do you want to close the application");
+    public void redirectToUserUI(Person person) throws IOException {
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        Parent root = null;
 
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            System.out.println("You have successfully logged out!");
-            stage.close();
+        if (person instanceof Admin) {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/AdminUI.fxml")));
+        } else if (person instanceof PolicyHolder) {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/PolicyHolderUI.fxml")));
+        } else if (person instanceof Dependent) {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/DependentUI.fxml")));
+        } else if (person instanceof PolicyOwner) {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/PolicyOwnerUI.fxml")));
+        } else if (person instanceof InsuranceManager) {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/InsuranceManagerUI.fxml")));
+        } else if (person instanceof InsuranceSurveyor) {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/com/nikisurance/fxml/InsuranceSurveyorUI.fxml")));
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Login failed!", "Unknown user type.");
         }
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
+
 }
