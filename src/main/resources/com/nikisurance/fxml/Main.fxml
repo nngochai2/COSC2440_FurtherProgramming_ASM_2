@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.GlyphsStack?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
@@ -7,52 +8,53 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.util.UIController">
-    <children>
-        <AnchorPane prefHeight="460.0" prefWidth="684.0" style="-fx-background-color: transparent;">
-            <children>
-                <AnchorPane layoutX="256.0" layoutY="58.0" prefHeight="291.0" prefWidth="339.0" style="-fx-background-color: #FFF; -fx-background-radius: 25;">
-                    <children>
-                        <TextField fx:id="nameTextField" layoutX="85.0" layoutY="82.0" prefHeight="26.0" prefWidth="230.0" promptText="Name" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
-                     <font>
-                        <Font size="12.0" />
-                     </font></TextField>
-                        <PasswordField fx:id="passwordTextField" layoutX="85.0" layoutY="122.0" prefHeight="26.0" prefWidth="230.0" promptText="Password" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
-                     <font>
-                        <Font size="12.0" />
-                     </font></PasswordField>
-                        <Button fx:id="loginButton" layoutX="157.0" layoutY="195.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;" text="Login" textFill="#fdfaf6">
-                            <font>
-                                <Font name="System Bold" size="11.0" />
-                            </font></Button>
-                        <Hyperlink layoutX="85.0" layoutY="157.0" text="Forgot Password" textFill="#2a363f">
-                     <font>
-                        <Font size="12.0" />
-                     </font></Hyperlink>
-                        <Label fx:id="loginMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="113.0" prefHeight="18.0" prefWidth="330.0" textFill="#c90000">
-                            <font>
-                                <Font name="Calibri Italic" size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </AnchorPane>
-            <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="386.0" prefWidth="285.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;">
-               <children>
-                  <Text fill="WHITE" layoutX="57.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance">
-                     <font>
-                        <Font name="Apple LiGothic Medium" size="44.0" />
-                     </font>
-                  </Text>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="100.0" layoutX="21.0" layoutY="129.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="100.0" />
-                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" layoutX="258.0" layoutY="38.0" selectionFill="#465058" size="18" />
-               </children>
-            </AnchorPane>
-            </children>
-        </AnchorPane>
-    </children>
-</StackPane>
+
+<AnchorPane fx:id="sideBar" prefHeight="404.0" prefWidth="595.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.controller.LoginController">
+   <children>
+          <AnchorPane layoutX="256.0" layoutY="58.0" prefHeight="291.0" prefWidth="339.0" style="-fx-background-color: #FFF; -fx-background-radius: 25;">
+              <children>
+                  <TextField fx:id="nameTextField" layoutX="85.0" layoutY="82.0" prefHeight="26.0" prefWidth="230.0" promptText="Name" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </TextField>
+                  <PasswordField fx:id="passwordTextField" layoutX="85.0" layoutY="122.0" prefHeight="26.0" prefWidth="230.0" promptText="Password" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </PasswordField>
+                  <Button fx:id="loginButton" layoutX="157.0" layoutY="195.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;" text="Login" textFill="#fdfaf6">
+                      <font>
+                          <Font name="System Bold" size="11.0" />
+                      </font>
+            </Button>
+                  <Hyperlink layoutX="85.0" layoutY="157.0" text="Forgot Password" textFill="#2a363f">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Hyperlink>
+                  <Label fx:id="loginMessageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="113.0" prefHeight="18.0" prefWidth="330.0" textFill="#c90000">
+                      <font>
+                          <Font name="Calibri Italic" size="14.0" />
+                      </font>
+                  </Label>
+              </children>
+          </AnchorPane>
+      <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="386.0" prefWidth="285.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;">
+         <children>
+            <Text fill="WHITE" layoutX="57.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance">
+               <font>
+                  <Font name="Apple LiGothic Medium" size="44.0" />
+               </font>
+            </Text>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="100.0" layoutX="21.0" layoutY="129.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="100.0" />
+            <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="252.0" layoutY="35.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
+            <GlyphsStack layoutX="190.0" layoutY="67.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

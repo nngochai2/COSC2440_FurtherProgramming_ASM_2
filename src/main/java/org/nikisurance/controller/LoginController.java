@@ -1,16 +1,21 @@
 package org.nikisurance.controller;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import jakarta.persistence.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.nikisurance.entity.Person;
+import org.w3c.dom.events.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,14 +26,37 @@ public class LoginController implements Initializable {
     private EntityManager em;
 
     @FXML
+    private AnchorPane sideBar;
+
+    @FXML
     private TextField usernameField;
 
     @FXML
     private PasswordField passwordField;
 
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private FontAwesomeIconView closeButton;
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    private double x, y= 0;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         em = Persistence.createEntityManagerFactory("my-persistence-unit").createEntityManager();
+        sideBar.setOnMousePressed(mouseEvent -> {
+           x = mouseEvent.getSceneX();
+           y = mouseEvent.getSceneY();
+        });
+
+        sideBar.setOnMouseDragged(mouseEvent -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
     }
 
     @FXML
@@ -92,4 +120,15 @@ public class LoginController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to navigate to main application view.");
         }
     }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
+
+    @FXML
+    private void closeProgram(javafx.scene.input.MouseEvent e) {
+        stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
+
 }
