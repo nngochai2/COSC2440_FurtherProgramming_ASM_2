@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.nikisurance.controller.LoginController;
 import org.nikisurance.entity.*;
 
 import java.util.*;
@@ -72,8 +73,11 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/Main.fxml")));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/Main.fxml")));
+            Parent root = loader.load();
             Scene scene = new Scene(root);
+            LoginController loginController = loader.getController();
+            loginController.setStage(stage);
             scene.setFill(Color.TRANSPARENT);
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.setTitle("Nikisurance");

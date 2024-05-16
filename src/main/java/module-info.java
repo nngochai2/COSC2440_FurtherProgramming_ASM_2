@@ -12,6 +12,7 @@ module org.nikisurance {
     requires spring.beans;
     requires spring.context;
     requires spring.data.jpa;
+    requires de.jensd.fx.glyphs.fontawesome;
 
     exports org.nikisurance.entity;
     exports org.nikisurance.util;
