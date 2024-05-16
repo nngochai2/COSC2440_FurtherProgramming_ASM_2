@@ -17,12 +17,12 @@
    <children>
           <AnchorPane layoutX="256.0" layoutY="58.0" prefHeight="291.0" prefWidth="339.0" style="-fx-background-color: #FFF; -fx-background-radius: 25;">
               <children>
-                  <TextField fx:id="nameTextField" layoutX="85.0" layoutY="82.0" prefHeight="26.0" prefWidth="230.0" promptText="Name" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
+                  <TextField fx:id="usernameField" layoutX="85.0" layoutY="82.0" prefHeight="26.0" prefWidth="230.0" promptText="Name" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
                <font>
                   <Font size="12.0" />
                </font>
             </TextField>
-                  <PasswordField fx:id="passwordTextField" layoutX="85.0" layoutY="122.0" prefHeight="26.0" prefWidth="230.0" promptText="Password" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
+                  <PasswordField fx:id="passwordField" layoutX="85.0" layoutY="122.0" prefHeight="26.0" prefWidth="230.0" promptText="Password" style="-fx-background-color: F2F3F3; -fx-background-radius: 25; -fx-border-color: #fff;">
                <font>
                   <Font size="12.0" />
                </font>

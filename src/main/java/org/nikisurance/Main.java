@@ -94,41 +94,4 @@ public class Main extends Application {
             logger.log(Level.SEVERE, "Exception occurred while loading FXML file", e);
         }
     }
-
-    @FXML
-    public Person login(String username, String password) {
-        try {
-            // Query to find the person by username
-            String queryString = "SELECT u FROM Person u WHERE u.username = :username";
-            TypedQuery<Person> query = em.createQuery(queryString, Person.class);
-            query.setParameter("username", username);
-            Person person = query.getSingleResult();
-
-            // Check if the retrieved person has the correct password
-            if (person != null && person.getPassword().equals(password)) {
-                System.out.println("Logged in successfully.");
-                return person;
-            } else {
-                System.err.println("Login failed.");
-                return null;
-            }
-        } catch (NoResultException ex) {
-            System.out.println("Person with username '" + username + "' not found.");
-            return null;
-        }
-    }
-
-    // Method to close the application
-    public void logout(Stage stage) {
-        // Asking for user confirmation
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Logout");
-        alert.setHeaderText("You are about to logout!");
-        alert.setContentText("Do you want to close the application");
-
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            System.out.println("You have successfully logged out!");
-            stage.close();
-        }
-    }
 }
