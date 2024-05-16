@@ -5,9 +5,12 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@DiscriminatorValue("SURVEYOR")
+@DiscriminatorValue("INSURANCE_SURVEYOR")
+@Table(name = "insurance_surveyor")
 public class InsuranceSurveyor extends Provider implements Serializable {
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_id")
     private InsuranceManager insuranceManager;
 
     public InsuranceSurveyor() {}

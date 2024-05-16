@@ -32,7 +32,6 @@ public class Main extends Application {
         em.getTransaction().begin();
 
 
-
 //        ClaimRepositoryImpl claimRepository = new ClaimRepositoryImpl();
 //        DependentRepositoryImpl dependentRepository = new DependentRepositoryImpl();
 //        InsuranceCardRepositoryImpl insuranceCardRepository = new InsuranceCardRepositoryImpl();
@@ -40,7 +39,6 @@ public class Main extends Application {
 //        InsuranceSurveyorRepositoryImpl insuranceSurveyorRepository = new InsuranceSurveyorRepositoryImpl();
 //        PolicyHolderRepositoryImpl policyHolderRepository = new PolicyHolderRepositoryImpl();
 //        InsuranceCardRepositoryImpl insuranceCardRepositoryImpl = new InsuranceCardRepositoryImpl();
-
 
 
 //        System.out.println("\n=============================================================== WELCOME TO INSURANCE CLAIMS MANAGEMENT SYSTEM! ===============================================================");
@@ -134,3 +132,4 @@ public class Main extends Application {
             stage.close();
         }
     }
+}

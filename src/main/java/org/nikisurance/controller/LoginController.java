@@ -75,7 +75,7 @@ public class LoginController implements Initializable {
     @FXML
     public Person login(String username, String password){
         try {
-            String queryString = "SELECT u FROM Person u WHERE u.username = :username";
+            String queryString = "SELECT p FROM Person p WHERE p.username = :username";
             TypedQuery<Person> query = em.createQuery(queryString, Person.class);
             query.setParameter("username", username);
             Person person = query.getSingleResult();
