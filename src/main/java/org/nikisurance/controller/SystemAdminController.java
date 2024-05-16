@@ -104,9 +104,6 @@ public class SystemAdminController implements Initializable {
     private double x = 0, y = 0;
 
     private Stage stage;
-    private Scene scene;
-    private Parent root;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
