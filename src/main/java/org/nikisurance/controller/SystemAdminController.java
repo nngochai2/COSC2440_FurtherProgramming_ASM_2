@@ -1,6 +1,7 @@
 package org.nikisurance.controller;
 
 import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -69,6 +70,9 @@ public class SystemAdminController implements Initializable {
 
     @FXML
     private JFXButton btnSettings;
+
+    @FXML
+    private FontAwesomeIconView closeButton;
 
     @FXML
     private Pane pnDashboard;
@@ -147,20 +151,32 @@ public class SystemAdminController implements Initializable {
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnDashboard) {
             pnDashboard.toFront();
+            closeButton.toFront();
         }
         if (actionEvent.getSource() == btnClaims) {
             pnClaims.toFront();
+            closeButton.toFront();
         }
         if (actionEvent.getSource() == btnUsers) {
             pnUsers.toFront();
+            closeButton.toFront();
         }
         if(actionEvent.getSource()==btnProviders)
         {
             pnProviders.toFront();
+            closeButton.toFront();
         }
         if(actionEvent.getSource()==btnSettings)
         {
             pnSettings.toFront();
+            closeButton.toFront();
         }
+    }
+
+
+    @FXML
+    private void closeProgram(javafx.scene.input.MouseEvent e) {
+        stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 }
