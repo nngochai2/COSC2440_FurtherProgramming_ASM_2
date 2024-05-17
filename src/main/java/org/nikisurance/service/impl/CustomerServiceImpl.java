@@ -4,26 +4,36 @@ import org.nikisurance.entity.Customer;
 import org.nikisurance.service.interfaces.CustomerService;
 
 import java.util.List;
+import jakarta.persistence.TypedQuery;
 
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServiceImpl extends EntityRepository implements CustomerService {
 
     @Override
     public Customer addCustomer(Customer customer) {
-        return null;
+        em.getTransaction().begin();
+        em.persist(customer);
+        em.getTransaction().commit();
+        return customer;
     }
 
     @Override
     public Customer getCustomer(Long id) {
-        return null;
+        return em.find(Customer.class, id);
     }
 
     @Override
     public List<Customer> getAllCustomers() {
-        return List.of();
+        TypedQuery<Customer> query = em.createQuery("from Customer", Customer.class);
+        return query.getResultList();
     }
 
     @Override
     public void deleteCustomer(Long id) {
-
+        Customer customer = getCustomer(id);
+        if (customer != null) {
+            em.getTransaction().begin();
+            em.remove(customer);
+            em.getTransaction().commit();
+        }
     }
 }

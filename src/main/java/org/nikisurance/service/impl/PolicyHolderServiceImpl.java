@@ -5,26 +5,37 @@ import org.nikisurance.service.interfaces.PolicyHolderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import jakarta.persistence.TypedQuery;
 
 @Service
-public class PolicyHolderServiceImpl implements PolicyHolderService {
-    @Override
-    public PolicyHolder getPolicyHolder(Long id) {
-        return null;
-    }
+public class PolicyHolderServiceImpl extends EntityRepository implements PolicyHolderService {
 
     @Override
     public PolicyHolder addPolicyHolder(PolicyHolder policyHolder) {
-        return null;
+        em.getTransaction().begin();
+        em.persist(policyHolder);
+        em.getTransaction().commit();
+        return policyHolder;
+    }
+
+    @Override
+    public PolicyHolder getPolicyHolder(Long id) {
+        return em.find(PolicyHolder.class, id);
     }
 
     @Override
     public List<PolicyHolder> getAllPolicyHolders() {
-        return List.of();
+        TypedQuery<PolicyHolder> query = em.createQuery("from PolicyHolder", PolicyHolder.class);
+        return query.getResultList();
     }
 
     @Override
     public void deletePolicyHolder(Long id) {
-
+        PolicyHolder policyHolder = getPolicyHolder(id);
+        if (policyHolder != null) {
+            em.getTransaction().begin();
+            em.remove(policyHolder);
+            em.getTransaction().commit();
+        }
     }
 }

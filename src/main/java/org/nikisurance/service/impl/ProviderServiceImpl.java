@@ -4,36 +4,48 @@ import org.nikisurance.entity.Provider;
 import org.nikisurance.service.interfaces.ProviderService;
 
 import java.util.List;
+import jakarta.persistence.TypedQuery;
 
-public class ProviderServiceImpl implements ProviderService {
+public class ProviderServiceImpl extends EntityRepository implements ProviderService {
 
     @Override
     public Provider addProvider(Provider provider) {
-        return null;
+        em.getTransaction().begin();
+        em.persist(provider);
+        em.getTransaction().commit();
+        return provider;
     }
 
     @Override
     public Provider getProvider(Long id) {
-        return null;
+        return em.find(Provider.class, id);
     }
 
     @Override
     public List<Provider> getAllProviders() {
-        return List.of();
+        TypedQuery<Provider> query = em.createQuery("from Provider", Provider.class);
+        return query.getResultList();
     }
 
     @Override
     public void deleteProvider(Long id) {
-
+        Provider provider = getProvider(id);
+        if (provider != null) {
+            em.getTransaction().begin();
+            em.remove(provider);
+            em.getTransaction().commit();
+        }
     }
 
     @Override
     public int countInsuranceManagers() {
-        return 0;
+        Long count = em.createQuery("select count(p) from Provider p where p.role = 'InsuranceManager'", Long.class).getSingleResult();
+        return count.intValue();
     }
 
     @Override
     public int countInsuranceProvider() {
-        return 0;
+        Long count = em.createQuery("select count(p) from Provider p where p.role = 'InsuranceProvider'", Long.class).getSingleResult();
+        return count.intValue();
     }
 }
