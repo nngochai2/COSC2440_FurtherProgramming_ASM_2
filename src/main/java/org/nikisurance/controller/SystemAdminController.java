@@ -219,10 +219,6 @@ public class SystemAdminController implements Initializable {
         alert.show();
     }
 
-    public void setStage(Stage stage){
-        this.stage = stage;
-    }
-
     public void handleClicks(ActionEvent actionEvent) {
         // Reset all buttons to normal font weight
         btnDashboard.setFont(Font.font(btnDashboard.getFont().getFamily(), FontWeight.NORMAL, btnDashboard.getFont().getSize()));
