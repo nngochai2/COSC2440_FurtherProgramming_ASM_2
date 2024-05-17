@@ -165,7 +165,7 @@
                      </graphic>
                   </JFXButton>
                   <Pane prefHeight="54.0" prefWidth="221.0" />
-                  <JFXButton fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#signOut" prefHeight="54.0" prefWidth="221.0" text="Sign Out" textFill="WHITE">
+                  <JFXButton fx:id="btnSignOut" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#signOut" prefHeight="54.0" prefWidth="221.0" text="Sign Out" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>

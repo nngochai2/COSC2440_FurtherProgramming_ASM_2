@@ -1,5 +1,7 @@
 package org.nikisurance.service.impl;
 
+import org.nikisurance.entity.InsuranceManager;
+import org.nikisurance.entity.InsuranceSurveyor;
 import org.nikisurance.entity.Provider;
 import org.nikisurance.repository.ProviderRepository;
 import org.nikisurance.service.interfaces.ProviderService;
@@ -36,5 +38,15 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public void deleteProvider(Long id) {
         providerRepository.deleteById(id);
+    }
+
+    @Override
+    public int countInsuranceManagers() {
+        return providerRepository.countByRole(InsuranceManager.class);
+    }
+
+    @Override
+    public int countInsuranceProvider() {
+        return providerRepository.countByRole(InsuranceSurveyor.class);
     }
 }

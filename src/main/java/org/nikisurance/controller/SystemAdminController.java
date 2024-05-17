@@ -11,11 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.nikisurance.entity.Claim;
 import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.entity.Customer;
 import org.nikisurance.service.interfaces.*;
@@ -32,9 +30,13 @@ import org.springframework.stereotype.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Controller
 public class SystemAdminController implements Initializable {
+
+    private final Logger logger = Logger.getLogger(SystemAdminController.class.getName());
 
     @Autowired
     private ClaimService claimService;
@@ -56,9 +58,6 @@ public class SystemAdminController implements Initializable {
 
     @FXML
     private TextField entityIdField;
-
-    @FXML
-    private Button retrieveInfoButton;
 
     @FXML
     private Button updateInfoButton;
@@ -103,7 +102,7 @@ public class SystemAdminController implements Initializable {
     private AnchorPane sideBar;
 
     @FXML
-    private JFXButton btnSignout;
+    private JFXButton btnSignOut;
 
     @FXML
     private BarChart<String, Number> claimsBarChart;
@@ -128,6 +127,18 @@ public class SystemAdminController implements Initializable {
 
     @FXML
     private Label totalProvidersValue;
+
+    @FXML
+    private TableView<Claim> claimTableView;
+
+    @FXML
+    private TableColumn<Claim, String> claimIdColumn;
+
+    @FXML
+    private TableColumn<Claim, Double> claimAmountColumn;
+
+    @FXML
+    private TableColumn<Claim, String> claimStatusColumn;
 
     private double x = 0, y = 0;
 
@@ -170,7 +181,7 @@ public class SystemAdminController implements Initializable {
         this.loadCustomersData();
     }
 
-    // Method to load the claims data for a bar chart
+    // Method to load the claims data to a bar chart
     private void loadClaimsData() {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.getData().add(new XYChart.Data<>("New", claimService.getCountByStatus(ClaimStatus.NEW)));
@@ -180,12 +191,14 @@ public class SystemAdminController implements Initializable {
         claimsBarChart.getData().add(series);
     }
 
-    // Method to load the customers data for a pie chart
+    // Method to load the users data to a pie chart
     private void loadCustomersData() {
         PieChart.Data slice1 = new PieChart.Data("Dependents", dependentService.getAllDependents().size());
         PieChart.Data slice2 = new PieChart.Data("Policy Holders", policyHolderService.getAllPolicyHolders().size());
         PieChart.Data slice3 = new PieChart.Data("Policy Owners", policyOwnerService.getAllPolicyOwners().size());
-        customerPieChart.getData().addAll(slice1, slice2, slice3);
+        PieChart.Data slice4 = new PieChart.Data("Insurance Managers", providerService.countInsuranceManagers());
+        PieChart.Data slice5 = new PieChart.Data("Insurance Surveyors", providerService.countInsuranceProvider());
+        customerPieChart.getData().addAll(slice1, slice2, slice3, slice4, slice5);
     }
 
     @FXML
@@ -282,10 +295,10 @@ public class SystemAdminController implements Initializable {
             stage.show();
 
             // Close the current window
-            Stage currentStage = (Stage) btnSignout.getScene().getWindow();
+            Stage currentStage = (Stage) btnSignOut.getScene().getWindow();
             currentStage.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "IOException found.");
         }
     }
 }
