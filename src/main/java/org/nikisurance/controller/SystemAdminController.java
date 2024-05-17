@@ -13,6 +13,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -138,7 +139,37 @@ public class SystemAdminController implements Initializable {
     private TableColumn<Claim, Double> claimAmountColumn;
 
     @FXML
+    private TableColumn<Claim, String> claimDateColumn;
+
+    @FXML
+    private TableColumn<Claim, String> insuredPersonNameColumn;
+
+    @FXML
+    private TableColumn<Claim, String> insuredPersonIdColumn;
+
+    @FXML
+    private TableColumn<Claim, String> surveyorNameColumn;
+
+    @FXML
     private TableColumn<Claim, String> claimStatusColumn;
+
+    @FXML
+    private TableView<Customer> customerTableView;
+
+    @FXML
+    private TableColumn<Customer, String> customerIdColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerNameColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerUsernameColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerPasswordColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerRoleColumn;
 
     private double x = 0, y = 0;
 
@@ -160,6 +191,17 @@ public class SystemAdminController implements Initializable {
         this.loadDashboard();
     }
 
+    private void initializeColumns() {
+        // Claims table columns
+        claimIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        claimDateColumn.setCellValueFactory(new PropertyValueFactory<>("claim_date"));
+        insuredPersonNameColumn.setCellValueFactory(new PropertyValueFactory<>("insured_person"));
+        insuredPersonIdColumn.setCellValueFactory(new PropertyValueFactory<>("beneficiary_id"));
+        surveyorNameColumn.setCellValueFactory(new PropertyValueFactory<>("surveyor_name"));
+        claimStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+    }
+
     // Method to load the dashboard for admin
     private void loadDashboard() {
         // Load total number of customers
@@ -175,14 +217,14 @@ public class SystemAdminController implements Initializable {
         totalProvidersValue.setText(String.valueOf(totalProviders));
 
         // Load the bar chart for claims
-        this.loadClaimsData();
+        this.loadClaimsSummaryData();
 
         // Load the pie chart for customers
-        this.loadCustomersData();
+        this.loadCustomersSummaryData();
     }
 
     // Method to load the claims data to a bar chart
-    private void loadClaimsData() {
+    private void loadClaimsSummaryData() {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.getData().add(new XYChart.Data<>("New", claimService.getCountByStatus(ClaimStatus.NEW)));
         series.getData().add(new XYChart.Data<>("Processing", claimService.getCountByStatus(ClaimStatus.PROCESSING)));
@@ -192,7 +234,7 @@ public class SystemAdminController implements Initializable {
     }
 
     // Method to load the users data to a pie chart
-    private void loadCustomersData() {
+    private void loadCustomersSummaryData() {
         PieChart.Data slice1 = new PieChart.Data("Dependents", dependentService.getAllDependents().size());
         PieChart.Data slice2 = new PieChart.Data("Policy Holders", policyHolderService.getAllPolicyHolders().size());
         PieChart.Data slice3 = new PieChart.Data("Policy Owners", policyOwnerService.getAllPolicyOwners().size());
