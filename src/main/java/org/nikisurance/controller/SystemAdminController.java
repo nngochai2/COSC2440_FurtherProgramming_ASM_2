@@ -9,10 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -23,11 +25,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.entity.Customer;
-import org.nikisurance.service.interfaces.ClaimService;
-import org.nikisurance.service.interfaces.CustomerService;
-import org.nikisurance.service.interfaces.DependentService;
-import org.nikisurance.service.interfaces.PolicyHolderService;
-import org.nikisurance.service.interfaces.ProviderService;
+import org.nikisurance.service.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -52,6 +50,9 @@ public class SystemAdminController implements Initializable {
 
     @Autowired
     private ProviderService providerService;
+
+    @Autowired
+    private PolicyOwnerService policyOwnerService;
 
     @FXML
     private TextField entityIdField;
@@ -107,6 +108,27 @@ public class SystemAdminController implements Initializable {
     @FXML
     private BarChart<String, Number> claimsBarChart;
 
+    @FXML
+    private PieChart customerPieChart;
+
+    @FXML
+    private Label totalCustomerLabel;
+
+    @FXML
+    private Label totalClaimsLabel;
+
+    @FXML
+    private Label totalProvidersLabel;
+
+    @FXML
+    private Label totalCustomersValue;
+
+    @FXML
+    private Label totalClaimsValue;
+
+    @FXML
+    private Label totalProvidersValue;
+
     private double x = 0, y = 0;
 
     private Stage stage;
@@ -123,8 +145,32 @@ public class SystemAdminController implements Initializable {
             stage.setX(mouseEvent.getScreenX() - x);
             stage.setY(mouseEvent.getScreenY() - y);
         });
+
+        this.loadDashboard();
     }
 
+    // Method to load the dashboard for admin
+    private void loadDashboard() {
+        // Load total number of customers
+        int totalCustomers = customerService.getAllCustomers().size();
+        totalCustomersValue.setText(String.valueOf(totalCustomers));
+
+        // Load total number of claims
+        int totalClaims = claimService.getAllClaims().size();
+        totalClaimsValue.setText(String.valueOf(totalClaims));
+
+        // Load total number of providers
+        int totalProviders = providerService.getAllProviders().size();
+        totalProvidersValue.setText(String.valueOf(totalProviders));
+
+        // Load the bar chart for claims
+        this.loadClaimsData();
+
+        // Load the pie chart for customers
+        this.loadCustomersData();
+    }
+
+    // Method to load the claims data for a bar chart
     private void loadClaimsData() {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.getData().add(new XYChart.Data<>("New", claimService.getCountByStatus(ClaimStatus.NEW)));
@@ -132,6 +178,14 @@ public class SystemAdminController implements Initializable {
         series.getData().add(new XYChart.Data<>("Approved", claimService.getCountByStatus(ClaimStatus.APPROVED)));
         series.getData().add(new XYChart.Data<>("Rejected", claimService.getCountByStatus(ClaimStatus.REJECTED)));
         claimsBarChart.getData().add(series);
+    }
+
+    // Method to load the customers data for a pie chart
+    private void loadCustomersData() {
+        PieChart.Data slice1 = new PieChart.Data("Dependents", dependentService.getAllDependents().size());
+        PieChart.Data slice2 = new PieChart.Data("Policy Holders", policyHolderService.getAllPolicyHolders().size());
+        PieChart.Data slice3 = new PieChart.Data("Policy Owners", policyOwnerService.getAllPolicyOwners().size());
+        customerPieChart.getData().addAll(slice1, slice2, slice3);
     }
 
     @FXML
