@@ -9,11 +9,10 @@ import jakarta.persistence.TypedQuery;
 public class DependentServiceImpl extends EntityRepository implements DependentService {
 
     @Override
-    public Dependent addDependent(Dependent dependent) {
+    public void addDependent(Dependent dependent) {
         em.getTransaction().begin();
         em.persist(dependent);
         em.getTransaction().commit();
-        return dependent;
     }
 
     @Override

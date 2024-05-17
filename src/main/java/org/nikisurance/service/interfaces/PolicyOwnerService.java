@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PolicyOwnerService {
     PolicyOwner getPolicyOwner(Long policyOwnerId);
-    PolicyOwner addPolicyOwner(PolicyOwner policyOwner);
+    void addPolicyOwner(PolicyOwner policyOwner);
     List<PolicyOwner> getAllPolicyOwners();
     void deletePolicyOwner(Long policyOwnerId);
 }

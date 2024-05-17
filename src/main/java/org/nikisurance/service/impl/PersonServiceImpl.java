@@ -11,11 +11,10 @@ import jakarta.persistence.TypedQuery;
 public class PersonServiceImpl extends EntityRepository implements PersonService {
 
     @Override
-    public Person addPerson(Person person) {
+    public void addPerson(Person person) {
         em.getTransaction().begin();
         em.persist(person);
         em.getTransaction().commit();
-        return person;
     }
 
     @Override

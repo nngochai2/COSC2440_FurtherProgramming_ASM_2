@@ -11,11 +11,10 @@ import jakarta.persistence.TypedQuery;
 public class PolicyHolderServiceImpl extends EntityRepository implements PolicyHolderService {
 
     @Override
-    public PolicyHolder addPolicyHolder(PolicyHolder policyHolder) {
+    public void addPolicyHolder(PolicyHolder policyHolder) {
         em.getTransaction().begin();
         em.persist(policyHolder);
         em.getTransaction().commit();
-        return policyHolder;
     }
 
     @Override

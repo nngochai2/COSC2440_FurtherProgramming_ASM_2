@@ -9,11 +9,10 @@ import jakarta.persistence.TypedQuery;
 public class BeneficiaryServiceImpl extends EntityRepository implements BeneficiaryService {
 
     @Override
-    public Beneficiary addBeneficiary(Beneficiary b) {
+    public void addBeneficiary(Beneficiary b) {
         em.getTransaction().begin();
         em.persist(b);
         em.getTransaction().commit();
-        return b;
     }
 
     @Override

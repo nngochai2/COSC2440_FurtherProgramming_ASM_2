@@ -9,11 +9,10 @@ import jakarta.persistence.TypedQuery;
 public class ProviderServiceImpl extends EntityRepository implements ProviderService {
 
     @Override
-    public Provider addProvider(Provider provider) {
+    public void addProvider(Provider provider) {
         em.getTransaction().begin();
         em.persist(provider);
         em.getTransaction().commit();
-        return provider;
     }
 
     @Override

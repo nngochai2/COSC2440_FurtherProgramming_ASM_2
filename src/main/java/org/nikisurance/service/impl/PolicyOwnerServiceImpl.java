@@ -9,11 +9,10 @@ import jakarta.persistence.TypedQuery;
 public class PolicyOwnerServiceImpl extends EntityRepository implements PolicyOwnerService {
 
     @Override
-    public PolicyOwner addPolicyOwner(PolicyOwner policyOwner) {
+    public void addPolicyOwner(PolicyOwner policyOwner) {
         em.getTransaction().begin();
         em.persist(policyOwner);
         em.getTransaction().commit();
-        return policyOwner;
     }
 
     @Override

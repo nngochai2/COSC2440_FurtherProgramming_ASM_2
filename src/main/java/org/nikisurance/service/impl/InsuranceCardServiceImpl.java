@@ -9,11 +9,10 @@ import jakarta.persistence.TypedQuery;
 public class InsuranceCardServiceImpl extends EntityRepository implements InsuranceCardService {
 
     @Override
-    public InsuranceCard addInsuranceCard(InsuranceCard insuranceCard) {
+    public void addInsuranceCard(InsuranceCard insuranceCard) {
         em.getTransaction().begin();
         em.persist(insuranceCard);
         em.getTransaction().commit();
-        return insuranceCard;
     }
 
     @Override

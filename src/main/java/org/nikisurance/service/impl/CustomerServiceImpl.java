@@ -9,11 +9,10 @@ import jakarta.persistence.TypedQuery;
 public class CustomerServiceImpl extends EntityRepository implements CustomerService {
 
     @Override
-    public Customer addCustomer(Customer customer) {
+    public void addCustomer(Customer customer) {
         em.getTransaction().begin();
         em.persist(customer);
         em.getTransaction().commit();
-        return customer;
     }
 
     @Override

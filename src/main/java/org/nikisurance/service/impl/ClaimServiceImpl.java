@@ -9,11 +9,10 @@ import java.util.List;
 public class ClaimServiceImpl extends EntityRepository implements ClaimService {
 
     @Override
-    public Claim addClaim(Claim claim) {
+    public void addClaim(Claim claim) {
         em.getTransaction().begin();
         em.persist(claim);
         em.getTransaction().commit();
-        return claim;
     }
 
     @Override
