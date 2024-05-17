@@ -13,7 +13,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -25,8 +24,6 @@ import org.nikisurance.entity.Claim;
 import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.entity.Customer;
 import org.nikisurance.service.interfaces.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,28 +31,27 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Controller
 public class SystemAdminController implements Initializable {
 
     private final Logger logger = Logger.getLogger(SystemAdminController.class.getName());
 
-    @Autowired
     private ClaimService claimService;
-
-    @Autowired
     private CustomerService customerService;
-
-    @Autowired
     private DependentService dependentService;
-
-    @Autowired
     private PolicyHolderService policyHolderService;
-
-    @Autowired
     private ProviderService providerService;
-
-    @Autowired
     private PolicyOwnerService policyOwnerService;
+
+    public SystemAdminController() {}
+
+    public void setServices(ClaimService claimService, CustomerService customerService, DependentService dependentService, PolicyHolderService policyHolderService, ProviderService providerService, PolicyOwnerService policyOwnerService) {
+        this.claimService = claimService;
+        this.customerService = customerService;
+        this.dependentService = dependentService;
+        this.policyHolderService = policyHolderService;
+        this.providerService = providerService;
+        this.policyOwnerService = policyOwnerService;
+    }
 
     @FXML
     private TextField entityIdField;
@@ -175,6 +171,10 @@ public class SystemAdminController implements Initializable {
 
     private Stage stage;
 
+    public SystemAdminController(ClaimService claimService) {
+        this.claimService = claimService;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Any initialization code
@@ -193,12 +193,6 @@ public class SystemAdminController implements Initializable {
 
     private void initializeColumns() {
         // Claims table columns
-        claimIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        claimDateColumn.setCellValueFactory(new PropertyValueFactory<>("claim_date"));
-        insuredPersonNameColumn.setCellValueFactory(new PropertyValueFactory<>("insured_person"));
-        insuredPersonIdColumn.setCellValueFactory(new PropertyValueFactory<>("beneficiary_id"));
-        surveyorNameColumn.setCellValueFactory(new PropertyValueFactory<>("surveyor_name"));
-        claimStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
     }
 

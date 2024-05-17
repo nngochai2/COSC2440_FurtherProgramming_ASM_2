@@ -1,6 +1,5 @@
 package org.nikisurance;
 
-import jakarta.persistence.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.nikisurance.controller.LoginController;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.nikisurance.controller.SystemAdminController;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -18,9 +17,6 @@ import java.util.logging.Logger;
 public class Main extends Application {
 
     private final Logger logger = Logger.getLogger(Main.class.getName());
-    private static final Scanner scanner = new Scanner(System.in);
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
-    private static final EntityManager em = emf.createEntityManager();
 
     public static void main(String[] args) {
         launch(args);
@@ -46,6 +42,8 @@ public class Main extends Application {
 //                windowEvent.consume();
 //                logout(stage);
             });
+
+            SystemAdminController controller = loader.getController();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Exception occurred while loading FXML file", e);
         }

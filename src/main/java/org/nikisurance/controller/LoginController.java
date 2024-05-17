@@ -125,7 +125,6 @@ public class LoginController implements Initializable {
             stage = (Stage) loginButton.getScene().getWindow();
         }
         root = null;
-
         if (person instanceof Admin) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nikisurance/fxml/AdminUI.fxml")));
         } else if (person instanceof PolicyHolder) {

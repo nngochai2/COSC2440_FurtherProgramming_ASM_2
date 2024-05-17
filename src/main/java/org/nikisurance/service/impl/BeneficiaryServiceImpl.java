@@ -1,40 +1,29 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.Beneficiary;
-import org.nikisurance.repository.BeneficiaryRepository;
 import org.nikisurance.service.interfaces.BeneficiaryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class BeneficiaryServiceImpl implements BeneficiaryService {
-
-    private final BeneficiaryRepository beneficiaryRepository;
-
-    @Autowired
-    public BeneficiaryServiceImpl(BeneficiaryRepository beneficiaryRepository) {
-        this.beneficiaryRepository = beneficiaryRepository;
-    }
 
     @Override
     public Beneficiary addBeneficiary(Beneficiary b) {
-        return beneficiaryRepository.save(b);
+        return null;
     }
 
     @Override
     public Beneficiary getBeneficiary(Long id) {
-        return beneficiaryRepository.findById(id).orElse(null);
+        return null;
     }
 
     @Override
     public List<Beneficiary> getAllBeneficiaries() {
-        return beneficiaryRepository.findAll();
+        return List.of();
     }
 
     @Override
     public void deleteBeneficiary(Long id) {
-        beneficiaryRepository.deleteById(id);
+
     }
 }
