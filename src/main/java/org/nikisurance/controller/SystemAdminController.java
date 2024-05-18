@@ -17,7 +17,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -180,16 +179,16 @@ public class SystemAdminController implements Initializable {
     private TableColumn<Provider, String> providerRoleColumn;
 
     @FXML
-    private TextField policyHolderIdField;
+    private TextField idField;
 
     @FXML
-    private TextField policyHolderNameField;
+    private TextField nameField;
 
     @FXML
-    private TextField policyHolderUsernameField;
+    private TextField usernameField;
 
     @FXML
-    private TextField policyHolderPasswordField;
+    private TextField passwordField;
 
     @FXML
     private TextField policyHolderEmailField;
@@ -400,9 +399,9 @@ public class SystemAdminController implements Initializable {
     private void addPolicyHolder() {
         try {
             PolicyHolder policyHolder = new PolicyHolder();
-            policyHolder.setFullName(policyHolderNameField.getText());
-            policyHolder.setUsername(policyHolderUsernameField.getText());
-            policyHolder.setPassword(policyHolderPasswordField.getText());
+            policyHolder.setFullName(nameField.getText());
+            policyHolder.setUsername(usernameField.getText());
+            policyHolder.setPassword(passwordField.getText());
             policyHolder.setEmail(policyHolderEmailField.getText());
             policyHolder.setPhoneNumber(Long.valueOf(policyHolderPhoneNumberField.getText()));
             policyHolder.setAddress(policyHolderAddressField.getText());
@@ -416,13 +415,14 @@ public class SystemAdminController implements Initializable {
     @FXML
     private void updatePolicyHolder() {
         try {
-            Long id = Long.parseLong(policyHolderIdField.getText());
+            Long id = Long.parseLong(idField.getText());
             PolicyHolder policyHolder = policyHolderService.getPolicyHolder(id);
             if (policyHolder != null) {
-                policyHolder.setFullName(policyHolderNameField.getText());
-                policyHolder.setUsername(policyHolderUsernameField.getText());
-                policyHolder.setPassword(policyHolderPasswordField.getText());
+                policyHolder.setFullName(nameField.getText());
+                policyHolder.setUsername(usernameField.getText());
+                policyHolder.setPassword(passwordField.getText());
                 policyHolder.setEmail(policyHolderEmailField.getText());
+                policyHolder.setPhoneNumber(Long.parseLong(policyHolderPhoneNumberField.getText()));
             }
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Error", "Failed to update policy holder: " + e.getMessage());

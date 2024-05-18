@@ -45,7 +45,7 @@
           </AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="386.0" prefWidth="285.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;">
          <children>
-            <Text fill="WHITE" layoutX="57.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance">
+            <Text fill="WHITE" layoutX="46.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance">
                <font>
                   <Font name="System Bold" size="39.0" />
                </font>

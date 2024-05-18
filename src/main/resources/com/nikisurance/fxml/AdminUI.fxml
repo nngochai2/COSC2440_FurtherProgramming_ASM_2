@@ -467,12 +467,12 @@
                <children>
                   <Pane prefHeight="140.0" prefWidth="242.0">
                      <children>
-                        <Text fill="WHITE" layoutX="48.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance" wrappingWidth="174.37348423344974">
+                        <Text fill="WHITE" layoutX="32.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance" wrappingWidth="174.37348423344974">
                            <font>
-                              <Font name="System Bold Italic" size="30.0" />
+                              <Font name="System Bold" size="30.0" />
                            </font>
                         </Text>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="76.0" layoutX="22.0" layoutY="32.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="76.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="76.0" layoutX="14.0" layoutY="32.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="76.0" />
                      </children>
                   </Pane>
                   <JFXButton fx:id="btnDashboard" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="55.0" prefWidth="244.0" text="Dashboard" textFill="WHITE">
