@@ -1,40 +1,38 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.Customer;
-import org.nikisurance.repository.CustomerRepository;
 import org.nikisurance.service.interfaces.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import jakarta.persistence.TypedQuery;
 
-@Service
-public class CustomerServiceImpl implements CustomerService {
-
-    private final CustomerRepository customerRepository;
-
-    @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+public class CustomerServiceImpl extends EntityRepository implements CustomerService {
 
     @Override
-    public Customer addCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public void addCustomer(Customer customer) {
+        em.getTransaction().begin();
+        em.persist(customer);
+        em.getTransaction().commit();
     }
 
     @Override
     public Customer getCustomer(Long id) {
-        return customerRepository.findById(id).orElse(null);
+        return em.find(Customer.class, id);
     }
 
     @Override
     public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+        TypedQuery<Customer> query = em.createQuery("from Customer", Customer.class);
+        return query.getResultList();
     }
 
     @Override
     public void deleteCustomer(Long id) {
-        customerRepository.deleteById(id);
+        Customer customer = getCustomer(id);
+        if (customer != null) {
+            em.getTransaction().begin();
+            em.remove(customer);
+            em.getTransaction().commit();
+        }
     }
 }

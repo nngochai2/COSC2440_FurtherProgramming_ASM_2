@@ -33,7 +33,6 @@ public class Beneficiary extends Customer implements Serializable {
             mappedBy = "cardHolder",
             fetch = FetchType.LAZY
     )
-
     private InsuranceCard insuranceCard;
 
     @OneToMany(mappedBy = "beneficiary", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

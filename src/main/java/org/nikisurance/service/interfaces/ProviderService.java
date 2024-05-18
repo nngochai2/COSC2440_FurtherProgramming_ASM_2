@@ -5,8 +5,10 @@ import org.nikisurance.entity.Provider;
 import java.util.List;
 
 public interface ProviderService {
-    Provider addProvider(Provider provider);
+    void addProvider(Provider provider);
     Provider getProvider(Long id);
     List<Provider> getAllProviders();
     void deleteProvider(Long id);
+    int countInsuranceManagers();
+    int countInsuranceProvider();
 }

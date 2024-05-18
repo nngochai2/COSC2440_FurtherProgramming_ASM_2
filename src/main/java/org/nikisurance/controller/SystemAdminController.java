@@ -8,10 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -19,42 +20,41 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.nikisurance.entity.Claim;
+import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.entity.Customer;
-import org.nikisurance.service.interfaces.ClaimService;
-import org.nikisurance.service.interfaces.CustomerService;
-import org.nikisurance.service.interfaces.DependentService;
-import org.nikisurance.service.interfaces.PolicyHolderService;
-import org.nikisurance.service.interfaces.ProviderService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.nikisurance.service.interfaces.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@Controller
 public class SystemAdminController implements Initializable {
 
-    @Autowired
+    private final Logger logger = Logger.getLogger(SystemAdminController.class.getName());
+
     private ClaimService claimService;
-
-    @Autowired
     private CustomerService customerService;
-
-    @Autowired
     private DependentService dependentService;
-
-    @Autowired
     private PolicyHolderService policyHolderService;
-
-    @Autowired
     private ProviderService providerService;
+    private PolicyOwnerService policyOwnerService;
+
+    public SystemAdminController() {}
+
+    public void setServices(ClaimService claimService, CustomerService customerService, DependentService dependentService, PolicyHolderService policyHolderService, ProviderService providerService, PolicyOwnerService policyOwnerService) {
+        this.claimService = claimService;
+        this.customerService = customerService;
+        this.dependentService = dependentService;
+        this.policyHolderService = policyHolderService;
+        this.providerService = providerService;
+        this.policyOwnerService = policyOwnerService;
+    }
 
     @FXML
     private TextField entityIdField;
-
-    @FXML
-    private Button retrieveInfoButton;
 
     @FXML
     private Button updateInfoButton;
@@ -99,14 +99,81 @@ public class SystemAdminController implements Initializable {
     private AnchorPane sideBar;
 
     @FXML
-    private JFXButton btnSignout;
+    private JFXButton btnSignOut;
+
+    @FXML
+    private BarChart<String, Number> claimsBarChart;
+
+    @FXML
+    private PieChart customerPieChart;
+
+    @FXML
+    private Label totalCustomerLabel;
+
+    @FXML
+    private Label totalClaimsLabel;
+
+    @FXML
+    private Label totalProvidersLabel;
+
+    @FXML
+    private Label totalCustomersValue;
+
+    @FXML
+    private Label totalClaimsValue;
+
+    @FXML
+    private Label totalProvidersValue;
+
+    @FXML
+    private TableView<Claim> claimTableView;
+
+    @FXML
+    private TableColumn<Claim, String> claimIdColumn;
+
+    @FXML
+    private TableColumn<Claim, Double> claimAmountColumn;
+
+    @FXML
+    private TableColumn<Claim, String> claimDateColumn;
+
+    @FXML
+    private TableColumn<Claim, String> insuredPersonNameColumn;
+
+    @FXML
+    private TableColumn<Claim, String> insuredPersonIdColumn;
+
+    @FXML
+    private TableColumn<Claim, String> surveyorNameColumn;
+
+    @FXML
+    private TableColumn<Claim, String> claimStatusColumn;
+
+    @FXML
+    private TableView<Customer> customerTableView;
+
+    @FXML
+    private TableColumn<Customer, String> customerIdColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerNameColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerUsernameColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerPasswordColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerRoleColumn;
 
     private double x = 0, y = 0;
 
     private Stage stage;
-    private Scene scene;
-    private Parent root;
 
+    public SystemAdminController(ClaimService claimService) {
+        this.claimService = claimService;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -120,6 +187,54 @@ public class SystemAdminController implements Initializable {
             stage.setX(mouseEvent.getScreenX() - x);
             stage.setY(mouseEvent.getScreenY() - y);
         });
+
+        this.loadDashboard();
+    }
+
+    private void initializeColumns() {
+        // Claims table columns
+
+    }
+
+    // Method to load the dashboard for admin
+    private void loadDashboard() {
+        // Load total number of customers
+        int totalCustomers = customerService.getAllCustomers().size();
+        totalCustomersValue.setText(String.valueOf(totalCustomers));
+
+        // Load total number of claims
+        int totalClaims = claimService.getAllClaims().size();
+        totalClaimsValue.setText(String.valueOf(totalClaims));
+
+        // Load total number of providers
+        int totalProviders = providerService.getAllProviders().size();
+        totalProvidersValue.setText(String.valueOf(totalProviders));
+
+        // Load the bar chart for claims
+        this.loadClaimsSummaryData();
+
+        // Load the pie chart for customers
+        this.loadCustomersSummaryData();
+    }
+
+    // Method to load the claims data to a bar chart
+    private void loadClaimsSummaryData() {
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data<>("New", claimService.getCountByStatus(ClaimStatus.NEW)));
+        series.getData().add(new XYChart.Data<>("Processing", claimService.getCountByStatus(ClaimStatus.PROCESSING)));
+        series.getData().add(new XYChart.Data<>("Approved", claimService.getCountByStatus(ClaimStatus.APPROVED)));
+        series.getData().add(new XYChart.Data<>("Rejected", claimService.getCountByStatus(ClaimStatus.REJECTED)));
+        claimsBarChart.getData().add(series);
+    }
+
+    // Method to load the users data to a pie chart
+    private void loadCustomersSummaryData() {
+        PieChart.Data slice1 = new PieChart.Data("Dependents", dependentService.getAllDependents().size());
+        PieChart.Data slice2 = new PieChart.Data("Policy Holders", policyHolderService.getAllPolicyHolders().size());
+        PieChart.Data slice3 = new PieChart.Data("Policy Owners", policyOwnerService.getAllPolicyOwners().size());
+        PieChart.Data slice4 = new PieChart.Data("Insurance Managers", providerService.countInsuranceManagers());
+        PieChart.Data slice5 = new PieChart.Data("Insurance Surveyors", providerService.countInsuranceProvider());
+        customerPieChart.getData().addAll(slice1, slice2, slice3, slice4, slice5);
     }
 
     @FXML
@@ -151,10 +266,6 @@ public class SystemAdminController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.show();
-    }
-
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 
     public void handleClicks(ActionEvent actionEvent) {
@@ -220,10 +331,10 @@ public class SystemAdminController implements Initializable {
             stage.show();
 
             // Close the current window
-            Stage currentStage = (Stage) btnSignout.getScene().getWindow();
+            Stage currentStage = (Stage) btnSignOut.getScene().getWindow();
             currentStage.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "IOException found.");
         }
     }
 }

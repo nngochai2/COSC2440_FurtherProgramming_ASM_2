@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PolicyHolderService {
     PolicyHolder getPolicyHolder(Long id);
-    PolicyHolder addPolicyHolder(PolicyHolder policyHolder);
+    void addPolicyHolder(PolicyHolder policyHolder);
     List<PolicyHolder> getAllPolicyHolders();
     void deletePolicyHolder(Long id);
 }

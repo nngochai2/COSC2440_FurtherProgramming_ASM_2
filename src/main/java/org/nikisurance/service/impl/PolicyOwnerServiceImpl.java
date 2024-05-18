@@ -1,40 +1,38 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.PolicyOwner;
-import org.nikisurance.repository.PolicyOwnerRepository;
 import org.nikisurance.service.interfaces.PolicyOwnerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import jakarta.persistence.TypedQuery;
 
-@Service
-public class PolicyOwnerServiceImpl implements PolicyOwnerService {
+public class PolicyOwnerServiceImpl extends EntityRepository implements PolicyOwnerService {
 
-    private final PolicyOwnerRepository policyOwnerRepository;
-
-    @Autowired
-    public PolicyOwnerServiceImpl(PolicyOwnerRepository policyOwnerRepository) {
-        this.policyOwnerRepository = policyOwnerRepository;
+    @Override
+    public void addPolicyOwner(PolicyOwner policyOwner) {
+        em.getTransaction().begin();
+        em.persist(policyOwner);
+        em.getTransaction().commit();
     }
 
     @Override
     public PolicyOwner getPolicyOwner(Long policyOwnerId) {
-        return policyOwnerRepository.findById(policyOwnerId).orElse(null);
-    }
-
-    @Override
-    public PolicyOwner addPolicyOwner(PolicyOwner policyOwner) {
-        return policyOwnerRepository.save(policyOwner);
+        return em.find(PolicyOwner.class, policyOwnerId);
     }
 
     @Override
     public List<PolicyOwner> getAllPolicyOwners() {
-        return policyOwnerRepository.findAll();
+        TypedQuery<PolicyOwner> query = em.createQuery("from PolicyOwner", PolicyOwner.class);
+        return query.getResultList();
     }
 
     @Override
     public void deletePolicyOwner(Long policyOwnerId) {
-        policyOwnerRepository.deleteById(policyOwnerId);
+        PolicyOwner policyOwner = getPolicyOwner(policyOwnerId);
+        if (policyOwner != null) {
+            em.getTransaction().begin();
+            em.remove(policyOwner);
+            em.getTransaction().commit();
+        }
     }
 }

@@ -6,7 +6,6 @@ import org.hibernate.annotations.Parameter;
 import org.nikisurance.util.ClaimIdGenerator;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -57,8 +56,8 @@ public class Claim implements Serializable {
     @Column(name = "receiver_bank_info", nullable = false)
     private String receiverBankingInfo;
 
-    @Column(name = "surveyor_id")
-    private Long surveyorId;
+    @Column(name = "surveyor_name")
+    private String surveyorName;
 
     @Column(name = "document_name")
     private String documentName;
@@ -67,7 +66,7 @@ public class Claim implements Serializable {
     private String documentPath;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "surveyor_id", insertable = false, updatable = false)
+    @JoinColumn(name = "surveyor_name", insertable = false, updatable = false)
     private InsuranceSurveyor insuranceSurveyor;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -172,12 +171,12 @@ public class Claim implements Serializable {
         this.beneficiary = beneficiary;
     }
 
-    public Long getSurveyorId() {
-        return surveyorId;
+    public String getSurveyorName() {
+        return surveyorName;
     }
 
-    public void setSurveyorId(Long surveyorId) {
-        this.surveyorId = surveyorId;
+    public void setSurveyorName(String surveyorName) {
+        this.surveyorName = surveyorName;
     }
 
     public String getDocumentName() {

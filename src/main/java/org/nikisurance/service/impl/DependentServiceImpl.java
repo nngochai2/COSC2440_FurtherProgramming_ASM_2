@@ -1,45 +1,46 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.Dependent;
-import org.nikisurance.repository.DependentRepository;
 import org.nikisurance.service.interfaces.DependentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import jakarta.persistence.TypedQuery;
 
-@Service
-public class DependentServiceImpl implements DependentService {
-
-    private final DependentRepository dependentRepository;
-
-    @Autowired
-    public DependentServiceImpl(DependentRepository dependentRepository) {
-        this.dependentRepository = dependentRepository;
-    }
+public class DependentServiceImpl extends EntityRepository implements DependentService {
 
     @Override
-    public Dependent addDependent(Dependent dependent) {
-        return dependentRepository.save(dependent);
+    public void addDependent(Dependent dependent) {
+        em.getTransaction().begin();
+        em.persist(dependent);
+        em.getTransaction().commit();
     }
 
     @Override
     public Dependent getDependent(Long id) {
-        return dependentRepository.findById(id).orElse(null);
+        return em.find(Dependent.class, id);
     }
 
     @Override
     public List<Dependent> getAllDependents() {
-        return dependentRepository.findAll();
+        TypedQuery<Dependent> query = em.createQuery("from Dependent", Dependent.class);
+        return query.getResultList();
     }
 
     @Override
     public void deleteDependent(Long id) {
-        dependentRepository.deleteById(id);
+        Dependent dependent = getDependent(id);
+        if (dependent != null) {
+            em.getTransaction().begin();
+            em.remove(dependent);
+            em.getTransaction().commit();
+        }
     }
 
     @Override
     public Dependent updateDependent(Dependent dependent) {
-        return dependentRepository.save(dependent);
+        em.getTransaction().begin();
+        Dependent updatedDependent = em.merge(dependent);
+        em.getTransaction().commit();
+        return updatedDependent;
     }
 }

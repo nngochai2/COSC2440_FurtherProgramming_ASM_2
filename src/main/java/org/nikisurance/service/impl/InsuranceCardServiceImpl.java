@@ -1,40 +1,38 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.InsuranceCard;
-import org.nikisurance.repository.InsuranceCardRepository;
 import org.nikisurance.service.interfaces.InsuranceCardService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import jakarta.persistence.TypedQuery;
 
-@Service
-public class InsuranceCardServiceImpl implements InsuranceCardService {
-
-    private final InsuranceCardRepository insuranceCardRepository;
-
-    @Autowired
-    public InsuranceCardServiceImpl(InsuranceCardRepository insuranceCardRepository) {
-        this.insuranceCardRepository = insuranceCardRepository;
-    }
+public class InsuranceCardServiceImpl extends EntityRepository implements InsuranceCardService {
 
     @Override
-    public InsuranceCard addInsuranceCard(InsuranceCard insuranceCard) {
-        return insuranceCardRepository.save(insuranceCard);
+    public void addInsuranceCard(InsuranceCard insuranceCard) {
+        em.getTransaction().begin();
+        em.persist(insuranceCard);
+        em.getTransaction().commit();
     }
 
     @Override
     public InsuranceCard getInsuranceCard(Long id) {
-        return insuranceCardRepository.findById(id).orElse(null);
+        return em.find(InsuranceCard.class, id);
     }
 
     @Override
     public List<InsuranceCard> getAllInsuranceCards() {
-        return insuranceCardRepository.findAll();
+        TypedQuery<InsuranceCard> query = em.createQuery("from InsuranceCard", InsuranceCard.class);
+        return query.getResultList();
     }
 
     @Override
     public void deleteInsuranceCard(Long id) {
-        insuranceCardRepository.deleteById(id);
+        InsuranceCard insuranceCard = getInsuranceCard(id);
+        if (insuranceCard != null) {
+            em.getTransaction().begin();
+            em.remove(insuranceCard);
+            em.getTransaction().commit();
+        }
     }
 }

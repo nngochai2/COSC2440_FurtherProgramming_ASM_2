@@ -1,42 +1,48 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.Claim;
-import org.nikisurance.repository.ClaimRepository;
+import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.service.interfaces.ClaimService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
-public class ClaimServiceImpl implements ClaimService {
 
-    private final ClaimRepository claimRepository;
-
-    @Autowired
-    public ClaimServiceImpl(ClaimRepository claimRepository) {
-        this.claimRepository = claimRepository;
-    }
+public class ClaimServiceImpl extends EntityRepository implements ClaimService {
 
     @Override
-    public Claim addClaim(Claim claim) {
-        return claimRepository.save(claim);
+    public void addClaim(Claim claim) {
+        em.getTransaction().begin();
+        em.persist(claim);
+        em.getTransaction().commit();
     }
 
     @Override
     public Claim getClaim(String id) {
-        return claimRepository.findById(id).orElse(null);
+        return em.find(Claim.class, id);
     }
 
     @Override
     public List<Claim> getAllClaims() {
-        return claimRepository.findAll();
+        return em.createQuery("from Claim ", Claim.class).getResultList();
     }
 
     @Override
     public void deleteClaim(Claim claim) {
-        claimRepository.delete(claim);
+        em.getTransaction().begin();
+        em.remove(claim);
+        em.getTransaction().commit();
     }
+
+    @Override
     public void updateClaim(Claim claim) {
-        claimRepository.save(claim);
+        em.getTransaction().begin();
+        em.merge(claim);
+        em.getTransaction().commit();
+    }
+
+    @Override
+    public long getCountByStatus(ClaimStatus status) {
+        return em.createQuery("select count(c) from Claim c where c.status = :status", Long.class)
+                .setParameter("status", status)
+                .getSingleResult();
     }
 }

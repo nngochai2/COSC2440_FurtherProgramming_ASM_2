@@ -5,7 +5,7 @@ import org.nikisurance.entity.InsuranceCard;
 import java.util.List;
 
 public interface InsuranceCardService {
-    InsuranceCard addInsuranceCard(InsuranceCard insuranceCard);
+    void addInsuranceCard(InsuranceCard insuranceCard);
     InsuranceCard getInsuranceCard(Long id);
     List<InsuranceCard> getAllInsuranceCards();
     void deleteInsuranceCard(Long id);

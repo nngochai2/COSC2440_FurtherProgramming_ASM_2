@@ -14,12 +14,14 @@ module org.nikisurance {
     requires spring.data.jpa;
     requires de.jensd.fx.glyphs.fontawesome;
     requires com.jfoenix;
+    requires spring.boot;
+    requires spring.boot.autoconfigure;
 
     exports org.nikisurance.entity;
     exports org.nikisurance.util;
     exports org.nikisurance;
     opens org.nikisurance to javafx.fxml;
-    opens org.nikisurance.util to javafx.fxml;
     opens org.nikisurance.controller to javafx.fxml;
+    opens org.nikisurance.util to javafx.fxml;
     opens org.nikisurance.entity to org.hibernate.orm.core;
 }

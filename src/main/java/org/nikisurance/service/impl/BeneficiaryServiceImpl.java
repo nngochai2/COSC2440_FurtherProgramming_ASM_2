@@ -1,40 +1,38 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.Beneficiary;
-import org.nikisurance.repository.BeneficiaryRepository;
 import org.nikisurance.service.interfaces.BeneficiaryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import jakarta.persistence.TypedQuery;
 
-@Service
-public class BeneficiaryServiceImpl implements BeneficiaryService {
-
-    private final BeneficiaryRepository beneficiaryRepository;
-
-    @Autowired
-    public BeneficiaryServiceImpl(BeneficiaryRepository beneficiaryRepository) {
-        this.beneficiaryRepository = beneficiaryRepository;
-    }
+public class BeneficiaryServiceImpl extends EntityRepository implements BeneficiaryService {
 
     @Override
-    public Beneficiary addBeneficiary(Beneficiary b) {
-        return beneficiaryRepository.save(b);
+    public void addBeneficiary(Beneficiary b) {
+        em.getTransaction().begin();
+        em.persist(b);
+        em.getTransaction().commit();
     }
 
     @Override
     public Beneficiary getBeneficiary(Long id) {
-        return beneficiaryRepository.findById(id).orElse(null);
+        return em.find(Beneficiary.class, id);
     }
 
     @Override
     public List<Beneficiary> getAllBeneficiaries() {
-        return beneficiaryRepository.findAll();
+        TypedQuery<Beneficiary> query = em.createQuery("from Beneficiary", Beneficiary.class);
+        return query.getResultList();
     }
 
     @Override
     public void deleteBeneficiary(Long id) {
-        beneficiaryRepository.deleteById(id);
+        Beneficiary b = getBeneficiary(id);
+        if (b != null) {
+            em.getTransaction().begin();
+            em.remove(b);
+            em.getTransaction().commit();
+        }
     }
 }
