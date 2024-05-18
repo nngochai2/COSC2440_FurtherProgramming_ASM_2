@@ -156,7 +156,6 @@
                      </graphic>
                   </Label>
                </children></Pane>
-            <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
             <Pane fx:id="pnUsers" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
@@ -339,7 +338,7 @@
                         <Font size="1.0" />
                      </font>
                   </JFXButton>
-                  <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0" vbarPolicy="ALWAYS">
+                  <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0" style="-fx-background-radius: 25;" vbarPolicy="ALWAYS">
                      <content>
                         <TableView fx:id="claimTableView" prefHeight="491.0" prefWidth="590.0">
                            <columns>
@@ -395,6 +394,7 @@
                   </JFXButton>
                </children>
             </Pane>
+            <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="-1.0" style="-fx-background-radius: 25;">

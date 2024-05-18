@@ -2,6 +2,7 @@ package org.nikisurance.controller;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import jakarta.persistence.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,6 +50,10 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         em = Persistence.createEntityManagerFactory("my-persistence-unit").createEntityManager();
+        Platform.runLater(() -> {
+            stage = (Stage) sideBar.getScene().getWindow();
+            stage.initStyle(StageStyle.TRANSPARENT);
+        });
         sideBar.setOnMousePressed(mouseEvent -> {
            x = mouseEvent.getSceneX();
            y = mouseEvent.getSceneY();

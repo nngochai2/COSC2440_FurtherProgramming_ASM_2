@@ -2,6 +2,7 @@ package org.nikisurance.controller;
 
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -173,14 +174,18 @@ public class SystemAdminController implements Initializable {
 
     private Stage stage;
 
+    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Any initialization code
+        Platform.runLater(() -> {
+            stage = (Stage) sideBar.getScene().getWindow();
+            stage.initStyle(StageStyle.TRANSPARENT);
+        });
         sideBar.setOnMousePressed(mouseEvent -> {
             x = mouseEvent.getSceneX();
             y = mouseEvent.getSceneY();
         });
-
         sideBar.setOnMouseDragged(mouseEvent -> {
             stage.setX(mouseEvent.getScreenX() - x);
             stage.setY(mouseEvent.getScreenY() - y);
