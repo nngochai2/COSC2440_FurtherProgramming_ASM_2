@@ -66,6 +66,10 @@ public class Claim implements Serializable {
     @JoinColumn(name = "beneficiary_id", insertable = false, updatable = false)
     private Beneficiary beneficiary;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "surveyor_id", insertable = false, updatable = false)
+    private InsuranceSurveyor insuranceSurveyor;
+
     public Claim() {}
 
     public int getCardNumber() {
@@ -179,5 +183,13 @@ public class Claim implements Serializable {
 
     public void setClaimDate(Date claimDate) {
         this.claimDate = claimDate;
+    }
+
+    public InsuranceSurveyor getInsuranceSurveyor() {
+        return insuranceSurveyor;
+    }
+
+    public void setInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
+        this.insuranceSurveyor = insuranceSurveyor;
     }
 }

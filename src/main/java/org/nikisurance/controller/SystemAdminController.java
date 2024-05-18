@@ -147,7 +147,7 @@ public class SystemAdminController implements Initializable {
     private TableColumn<Claim, Long> insuredPersonIdColumn;
 
     @FXML
-    private TableColumn<Claim, String> surveyorNameColumn;
+    private TableColumn<Claim, Long> surveyorIdColumn;
 
     @FXML
     private TableColumn<Claim, String> claimStatusColumn;
@@ -180,7 +180,7 @@ public class SystemAdminController implements Initializable {
         // Any initialization code
         Platform.runLater(() -> {
             stage = (Stage) sideBar.getScene().getWindow();
-            stage.initStyle(StageStyle.TRANSPARENT);
+//            stage.initStyle(StageStyle.TRANSPARENT);
         });
         sideBar.setOnMousePressed(mouseEvent -> {
             x = mouseEvent.getSceneX();
@@ -206,6 +206,7 @@ public class SystemAdminController implements Initializable {
         claimDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimDate()).asString());
         insuredPersonNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInsuredPerson()));
         insuredPersonIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBeneficiaryId()));
+        surveyorIdColumn.setCellValueFactory(cellDate -> new SimpleObjectProperty<>(cellDate.getValue().getBeneficiaryId()));
         claimStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().name()));
 
         populateTables();

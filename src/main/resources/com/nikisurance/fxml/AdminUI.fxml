@@ -349,7 +349,7 @@
                               <TableColumn fx:id="insuredPersonNameColumn" prefWidth="100.0" text="Insured Person" />
                               <TableColumn fx:id="claimAmountColumn" prefWidth="100.0" text="Claim Amount" />
                               <TableColumn fx:id="claimStatusColumn" prefWidth="100.0" text="Status" />
-<!--                              <TableColumn fx:id="surveyorNameColumn" prefWidth="100.0" text="Surveyor ID" />-->
+                              <TableColumn fx:id="surveyorIdColumn" prefWidth="100.0" text="Surveyor ID" />
 <!--                              <TableColumn fx:id="documentNameColumn" prefWidth="100.0" text="Document Name" />-->
                            </columns>
                         </TableView>
