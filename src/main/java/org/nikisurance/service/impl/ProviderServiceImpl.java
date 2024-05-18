@@ -10,41 +10,44 @@ public class ProviderServiceImpl extends EntityRepository implements ProviderSer
 
     @Override
     public void addProvider(Provider provider) {
-        em.getTransaction().begin();
-        em.persist(provider);
-        em.getTransaction().commit();
+        performOperation(em -> em.persist(provider));
     }
 
     @Override
     public Provider getProvider(Long id) {
-        return em.find(Provider.class, id);
+        return performReturningOperation(em -> em.find(Provider.class, id));
     }
 
     @Override
     public List<Provider> getAllProviders() {
-        TypedQuery<Provider> query = em.createQuery("from Provider", Provider.class);
-        return query.getResultList();
+        return performReturningOperation(em -> em.createQuery("from Provider", Provider.class).getResultList());
     }
 
     @Override
     public void deleteProvider(Long id) {
-        Provider provider = getProvider(id);
-        if (provider != null) {
-            em.getTransaction().begin();
-            em.remove(provider);
-            em.getTransaction().commit();
-        }
+        performOperation(em -> {
+            Provider provider = em.find(Provider.class, id);
+            if (provider != null) {
+                em.remove(provider);
+            } else {
+                throw new IllegalArgumentException("Provider with id " + id + " not found");
+            }
+        });
     }
 
     @Override
     public int countInsuranceManagers() {
-        Long count = em.createQuery("select count(p) from Provider p where p.role = 'InsuranceManager'", Long.class).getSingleResult();
-        return count.intValue();
+        return performReturningOperation(em -> em.createQuery(
+                        "select count(p) from Provider p where p.role = :type", Long.class)
+                .setParameter("type", "InsuranceManager")
+                .getSingleResult()).intValue();
     }
 
     @Override
     public int countInsuranceProvider() {
-        Long count = em.createQuery("select count(p) from Provider p where p.role = 'InsuranceProvider'", Long.class).getSingleResult();
-        return count.intValue();
+        return performReturningOperation(em -> em.createQuery(
+                        "select count(p) from Provider p where p.role = :type", Long.class)
+                .setParameter("type", "InsuranceProvider")
+                .getSingleResult()).intValue();
     }
 }

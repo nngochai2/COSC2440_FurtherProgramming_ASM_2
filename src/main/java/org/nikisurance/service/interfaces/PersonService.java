@@ -9,4 +9,5 @@ public interface PersonService {
     Person getPerson(Long id);
     List<Person> getAllPersons();
     void deletePerson(Long id);
+    void updatePerson(Person person);
 }

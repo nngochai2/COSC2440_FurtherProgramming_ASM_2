@@ -10,29 +10,28 @@ public class PolicyOwnerServiceImpl extends EntityRepository implements PolicyOw
 
     @Override
     public void addPolicyOwner(PolicyOwner policyOwner) {
-        em.getTransaction().begin();
-        em.persist(policyOwner);
-        em.getTransaction().commit();
+        performOperation(em -> em.persist(policyOwner));
     }
 
     @Override
     public PolicyOwner getPolicyOwner(Long policyOwnerId) {
-        return em.find(PolicyOwner.class, policyOwnerId);
+        return performReturningOperation(em -> em.find(PolicyOwner.class, policyOwnerId));
     }
 
     @Override
     public List<PolicyOwner> getAllPolicyOwners() {
-        TypedQuery<PolicyOwner> query = em.createQuery("from PolicyOwner", PolicyOwner.class);
-        return query.getResultList();
+        return performReturningOperation(em -> em.createQuery("from PolicyOwner", PolicyOwner.class)).getResultList();
     }
 
     @Override
     public void deletePolicyOwner(Long policyOwnerId) {
-        PolicyOwner policyOwner = getPolicyOwner(policyOwnerId);
-        if (policyOwner != null) {
-            em.getTransaction().begin();
-            em.remove(policyOwner);
-            em.getTransaction().commit();
-        }
+        performOperation(em -> {
+            PolicyOwner policyOwner = em.find(PolicyOwner.class, policyOwnerId);
+            if (policyOwner != null) {
+                em.remove(policyOwner);
+            } else {
+                throw new IllegalArgumentException("PolicyOwner not found");
+            }
+        });
     }
 }

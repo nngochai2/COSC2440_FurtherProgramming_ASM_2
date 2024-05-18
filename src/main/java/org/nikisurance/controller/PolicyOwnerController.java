@@ -80,14 +80,14 @@ public class PolicyOwnerController implements Initializable {
         claimTable.setItems(claimsData);
     }
 
-    @FXML
-    private void fileClaim() {
-        String description = claimDescriptionField.getText();
-        Claim claim = new Claim();
-
-        Claim savedClaim = claimService.addClaim(claim);
-        showAlert(AlertType.INFORMATION, "Claim Filed", "Claim ID: " + savedClaim.getClaimId());
-    }
+//    @FXML
+//    private void fileClaim() {
+//        String description = claimDescriptionField.getText();
+//        Claim claim = new Claim();
+//
+//        Claim savedClaim = claimService.addClaim(claim);
+//        showAlert(AlertType.INFORMATION, "Claim Filed", "Claim ID: " + savedClaim.getClaimId());
+//    }
 
     @FXML
     private void updateClaim() {
@@ -114,16 +114,16 @@ public class PolicyOwnerController implements Initializable {
         }
     }
 
-    @FXML
-    private void addCustomer() {
-        String name = customerNameField.getText();
-        String email = customerEmailField.getText();
-        Customer customer = new Customer();
-        customer.setFullName(name);
-
-        Customer savedCustomer = customerService.addCustomer(customer);
-        showAlert(AlertType.INFORMATION, "Customer Added", "Customer ID: " + savedCustomer.getId());
-    }
+//    @FXML
+//    private void addCustomer() {
+//        String name = customerNameField.getText();
+//        String email = customerEmailField.getText();
+//        Customer customer = new Customer();
+//        customer.setFullName(name);
+//
+//        Customer savedCustomer = customerService.addCustomer(customer);
+//        showAlert(AlertType.INFORMATION, "Customer Added", "Customer ID: " + savedCustomer.getId());
+//    }
 
     @FXML
     private void removeCustomer() {

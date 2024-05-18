@@ -12,29 +12,28 @@ public class PolicyHolderServiceImpl extends EntityRepository implements PolicyH
 
     @Override
     public void addPolicyHolder(PolicyHolder policyHolder) {
-        em.getTransaction().begin();
-        em.persist(policyHolder);
-        em.getTransaction().commit();
+        performOperation(em -> em.persist(policyHolder));
     }
 
     @Override
     public PolicyHolder getPolicyHolder(Long id) {
-        return em.find(PolicyHolder.class, id);
+        return performReturningOperation(em -> em.find(PolicyHolder.class, id));
     }
 
     @Override
     public List<PolicyHolder> getAllPolicyHolders() {
-        TypedQuery<PolicyHolder> query = em.createQuery("from PolicyHolder", PolicyHolder.class);
-        return query.getResultList();
+        return performReturningOperation(em -> em.createQuery("from PolicyHolder", PolicyHolder.class).getResultList());
     }
 
     @Override
     public void deletePolicyHolder(Long id) {
-        PolicyHolder policyHolder = getPolicyHolder(id);
-        if (policyHolder != null) {
-            em.getTransaction().begin();
-            em.remove(policyHolder);
-            em.getTransaction().commit();
-        }
+        performOperation(em -> {
+            PolicyHolder policyHolder = em.find(PolicyHolder.class, id);
+            if (policyHolder != null) {
+                em.remove(policyHolder);
+            } else {
+                throw new IllegalArgumentException("PolicyHolder with id " + id + " not found");
+            }
+        });
     }
 }

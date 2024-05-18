@@ -14,8 +14,6 @@ module org.nikisurance {
     requires spring.data.jpa;
     requires de.jensd.fx.glyphs.fontawesome;
     requires com.jfoenix;
-    requires spring.boot;
-    requires spring.boot.autoconfigure;
 
     exports org.nikisurance.entity;
     exports org.nikisurance.util;

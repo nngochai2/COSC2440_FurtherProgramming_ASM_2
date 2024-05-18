@@ -10,29 +10,28 @@ public class InsuranceCardServiceImpl extends EntityRepository implements Insura
 
     @Override
     public void addInsuranceCard(InsuranceCard insuranceCard) {
-        em.getTransaction().begin();
-        em.persist(insuranceCard);
-        em.getTransaction().commit();
+        performOperation(em -> em.persist(insuranceCard));
     }
 
     @Override
     public InsuranceCard getInsuranceCard(Long id) {
-        return em.find(InsuranceCard.class, id);
+        return performReturningOperation(em -> em.find(InsuranceCard.class, id));
     }
 
     @Override
     public List<InsuranceCard> getAllInsuranceCards() {
-        TypedQuery<InsuranceCard> query = em.createQuery("from InsuranceCard", InsuranceCard.class);
-        return query.getResultList();
+        return performReturningOperation(em -> em.createQuery("from InsuranceCard").getResultList());
     }
 
     @Override
     public void deleteInsuranceCard(Long id) {
-        InsuranceCard insuranceCard = getInsuranceCard(id);
-        if (insuranceCard != null) {
-            em.getTransaction().begin();
-            em.remove(insuranceCard);
-            em.getTransaction().commit();
-        }
+        performOperation(em -> {
+            InsuranceCard insuranceCard = em.find(InsuranceCard.class, id);
+            if (insuranceCard != null) {
+                em.remove(insuranceCard);
+            } else {
+                throw new IllegalArgumentException("No insurance card found with id " + id);
+            }
+        });
     }
 }

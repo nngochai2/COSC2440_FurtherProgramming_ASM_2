@@ -23,6 +23,7 @@ import javafx.stage.StageStyle;
 import org.nikisurance.entity.Claim;
 import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.entity.Customer;
+import org.nikisurance.service.impl.*;
 import org.nikisurance.service.interfaces.*;
 
 import java.io.IOException;
@@ -35,24 +36,21 @@ public class SystemAdminController implements Initializable {
 
     private final Logger logger = Logger.getLogger(SystemAdminController.class.getName());
 
-    private ClaimService claimService;
-    private CustomerService customerService;
-    private DependentService dependentService;
-    private PolicyHolderService policyHolderService;
-    private ProviderService providerService;
-    private PolicyOwnerService policyOwnerService;
+    private final ClaimService claimService;
+    private final CustomerService customerService;
+    private final DependentService dependentService;
+    private final PolicyHolderService policyHolderService;
+    private final ProviderService providerService;
+    private final PolicyOwnerService policyOwnerService;
 
-    public SystemAdminController() {}
-
-    public void setServices(ClaimService claimService, CustomerService customerService, DependentService dependentService, PolicyHolderService policyHolderService, ProviderService providerService, PolicyOwnerService policyOwnerService) {
-        this.claimService = claimService;
-        this.customerService = customerService;
-        this.dependentService = dependentService;
-        this.policyHolderService = policyHolderService;
-        this.providerService = providerService;
-        this.policyOwnerService = policyOwnerService;
+    public SystemAdminController() {
+        claimService = new ClaimServiceImpl();
+        customerService = new CustomerServiceImpl();
+        dependentService = new DependentServiceImpl();
+        policyHolderService = new PolicyHolderServiceImpl();
+        providerService = new ProviderServiceImpl();
+        policyOwnerService = new PolicyOwnerServiceImpl();
     }
-
     @FXML
     private TextField entityIdField;
 
@@ -170,10 +168,6 @@ public class SystemAdminController implements Initializable {
     private double x = 0, y = 0;
 
     private Stage stage;
-
-    public SystemAdminController(ClaimService claimService) {
-        this.claimService = claimService;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

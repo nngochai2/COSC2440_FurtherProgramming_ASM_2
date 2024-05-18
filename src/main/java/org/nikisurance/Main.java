@@ -8,7 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.nikisurance.controller.LoginController;
-import org.nikisurance.controller.SystemAdminController;
+import org.nikisurance.service.impl.ClaimServiceImpl;
+import org.nikisurance.service.interfaces.ClaimService;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -42,8 +43,6 @@ public class Main extends Application {
 //                windowEvent.consume();
 //                logout(stage);
             });
-
-            SystemAdminController controller = loader.getController();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Exception occurred while loading FXML file", e);
         }

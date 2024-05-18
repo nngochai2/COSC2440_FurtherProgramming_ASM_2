@@ -1,5 +1,6 @@
 package org.nikisurance.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.nikisurance.entity.Dependent;
 import org.nikisurance.service.interfaces.DependentService;
 
@@ -10,37 +11,33 @@ public class DependentServiceImpl extends EntityRepository implements DependentS
 
     @Override
     public void addDependent(Dependent dependent) {
-        em.getTransaction().begin();
-        em.persist(dependent);
-        em.getTransaction().commit();
+        performOperation(em -> em.persist(dependent));
     }
 
     @Override
     public Dependent getDependent(Long id) {
-        return em.find(Dependent.class, id);
+        return performReturningOperation(em -> em.find(Dependent.class, id));
     }
 
     @Override
     public List<Dependent> getAllDependents() {
-        TypedQuery<Dependent> query = em.createQuery("from Dependent", Dependent.class);
-        return query.getResultList();
+        return performReturningOperation(em -> em.createQuery("from Dependent", Dependent.class).getResultList());
     }
 
     @Override
     public void deleteDependent(Long id) {
-        Dependent dependent = getDependent(id);
-        if (dependent != null) {
-            em.getTransaction().begin();
-            em.remove(dependent);
-            em.getTransaction().commit();
-        }
+        performOperation(em -> {
+            Dependent dependent = em.find(Dependent.class, id);
+            if (dependent != null) {
+                em.remove(dependent);
+            } else {
+                throw new EntityNotFoundException("Dependent with id " + id + " not found");
+            }
+        });
     }
 
     @Override
-    public Dependent updateDependent(Dependent dependent) {
-        em.getTransaction().begin();
-        Dependent updatedDependent = em.merge(dependent);
-        em.getTransaction().commit();
-        return updatedDependent;
+    public void updateDependent(Dependent dependent) {
+        performOperation(em -> em.merge(dependent));
     }
 }

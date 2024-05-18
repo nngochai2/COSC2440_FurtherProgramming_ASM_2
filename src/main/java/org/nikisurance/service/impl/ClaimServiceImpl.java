@@ -10,39 +10,36 @@ public class ClaimServiceImpl extends EntityRepository implements ClaimService {
 
     @Override
     public void addClaim(Claim claim) {
-        em.getTransaction().begin();
-        em.persist(claim);
-        em.getTransaction().commit();
+        performOperation(em -> em.persist(claim));
     }
 
     @Override
     public Claim getClaim(String id) {
-        return em.find(Claim.class, id);
+        return performReturningOperation(em -> em.find(Claim.class, id));
     }
 
     @Override
     public List<Claim> getAllClaims() {
-        return em.createQuery("from Claim ", Claim.class).getResultList();
+        return performReturningOperation(em -> em.createQuery("from Claim", Claim.class).getResultList());
     }
 
     @Override
     public void deleteClaim(Claim claim) {
-        em.getTransaction().begin();
-        em.remove(claim);
-        em.getTransaction().commit();
+        performOperation(em -> {
+            Claim managedClaim = em.merge(claim);
+            em.remove(managedClaim);
+        });
     }
 
     @Override
     public void updateClaim(Claim claim) {
-        em.getTransaction().begin();
-        em.merge(claim);
-        em.getTransaction().commit();
+        performOperation(em -> em.merge(claim));
     }
 
     @Override
     public long getCountByStatus(ClaimStatus status) {
-        return em.createQuery("select count(c) from Claim c where c.status = :status", Long.class)
+        return performReturningOperation(em -> em.createQuery("select count(c) from Claim c where c.status = :status", Long.class)
                 .setParameter("status", status)
-                .getSingleResult();
+                .getSingleResult());
     }
 }
