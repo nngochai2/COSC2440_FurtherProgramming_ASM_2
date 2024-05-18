@@ -28,6 +28,7 @@ import javafx.stage.StageStyle;
 import org.nikisurance.entity.Claim;
 import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.entity.Customer;
+import org.nikisurance.entity.Provider;
 import org.nikisurance.service.impl.*;
 import org.nikisurance.service.interfaces.*;
 
@@ -148,7 +149,7 @@ public class SystemAdminController implements Initializable {
     private TableView<Customer> customerTableView;
 
     @FXML
-    private TableColumn<Customer, String> customerIdColumn;
+    private TableColumn<Customer, Long> customerIdColumn;
 
     @FXML
     private TableColumn<Customer, String> customerNameColumn;
@@ -161,6 +162,24 @@ public class SystemAdminController implements Initializable {
 
     @FXML
     private TableColumn<Customer, String> customerRoleColumn;
+
+    @FXML
+    private TableView<Provider> providerTableView;
+
+    @FXML
+    private TableColumn<Provider, Long> providerIdColumn;
+
+    @FXML
+    private TableColumn<Provider, String> providerNameColumn;
+
+    @FXML
+    private TableColumn<Provider, String> providerUsernameColumn;
+
+    @FXML
+    private TableColumn<Provider, String> providerPasswordColumn;
+
+    @FXML
+    private TableColumn<Provider, String> providerRoleColumn;
 
     private double x = 0, y = 0;
 
@@ -177,7 +196,6 @@ public class SystemAdminController implements Initializable {
             stage = (Stage) sideBar.getScene().getWindow();
 //            stage.initStyle(StageStyle.TRANSPARENT);
             loadDashboard();
-
         });
         sideBar.setOnMousePressed(mouseEvent -> {
             x = mouseEvent.getSceneX();
@@ -187,11 +205,13 @@ public class SystemAdminController implements Initializable {
             stage.setX(mouseEvent.getScreenX() - x);
             stage.setY(mouseEvent.getScreenY() - y);
         });
+
     }
 
     private void populateTables() {
         claimTableView.setItems(FXCollections.observableList(claimService.getAllClaims()));
-
+        customerTableView.setItems(FXCollections.observableList(customerService.getAllCustomers()));
+        providerTableView.setItems(FXCollections.observableList(providerService.getAllProviders()));
     }
 
     private void initializeColumns() {
@@ -203,6 +223,20 @@ public class SystemAdminController implements Initializable {
         insuredPersonIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBeneficiaryId()));
         surveyorIdColumn.setCellValueFactory(cellDate -> new SimpleObjectProperty<>(cellDate.getValue().getBeneficiaryId()));
         claimStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().name()));
+
+        // Initialize columns for customers
+        customerIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
+        customerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
+        customerUsernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
+        customerPasswordColumn.setCellValueFactory(cellDate -> new SimpleStringProperty(cellDate.getValue().getPassword()));
+        customerRoleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomerType()));
+
+        // Initialize columns for providers
+        providerIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
+        providerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
+        providerUsernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
+        providerPasswordColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
+        providerRoleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRole())));
 
         populateTables();
     }

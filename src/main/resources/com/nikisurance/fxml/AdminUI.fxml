@@ -66,13 +66,13 @@
                   </Pane>
                   <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0">
                      <content>
-                        <TableView fx:id="usersTable" prefHeight="491.0" prefWidth="501.0">
+                        <TableView fx:id="customerTableView" prefHeight="491.0" prefWidth="501.0">
                            <columns>
                               <TableColumn fx:id="customerIdColumn" prefWidth="100.0" text="Customer ID" />
-                              <TableColumn fx:id="firstNameColumn" prefWidth="100.0" text="First Name" />
-                              <TableColumn fx:id="lastNameColumn" prefWidth="100.0" text="Last Name" />
-                              <TableColumn fx:id="customerTypeColumn" prefWidth="100.0" text="Customer Type" />
-                              <TableColumn fx:id="customerTypeColumn1" prefWidth="100.0" text="No. Claims" />
+                              <TableColumn fx:id="customerNameColumn" prefWidth="100.0" text="Full Name" />
+                              <TableColumn fx:id="customerUsernameColumn" prefWidth="100.0" text="Username" />
+                              <TableColumn fx:id="customerPasswordColumn" prefWidth="100.0" text="Customer Type" />
+                              <TableColumn fx:id="customerRoleColumn" prefWidth="100.0" text="Customer Type" />
                            </columns>
                         </TableView>
                      </content>
@@ -194,11 +194,13 @@
                   </JFXButton>
                   <ScrollPane layoutX="81.0" layoutY="81.0">
                      <content>
-                        <TableView fx:id="providersTable" prefHeight="491.0" prefWidth="602.0">
+                        <TableView fx:id="providerTableView" prefHeight="491.0" prefWidth="602.0">
                            <columns>
                               <TableColumn fx:id="providerIdColumn" prefWidth="100.0" text="Provider ID" />
                               <TableColumn fx:id="providerNameColumn" prefWidth="100.0" text="Provider Name" />
-                              <TableColumn fx:id="providerTypeColumn" prefWidth="100.0" text="Provider Type" />
+                              <TableColumn fx:id="providerUsernameColumn" prefWidth="100.0" text="Provider Type" />
+                              <TableColumn fx:id="providerPasswordColumn" prefWidth="100.0" text="Provider Type" />
+                              <TableColumn fx:id="providerRoleColumn" prefWidth="100.0" text="Provider Type" />
                            </columns>
                         </TableView>
                      </content>
