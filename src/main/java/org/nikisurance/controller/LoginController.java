@@ -51,8 +51,12 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         em = Persistence.createEntityManagerFactory("my-persistence-unit").createEntityManager();
         Platform.runLater(() -> {
-            stage = (Stage) sideBar.getScene().getWindow();
-            stage.initStyle(StageStyle.TRANSPARENT);
+            if (sideBar.getScene() != null && sideBar.getScene().getWindow() != null) {
+                stage = (Stage) sideBar.getScene().getWindow();
+                // You can now safely use the stage
+            } else {
+                System.out.println("Scene or window is not yet initialized.");
+            }
         });
         sideBar.setOnMousePressed(mouseEvent -> {
            x = mouseEvent.getSceneX();

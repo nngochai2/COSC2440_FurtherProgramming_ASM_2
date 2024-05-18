@@ -26,113 +26,6 @@
    <children>
       <AnchorPane layoutX="161.0" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25;">
          <children>
-            <Pane fx:id="pnDashboard" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
-               <children>
-                  <Pane layoutX="87.0" layoutY="79.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25;">
-                     <children>
-                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="14.0" layoutY="71.0" prefHeight="29.0" prefWidth="151.0" text="Total Amount From Claims" textFill="WHITE">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                        <FontIcon iconColor="WHITE" iconLiteral="ci-currency-dollar" iconSize="40" layoutX="152.0" layoutY="126.0" />
-                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="52,000" textFill="WHITE">
-                           <font>
-                              <Font size="47.0" />
-                           </font>
-                        </Label>
-                     </children></Pane>
-                  <Pane layoutX="314.0" layoutY="81.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
-                     <children>
-                        <FontIcon iconColor="#2a363f" iconLiteral="ci-user-avatar" iconSize="40" layoutX="150.0" layoutY="123.0" />
-                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="14.0" layoutY="71.0" prefHeight="29.0" prefWidth="151.0" text="Total Number of Users" textFill="#2a363f">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="325" textFill="#2a363f">
-                           <font>
-                              <Font size="47.0" />
-                           </font>
-                        </Label>
-                     </children></Pane>
-                  <Pane layoutX="544.0" layoutY="80.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #e0f0e3; -fx-background-radius: 25;">
-                     <children>
-                        <FontIcon iconColor="#2a363f" iconLiteral="ci-document-tasks" iconSize="40" layoutX="148.0" layoutY="125.0" />
-                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="14.0" layoutY="71.0" prefHeight="29.0" prefWidth="151.0" text="Claim Success Rate" textFill="#2a363f">
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="97.5%" textFill="#2a363f">
-                           <font>
-                              <Font size="47.0" />
-                           </font>
-                        </Label>
-                     </children></Pane>
-                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Welcome to the Dashboard,  Admin" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
-                           </graphic>
-                        </Label>
-                     </children></Pane>
-                  <Line endX="81.82463836669922" layoutX="287.0" layoutY="150.0" rotate="90.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
-                  <Pane layoutX="83.0" layoutY="241.0" prefHeight="37.0" prefWidth="429.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
-                     <children>
-                        <Label alignment="BASELINE_LEFT" layoutX="18.0" layoutY="5.0" prefHeight="29.0" prefWidth="395.0" text="Last Registered Claim:  p-12312038 (Dat Quoc)" textFill="#2a363f">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="#2a363f" iconLiteral="ci-notification-new" iconSize="18" text=" " />
-                           </graphic>
-                        </Label>
-                     </children></Pane>
-                  <Pane layoutX="543.0" layoutY="241.0" prefHeight="37.0" prefWidth="202.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
-                     <children>
-                        <JFXButton fx:id="btnHistory" prefHeight="38.0" prefWidth="201.0" style="-fx-background-radius: 30;" textFill="#2a363f">
-                           <graphic>
-                              <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="29.0" prefWidth="174.0" text="View Action History  " textFill="#2a363f">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                                 <graphic>
-                                    <FontIcon iconColor="#2a363f" iconLiteral="ci-view-next" iconSize="18" />
-                                 </graphic>
-                              </Label>
-                           </graphic>
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                  </Pane>
-                  <Line endX="597.31005859375" layoutX="142.0" layoutY="300.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
-                  <Line endX="81.82463836669922" layoutX="517.0" layoutY="150.0" rotate="90.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
-                  <Pane layoutX="84.0" layoutY="316.0" prefHeight="264.0" prefWidth="429.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
-                     <children>
-                        <BarChart fx:id="claimsBarChart" layoutX="-2.0" layoutY="16.0" prefHeight="258.0" prefWidth="420.0">
-                           <xAxis>
-                              <CategoryAxis label="Status" />
-                           </xAxis>
-                           <yAxis>
-                              <NumberAxis label="Number of Claims" />
-                           </yAxis>
-                        </BarChart>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="546.0" layoutY="316.0" prefHeight="263.0" prefWidth="202.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
-                     <children>
-                        <PieChart layoutX="-1.0" layoutY="-2.0" prefHeight="270.0" prefWidth="202.0" />
-                     </children>
-                  </Pane>
-                  <Line endX="81.82463836669922" layoutX="578.0" layoutY="449.0" rotate="90.0" startX="-180.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
-               </children></Pane>
             <Pane fx:id="pnSettings" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
@@ -156,6 +49,7 @@
                      </graphic>
                   </Label>
                </children></Pane>
+            <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
             <Pane fx:id="pnUsers" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
@@ -338,7 +232,7 @@
                         <Font size="1.0" />
                      </font>
                   </JFXButton>
-                  <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0" style="-fx-background-radius: 25;" vbarPolicy="ALWAYS">
+                  <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0" vbarPolicy="ALWAYS">
                      <content>
                         <TableView fx:id="claimTableView" prefHeight="491.0" prefWidth="590.0">
                            <columns>
@@ -394,7 +288,113 @@
                   </JFXButton>
                </children>
             </Pane>
-            <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
+            <Pane fx:id="pnDashboard" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+               <children>
+                  <Pane layoutX="87.0" layoutY="79.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25;">
+                     <children>
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="14.0" layoutY="71.0" prefHeight="29.0" prefWidth="151.0" text="Total Amount From Claims" textFill="WHITE">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <FontIcon iconColor="WHITE" iconLiteral="ci-currency-dollar" iconSize="40" layoutX="152.0" layoutY="126.0" />
+                        <Label fx:id="totalClaimsValue" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="52,000" textFill="WHITE">
+                           <font>
+                              <Font size="47.0" />
+                           </font>
+                        </Label>
+                     </children></Pane>
+                  <Pane layoutX="314.0" layoutY="81.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
+                     <children>
+                        <FontIcon iconColor="#2a363f" iconLiteral="ci-user-avatar" iconSize="40" layoutX="150.0" layoutY="123.0" />
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="14.0" layoutY="71.0" prefHeight="29.0" prefWidth="151.0" text="Total Number of Users" textFill="#2a363f">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="totalCustomersValue" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="325" textFill="#2a363f">
+                           <font>
+                              <Font size="47.0" />
+                           </font>
+                        </Label>
+                     </children></Pane>
+                  <Pane layoutX="544.0" layoutY="80.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #e0f0e3; -fx-background-radius: 25;">
+                     <children>
+                        <FontIcon iconColor="#2a363f" iconLiteral="ci-document-tasks" iconSize="40" layoutX="148.0" layoutY="125.0" />
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="14.0" layoutY="71.0" prefHeight="29.0" prefWidth="151.0" text="Claim Success Rate" textFill="#2a363f">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="averageSuccessfulClaims" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="97.5%" textFill="#2a363f">
+                           <font>
+                              <Font size="47.0" />
+                           </font>
+                        </Label>
+                     </children></Pane>
+                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Welcome to the Dashboard,  Admin" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                           </graphic>
+                        </Label>
+                     </children></Pane>
+                  <Line endX="81.82463836669922" layoutX="287.0" layoutY="150.0" rotate="90.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
+                  <Pane layoutX="83.0" layoutY="241.0" prefHeight="37.0" prefWidth="429.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
+                     <children>
+                        <Label alignment="BASELINE_LEFT" layoutX="18.0" layoutY="5.0" prefHeight="29.0" prefWidth="395.0" text="Last Registered Claim:  p-12312038 (Dat Quoc)" textFill="#2a363f">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="#2a363f" iconLiteral="ci-notification-new" iconSize="18" text=" " />
+                           </graphic>
+                        </Label>
+                     </children></Pane>
+                  <Pane layoutX="543.0" layoutY="241.0" prefHeight="37.0" prefWidth="202.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
+                     <children>
+                        <JFXButton fx:id="btnHistory" prefHeight="38.0" prefWidth="201.0" style="-fx-background-radius: 30;" textFill="#2a363f">
+                           <graphic>
+                              <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="29.0" prefWidth="174.0" text="View Action History  " textFill="#2a363f">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontIcon iconColor="#2a363f" iconLiteral="ci-view-next" iconSize="18" />
+                                 </graphic>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </Pane>
+                  <Line endX="597.31005859375" layoutX="142.0" layoutY="300.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
+                  <Line endX="81.82463836669922" layoutX="517.0" layoutY="150.0" rotate="90.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
+                  <Pane layoutX="84.0" layoutY="316.0" prefHeight="264.0" prefWidth="429.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
+                     <children>
+                        <BarChart fx:id="claimsBarChart" layoutX="-2.0" layoutY="16.0" prefHeight="258.0" prefWidth="420.0">
+                           <xAxis>
+                              <CategoryAxis label="Status" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Number of Claims" />
+                           </yAxis>
+                        </BarChart>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="546.0" layoutY="316.0" prefHeight="263.0" prefWidth="202.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
+                     <children>
+                        <PieChart fx:id="customerPieChart" layoutX="-1.0" layoutY="-2.0" prefHeight="270.0" prefWidth="202.0" />
+                     </children>
+                  </Pane>
+                  <Line endX="81.82463836669922" layoutX="578.0" layoutY="449.0" rotate="90.0" startX="-180.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
+               </children></Pane>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="-1.0" style="-fx-background-radius: 25;">

@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@DiscriminatorValue("CUSTOMER")
+//@DiscriminatorValue("CUSTOMER")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "customer_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "customer")

@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue("BENEFICIARY")
+//@DiscriminatorValue("BENEFICIARY")
 @DiscriminatorColumn(name = "beneficiary_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "beneficiary")
 public class Beneficiary extends Customer implements Serializable {

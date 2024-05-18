@@ -56,6 +56,7 @@ public class SystemAdminController implements Initializable {
         providerService = new ProviderServiceImpl();
         policyOwnerService = new PolicyOwnerServiceImpl();
     }
+
     @FXML
     private TextField entityIdField;
 
@@ -111,22 +112,13 @@ public class SystemAdminController implements Initializable {
     private PieChart customerPieChart;
 
     @FXML
-    private Label totalCustomerLabel;
-
-    @FXML
-    private Label totalClaimsLabel;
-
-    @FXML
-    private Label totalProvidersLabel;
-
-    @FXML
     private Label totalCustomersValue;
 
     @FXML
     private Label totalClaimsValue;
 
     @FXML
-    private Label totalProvidersValue;
+    private Label averageSuccessfulClaims;
 
     @FXML
     private TableView<Claim> claimTableView;
@@ -177,10 +169,13 @@ public class SystemAdminController implements Initializable {
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         // Any initialization code
         Platform.runLater(() -> {
             stage = (Stage) sideBar.getScene().getWindow();
 //            stage.initStyle(StageStyle.TRANSPARENT);
+            loadDashboard();
+
         });
         sideBar.setOnMousePressed(mouseEvent -> {
             x = mouseEvent.getSceneX();
@@ -192,6 +187,7 @@ public class SystemAdminController implements Initializable {
         });
 
         initializeColumns();
+
     }
 
     private void populateTables() {
@@ -212,33 +208,24 @@ public class SystemAdminController implements Initializable {
         populateTables();
     }
 
-//    private void initializeColumns() {
-//        claimIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        claimAmountColumn.setCellValueFactory(new PropertyValueFactory<>("claim_amount"));
-//        claimDateColumn.setCellValueFactory(new PropertyValueFactory<>("claim_date"));
-//        insuredPersonNameColumn.setCellValueFactory(new PropertyValueFactory<>("insured_person"));
-//        insuredPersonIdColumn.setCellValueFactory(new PropertyValueFactory<>("beneficiary_id"));
-//        surveyorNameColumn.setCellValueFactory(new PropertyValueFactory<>("surveyor_name"));
-//        claimStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-//
-//        populateTables();
-//    }
-
-
-
     // Method to load the dashboard for admin
     private void loadDashboard() {
-//        // Load total number of customers
-//        int totalCustomers = customerService.getAllCustomers().size();
-//        totalCustomersValue.setText(String.valueOf(totalCustomers));
-//
-//        // Load total number of claims
-//        int totalClaims = claimService.getAllClaims().size();
-//        totalClaimsValue.setText(String.valueOf(totalClaims));
-//
-//        // Load total number of providers
-//        int totalProviders = providerService.getAllProviders().size();
-//        totalProvidersValue.setText(String.valueOf(totalProviders));
+        // Load total number of customers
+        int totalCustomers = customerService.getAllCustomers().size();
+        totalCustomersValue.setText(String.valueOf(totalCustomers));
+
+        // Load total number of claims
+        int totalClaims = claimService.getAllClaims().size();
+        totalClaimsValue.setText(String.valueOf(totalClaims));
+
+        // Calculate percentage of approved claims
+        long approveClaimsCount = claimService.getCountByStatus(ClaimStatus.APPROVED);
+        double approvedClaimsPercentage = 0;
+        if (totalClaims > 0) {
+            approvedClaimsPercentage = (double) approveClaimsCount / totalClaims * 100;
+        }
+
+        averageSuccessfulClaims.setText(String.format("%.2f%%", approvedClaimsPercentage));
 
         // Load the bar chart for claims
         this.loadClaimsSummaryData();
