@@ -31,6 +31,7 @@ import org.nikisurance.service.interfaces.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -113,7 +114,7 @@ public class SystemAdminController implements Initializable {
     private Label totalCustomersValue;
 
     @FXML
-    private Label totalClaimsValue;
+    private Label totalClaimsAmountValue;
 
     @FXML
     private Label averageSuccessfulClaims;
@@ -266,10 +267,18 @@ public class SystemAdminController implements Initializable {
         totalCustomersValue.setText(String.valueOf(totalCustomers));
 
         // Load total number of claims
-        int totalClaims = claimService.getAllClaims().size();
-        totalClaimsValue.setText(String.valueOf(totalClaims));
+        List<Claim> allClaims = claimService.getAllClaims();
+        double totalApprovedClaimsAmount = 0;
+        for (Claim claim : allClaims) {
+            if (claim.getStatus() == ClaimStatus.APPROVED) {
+                totalApprovedClaimsAmount += claim.getClaimAmount();
+            }
+        }
+
+        totalClaimsAmountValue.setText(String.format("%.2f", totalApprovedClaimsAmount));
 
         // Calculate percentage of approved claims
+        int totalClaims = claimService.getAllClaims().size();
         long approveClaimsCount = claimService.getCountByStatus(ClaimStatus.APPROVED);
         double approvedClaimsPercentage = 0;
         if (totalClaims > 0) {
@@ -383,6 +392,10 @@ public class SystemAdminController implements Initializable {
         }
     }
 
+    private void refreshCustomerTable() {
+        customerTableView.setItems(FXCollections.observableArrayList(customerService.getAllCustomers()));
+    }
+
     @FXML
     private void addPolicyHolder() {
         try {
@@ -393,9 +406,29 @@ public class SystemAdminController implements Initializable {
             policyHolder.setEmail(policyHolderEmailField.getText());
             policyHolder.setPhoneNumber(Long.valueOf(policyHolderPhoneNumberField.getText()));
             policyHolder.setAddress(policyHolderAddressField.getText());
-            this.
+            this.showAlert(AlertType.INFORMATION, "Policy Added Successfully", "Policy has been added successfully.");
+            this.refreshCustomerTable();
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Error", "Failed to add policy holder: " + e.getMessage());
         }
     }
+
+    @FXML
+    private void updatePolicyHolder() {
+        try {
+            Long id = Long.parseLong(policyHolderIdField.getText());
+            PolicyHolder policyHolder = policyHolderService.getPolicyHolder(id);
+            if (policyHolder != null) {
+                policyHolder.setFullName(policyHolderNameField.getText());
+                policyHolder.setUsername(policyHolderUsernameField.getText());
+                policyHolder.setPassword(policyHolderPasswordField.getText());
+                policyHolder.setEmail(policyHolderEmailField.getText());
+            }
+        } catch (Exception e) {
+            showAlert(AlertType.ERROR, "Error", "Failed to update policy holder: " + e.getMessage());
+        }
+    }
+
+
+
 }

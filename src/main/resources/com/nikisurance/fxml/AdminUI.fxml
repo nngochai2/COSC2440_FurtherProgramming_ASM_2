@@ -208,7 +208,7 @@
                            </font>
                         </Label>
                         <FontIcon iconColor="WHITE" iconLiteral="ci-currency-dollar" iconSize="40" layoutX="152.0" layoutY="126.0" />
-                        <Label fx:id="totalClaimsValue" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="52,000" textFill="WHITE">
+                        <Label fx:id="totalClaimsAmountValue" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="52,000" textFill="WHITE">
                            <font>
                               <Font size="47.0" />
                            </font>
