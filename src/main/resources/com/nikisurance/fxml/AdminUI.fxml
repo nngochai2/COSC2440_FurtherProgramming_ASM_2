@@ -7,6 +7,7 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -25,88 +26,6 @@
    <children>
       <AnchorPane layoutX="161.0" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25;">
          <children>
-            <Pane fx:id="pnClaims" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
-               <children>
-                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <graphic>
-                        <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
-                           <iconColor>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop>
-                                       <color>
-                                          <Color />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="1.0">
-                                       <color>
-                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                       </color>
-                                    </Stop>
-                                 </stops>
-                              </LinearGradient>
-                           </iconColor>
-                        </FontIcon>
-                     </graphic>
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <TableView fx:id="claimsTable" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="602.0">
-                     <columns>
-                        <TableColumn fx:id="claimIdColumn" prefWidth="100.0" text="Claim ID" />
-                        <TableColumn fx:id="examDateColumn" prefWidth="100.0" text="Exam Date" />
-                        <TableColumn fx:id="claimDateColumn" prefWidth="100.0" text="Claim Date" />
-                        <TableColumn fx:id="beneficiaryIdColumn" prefWidth="100.0" text="Beneficiary ID" />
-                        <TableColumn fx:id="insuredPersonColumn" prefWidth="100.0" text="Insured Person" />
-                        <TableColumn fx:id="cardNumberColumn" prefWidth="100.0" text="Card Number" />
-                        <TableColumn fx:id="claimAmountColumn" prefWidth="100.0" text="Claim Amount" />
-                        <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
-                        <TableColumn fx:id="receiverBankingInfoColumn" prefWidth="100.0" text="Receiver Banking Info" />
-                        <TableColumn fx:id="surveyorIdColumn" prefWidth="100.0" text="Surveyor ID" />
-                        <TableColumn fx:id="documentNameColumn" prefWidth="100.0" text="Document Name" />
-                        <TableColumn fx:id="documentPathColumn" prefWidth="100.0" text="Document Path" />
-                     </columns>
-                  </TableView>
-                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Claim Management " textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <graphic>
-                        <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
-                           <iconColor>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop>
-                                       <color>
-                                          <Color />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="1.0">
-                                       <color>
-                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                       </color>
-                                    </Stop>
-                                 </stops>
-                              </LinearGradient>
-                           </iconColor>
-                        </FontIcon>
-                     </graphic>
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </Pane>
             <Pane fx:id="pnDashboard" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="87.0" layoutY="79.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25;">
@@ -214,6 +133,30 @@
                   </Pane>
                   <Line endX="81.82463836669922" layoutX="578.0" layoutY="449.0" rotate="90.0" startX="-180.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
                </children></Pane>
+            <Pane fx:id="pnSettings" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+               <children>
+                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Settings" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="101.0" layoutY="272.0" prefHeight="29.0" prefWidth="627.0" text="Settings are not available " textFill="#2a363f">
+                     <font>
+                        <Font size="38.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="#2a363f" iconLiteral="ci-face-dissatisfied" iconSize="45" text="" />
+                     </graphic>
+                  </Label>
+               </children></Pane>
+            <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
             <Pane fx:id="pnUsers" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
@@ -228,15 +171,19 @@
                         </Label>
                      </children>
                   </Pane>
-                  <TableView fx:id="usersTable" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="501.0">
-                     <columns>
-                        <TableColumn fx:id="customerIdColumn" prefWidth="100.0" text="Customer ID" />
-                        <TableColumn fx:id="firstNameColumn" prefWidth="100.0" text="First Name" />
-                        <TableColumn fx:id="lastNameColumn" prefWidth="100.0" text="Last Name" />
-                        <TableColumn fx:id="customerTypeColumn" prefWidth="100.0" text="Customer Type" />
-                        <TableColumn fx:id="customerTypeColumn1" prefWidth="100.0" text="No. Claims" />
-                     </columns>
-                  </TableView>
+                  <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0">
+                     <content>
+                        <TableView fx:id="usersTable" prefHeight="491.0" prefWidth="501.0">
+                           <columns>
+                              <TableColumn fx:id="customerIdColumn" prefWidth="100.0" text="Customer ID" />
+                              <TableColumn fx:id="firstNameColumn" prefWidth="100.0" text="First Name" />
+                              <TableColumn fx:id="lastNameColumn" prefWidth="100.0" text="Last Name" />
+                              <TableColumn fx:id="customerTypeColumn" prefWidth="100.0" text="Customer Type" />
+                              <TableColumn fx:id="customerTypeColumn1" prefWidth="100.0" text="No. Claims" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
                   <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
                      <graphic>
                         <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
@@ -352,20 +299,69 @@
                         <Font size="1.0" />
                      </font>
                   </JFXButton>
-                  <TableView fx:id="providersTable" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="602.0">
-                     <columns>
-                        <TableColumn fx:id="providerIdColumn" prefWidth="100.0" text="Provider ID" />
-                        <TableColumn fx:id="providerNameColumn" prefWidth="100.0" text="Provider Name" />
-                        <TableColumn fx:id="providerTypeColumn" prefWidth="100.0" text="Provider Type" />
-                     </columns>
-                  </TableView>
+                  <ScrollPane layoutX="81.0" layoutY="81.0">
+                     <content>
+                        <TableView fx:id="providersTable" prefHeight="491.0" prefWidth="602.0">
+                           <columns>
+                              <TableColumn fx:id="providerIdColumn" prefWidth="100.0" text="Provider ID" />
+                              <TableColumn fx:id="providerNameColumn" prefWidth="100.0" text="Provider Name" />
+                              <TableColumn fx:id="providerTypeColumn" prefWidth="100.0" text="Provider Type" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
                </children>
             </Pane>
-            <Pane fx:id="pnSettings" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+            <Pane fx:id="pnClaims" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
+                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0" vbarPolicy="ALWAYS">
+                     <content>
+                        <TableView fx:id="claimsTable" prefHeight="491.0" prefWidth="590.0">
+                           <columns>
+                              <TableColumn fx:id="claimIdColumn" prefWidth="100.0" text="Claim ID" />
+                              <TableColumn fx:id="examDateColumn" prefWidth="100.0" text="Exam Date" />
+                              <TableColumn fx:id="claimDateColumn" prefWidth="100.0" text="Claim Date" />
+                              <TableColumn fx:id="beneficiaryIdColumn" prefWidth="100.0" text="Beneficiary ID" />
+                              <TableColumn fx:id="insuredPersonColumn" prefWidth="100.0" text="Insured Person" />
+                              <TableColumn fx:id="cardNumberColumn" prefWidth="100.0" text="Card Number" />
+                              <TableColumn fx:id="claimAmountColumn" prefWidth="100.0" text="Claim Amount" />
+                              <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
+                              <TableColumn fx:id="receiverBankingInfoColumn" prefWidth="100.0" text="Receiver Banking Info" />
+                              <TableColumn fx:id="surveyorIdColumn" prefWidth="100.0" text="Surveyor ID" />
+                              <TableColumn fx:id="documentNameColumn" prefWidth="100.0" text="Document Name" />
+                              <TableColumn fx:id="documentPathColumn" prefWidth="100.0" text="Document Path" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
                   <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Settings" textFill="WHITE">
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Claim Management " textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -375,16 +371,33 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="101.0" layoutY="272.0" prefHeight="29.0" prefWidth="627.0" text="Settings are not available " textFill="#2a363f">
-                     <font>
-                        <Font size="38.0" />
-                     </font>
+                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
                      <graphic>
-                        <FontIcon iconColor="#2a363f" iconLiteral="ci-face-dissatisfied" iconSize="45" text="" />
+                        <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
                      </graphic>
-                  </Label>
-               </children></Pane>
-            <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="-1.0" style="-fx-background-radius: 25;">
@@ -393,9 +406,9 @@
                <children>
                   <Pane prefHeight="140.0" prefWidth="242.0">
                      <children>
-                        <Text fill="WHITE" layoutX="47.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance" wrappingWidth="152.9047393798828">
+                        <Text fill="WHITE" layoutX="48.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance" wrappingWidth="174.37348423344974">
                            <font>
-                              <Font name="Apple LiGothic Medium" size="35.0" />
+                              <Font name="System Bold Italic" size="30.0" />
                            </font>
                         </Text>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="76.0" layoutX="22.0" layoutY="32.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="76.0" />

@@ -10,7 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.nikisurance.entity.*;
 import org.w3c.dom.events.MouseEvent;
 
@@ -142,6 +144,8 @@ public class LoginController implements Initializable {
 
         scene = new Scene(root);
         stage.setScene(scene);
+        scene.setFill(Color.TRANSPARENT);
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
     }
 
