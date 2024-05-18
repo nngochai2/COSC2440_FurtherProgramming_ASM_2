@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.nikisurance.entity.*;
+import org.nikisurance.service.impl.EMFactory;
 import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
@@ -49,7 +50,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        em = Persistence.createEntityManagerFactory("my-persistence-unit").createEntityManager();
         Platform.runLater(() -> {
             if (sideBar.getScene() != null && sideBar.getScene().getWindow() != null) {
                 stage = (Stage) sideBar.getScene().getWindow();
@@ -88,7 +88,9 @@ public class LoginController implements Initializable {
 
     @FXML
     public Person login(String username, String password){
+        EntityManager em = null;
         try {
+            em = EMFactory.getInstance().getEntityManager();
             String queryString = "SELECT p FROM Person p WHERE p.username = :username";
             TypedQuery<Person> query = em.createQuery(queryString, Person.class);
             query.setParameter("username", username);
