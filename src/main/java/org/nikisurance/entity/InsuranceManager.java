@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("INSURANCE_MANAGER")
+//@DiscriminatorValue("INSURANCE_MANAGER")
 @Table(name = "insurance_manager")
 public class InsuranceManager extends Provider implements Serializable {
     @OneToMany

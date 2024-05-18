@@ -10,5 +10,5 @@ public interface ProviderService {
     List<Provider> getAllProviders();
     void deleteProvider(Long id);
     int countInsuranceManagers();
-    int countInsuranceProvider();
+    int countInsuranceSurveyors();
 }

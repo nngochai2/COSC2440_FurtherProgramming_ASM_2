@@ -169,7 +169,9 @@ public class SystemAdminController implements Initializable {
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        initializeColumns();
 
+        // Use a background task for database operations
         // Any initialization code
         Platform.runLater(() -> {
             stage = (Stage) sideBar.getScene().getWindow();
@@ -185,9 +187,6 @@ public class SystemAdminController implements Initializable {
             stage.setX(mouseEvent.getScreenX() - x);
             stage.setY(mouseEvent.getScreenY() - y);
         });
-
-        initializeColumns();
-
     }
 
     private void populateTables() {
@@ -250,7 +249,7 @@ public class SystemAdminController implements Initializable {
         PieChart.Data slice2 = new PieChart.Data("Policy Holders", policyHolderService.getAllPolicyHolders().size());
         PieChart.Data slice3 = new PieChart.Data("Policy Owners", policyOwnerService.getAllPolicyOwners().size());
         PieChart.Data slice4 = new PieChart.Data("Insurance Managers", providerService.countInsuranceManagers());
-        PieChart.Data slice5 = new PieChart.Data("Insurance Surveyors", providerService.countInsuranceProvider());
+        PieChart.Data slice5 = new PieChart.Data("Insurance Surveyors", providerService.countInsuranceSurveyors());
         customerPieChart.getData().addAll(slice1, slice2, slice3, slice4, slice5);
     }
 

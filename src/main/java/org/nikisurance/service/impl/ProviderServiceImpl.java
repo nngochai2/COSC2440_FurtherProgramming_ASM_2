@@ -1,6 +1,7 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.Provider;
+import org.nikisurance.entity.ProviderRole;
 import org.nikisurance.service.interfaces.ProviderService;
 
 import java.util.List;
@@ -38,16 +39,16 @@ public class ProviderServiceImpl extends EntityRepository implements ProviderSer
     @Override
     public int countInsuranceManagers() {
         return performReturningOperation(em -> em.createQuery(
-                        "select count(p) from Provider p where p.role = :type", Long.class)
-                .setParameter("type", "InsuranceManager")
+                        "select count(p) from Provider p where p.role = :role", Long.class)
+                .setParameter("role", ProviderRole.INSURANCE_MANAGER)
                 .getSingleResult()).intValue();
     }
 
     @Override
-    public int countInsuranceProvider() {
+    public int countInsuranceSurveyors() {
         return performReturningOperation(em -> em.createQuery(
-                        "select count(p) from Provider p where p.role = :type", Long.class)
-                .setParameter("type", "InsuranceProvider")
+                        "select count(p) from Provider p where p.role = :role", Long.class)
+                .setParameter("role", ProviderRole.INSURANCE_SURVEYOR)
                 .getSingleResult()).intValue();
     }
 }

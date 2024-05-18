@@ -20,7 +20,7 @@ public class PolicyOwnerServiceImpl extends EntityRepository implements PolicyOw
 
     @Override
     public List<PolicyOwner> getAllPolicyOwners() {
-        return performReturningOperation(em -> em.createQuery("from PolicyOwner", PolicyOwner.class)).getResultList();
+        return performReturningOperation(em -> em.createQuery("from PolicyOwner", PolicyOwner.class).getResultList());
     }
 
     @Override
