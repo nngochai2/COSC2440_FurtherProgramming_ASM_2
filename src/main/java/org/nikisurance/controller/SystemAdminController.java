@@ -16,6 +16,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -142,7 +143,7 @@ public class SystemAdminController implements Initializable {
     private TableColumn<Claim, String> insuredPersonNameColumn;
 
     @FXML
-    private TableColumn<Claim, String> insuredPersonIdColumn;
+    private TableColumn<Claim, Long> insuredPersonIdColumn;
 
     @FXML
     private TableColumn<Claim, String> surveyorNameColumn;
@@ -199,12 +200,25 @@ public class SystemAdminController implements Initializable {
         claimAmountColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimAmount()));
         claimDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimDate()).asString());
         insuredPersonNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInsuredPerson()));
-        insuredPersonIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBeneficiaryId())));
-        surveyorNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSurveyorName()));
+        insuredPersonIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBeneficiaryId()));
         claimStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().name()));
 
         populateTables();
     }
+
+//    private void initializeColumns() {
+//        claimIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+//        claimAmountColumn.setCellValueFactory(new PropertyValueFactory<>("claim_amount"));
+//        claimDateColumn.setCellValueFactory(new PropertyValueFactory<>("claim_date"));
+//        insuredPersonNameColumn.setCellValueFactory(new PropertyValueFactory<>("insured_person"));
+//        insuredPersonIdColumn.setCellValueFactory(new PropertyValueFactory<>("beneficiary_id"));
+//        surveyorNameColumn.setCellValueFactory(new PropertyValueFactory<>("surveyor_name"));
+//        claimStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+//
+//        populateTables();
+//    }
+
+
 
     // Method to load the dashboard for admin
     private void loadDashboard() {

@@ -56,20 +56,11 @@ public class Claim implements Serializable {
 
     @Column(name = "receiver_bank_info", nullable = false)
     private String receiverBankingInfo;
-
-
-    @Column(name = "surveyor_name")
-    private String surveyorName;
-
     @Column(name = "document_name")
     private String documentName;
 
     @Column(name = "document_path")
     private String documentPath;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "surveyor_name", insertable = false, updatable = false)
-    private InsuranceSurveyor insuranceSurveyor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "beneficiary_id", insertable = false, updatable = false)
@@ -157,14 +148,6 @@ public class Claim implements Serializable {
         this.status = status;
     }
 
-    public InsuranceSurveyor getInsuranceSurveyor() {
-        return insuranceSurveyor;
-    }
-
-    public void setInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
-        this.insuranceSurveyor = insuranceSurveyor;
-    }
-
     public Beneficiary getBeneficiary() {
         return beneficiary;
     }
@@ -173,13 +156,6 @@ public class Claim implements Serializable {
         this.beneficiary = beneficiary;
     }
 
-    public String getSurveyorName() {
-        return surveyorName;
-    }
-
-    public void setSurveyorName(String surveyorName) {
-        this.surveyorName = surveyorName;
-    }
 
     public String getDocumentName() {
         return documentName;
