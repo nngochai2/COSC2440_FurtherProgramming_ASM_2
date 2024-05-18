@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.nikisurance.entity.*;
+import org.nikisurance.service.impl.ClaimServiceImpl;
 import org.nikisurance.service.interfaces.ClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,14 +32,12 @@ import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Controller
 public class ClaimController implements Initializable {
 
     private static final String UPLOAD_DIR = "C:/";
 
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    @Autowired
     private ClaimService claimService;
 
     @FXML
@@ -91,6 +90,10 @@ public class ClaimController implements Initializable {
     protected SortedList<Claim> sortedClaims;
 
     private Person currentUser;
+
+    public ClaimController() {
+        this.claimService = new ClaimServiceImpl();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

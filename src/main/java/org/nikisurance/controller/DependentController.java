@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.nikisurance.entity.Claim;
 import org.nikisurance.entity.Dependent;
+import org.nikisurance.service.impl.ClaimServiceImpl;
 import org.nikisurance.service.interfaces.ClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@Controller
 public class DependentController implements Initializable {
 
-    @Autowired
     private ClaimService claimService;
 
     @FXML
@@ -59,6 +58,10 @@ public class DependentController implements Initializable {
     private TableColumn<Claim, String> bankingInfoColumn;
 
     private ObservableList<Claim> claimsData;
+
+    public DependentController() {
+        this.claimService = new ClaimServiceImpl();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

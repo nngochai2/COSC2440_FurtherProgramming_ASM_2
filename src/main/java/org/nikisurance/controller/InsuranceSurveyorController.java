@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@Controller
 public class InsuranceSurveyorController implements Initializable {
 
     private final ClaimService claimService;
@@ -53,7 +52,6 @@ public class InsuranceSurveyorController implements Initializable {
 
     private ObservableList<Claim> claimsData;
 
-    @Autowired
     public InsuranceSurveyorController(ClaimService claimService) {
         this.claimService = claimService;
     }

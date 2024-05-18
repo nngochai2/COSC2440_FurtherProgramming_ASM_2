@@ -8,8 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.nikisurance.controller.LoginController;
-import org.nikisurance.service.impl.ClaimServiceImpl;
-import org.nikisurance.service.interfaces.ClaimService;
 
 import java.util.*;
 import java.util.logging.Level;

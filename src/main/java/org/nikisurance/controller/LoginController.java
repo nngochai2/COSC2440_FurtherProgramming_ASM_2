@@ -39,7 +39,6 @@ public class LoginController implements Initializable {
     @FXML
     private FontAwesomeIconView closeButton;
 
-
     private Stage stage;
     private Scene scene;
     private Parent root;

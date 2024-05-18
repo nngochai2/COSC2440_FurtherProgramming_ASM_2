@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.nikisurance.entity.Claim;
 import org.nikisurance.entity.Customer;
+import org.nikisurance.service.impl.ClaimServiceImpl;
+import org.nikisurance.service.impl.CustomerServiceImpl;
 import org.nikisurance.service.interfaces.ClaimService;
 import org.nikisurance.service.interfaces.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@Controller
 public class PolicyOwnerController implements Initializable {
 
-    @Autowired
     private ClaimService claimService;
 
-    @Autowired
     private CustomerService customerService;
 
     @FXML
@@ -61,6 +60,11 @@ public class PolicyOwnerController implements Initializable {
     private TextField customerEmailField;
 
     private ObservableList<Claim> claimsData;
+
+    public PolicyOwnerController() {
+        this.claimService = new ClaimServiceImpl();
+        this.customerService = new CustomerServiceImpl();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

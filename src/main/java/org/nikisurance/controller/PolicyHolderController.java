@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-@Controller
 public class PolicyHolderController extends ClaimController implements Initializable {
 
     @FXML
@@ -49,11 +48,13 @@ public class PolicyHolderController extends ClaimController implements Initializ
     @FXML
     private TextField dependentAddressTextField;
 
-    @Autowired
     private PolicyHolderService policyHolderService;
 
-    @Autowired
     private DependentService dependentService;
+
+    public PolicyHolderController() {
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {

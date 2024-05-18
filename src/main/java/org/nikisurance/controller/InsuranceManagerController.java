@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.nikisurance.entity.Claim;
+import org.nikisurance.service.impl.ClaimServiceImpl;
 import org.nikisurance.service.interfaces.ClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@Controller
 public class InsuranceManagerController implements Initializable {
 
-    @Autowired
     private ClaimService claimService;
 
     @FXML
@@ -50,6 +49,10 @@ public class InsuranceManagerController implements Initializable {
     private TextField claimIdField;
 
     private ObservableList<Claim> claimsData;
+
+    public InsuranceManagerController() {
+        claimService = new ClaimServiceImpl();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
