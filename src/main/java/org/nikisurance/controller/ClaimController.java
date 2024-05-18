@@ -38,7 +38,7 @@ public class ClaimController implements Initializable {
 
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    private ClaimService claimService;
+    private final ClaimService claimService;
 
     @FXML
     protected TableView<Claim> claimTable;

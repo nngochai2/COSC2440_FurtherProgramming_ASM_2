@@ -31,6 +31,7 @@ public class PolicyHolder extends Beneficiary implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private PolicyOwner policyOwner;
+
     public PolicyHolder() {
         setBeneficiaryType("POLICYHOLDER");
     }

@@ -2,6 +2,9 @@ package org.nikisurance.controller;
 
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -114,14 +117,14 @@ public class SystemAdminController implements Initializable {
     @FXML
     private Label totalProvidersLabel;
 
-//    @FXML
-//    private Label totalCustomersValue;
-//
-//    @FXML
-//    private Label totalClaimsValue;
-//
-//    @FXML
-//    private Label totalProvidersValue;
+    @FXML
+    private Label totalCustomersValue;
+
+    @FXML
+    private Label totalClaimsValue;
+
+    @FXML
+    private Label totalProvidersValue;
 
     @FXML
     private TableView<Claim> claimTableView;
@@ -182,16 +185,29 @@ public class SystemAdminController implements Initializable {
             stage.setY(mouseEvent.getScreenY() - y);
         });
 
-//        this.loadDashboard();
+        initializeColumns();
+    }
+
+    private void populateTables() {
+        claimTableView.setItems(FXCollections.observableList(claimService.getAllClaims()));
+
     }
 
     private void initializeColumns() {
-        // Claims table columns
+        // Initialize columns for claims
+        claimIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClaimId()));
+        claimAmountColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimAmount()));
+        claimDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimDate()).asString());
+        insuredPersonNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInsuredPerson()));
+        insuredPersonIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBeneficiaryId())));
+        surveyorNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSurveyorName()));
+        claimStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().name()));
 
+        populateTables();
     }
 
-//    // Method to load the dashboard for admin
-//    private void loadDashboard() {
+    // Method to load the dashboard for admin
+    private void loadDashboard() {
 //        // Load total number of customers
 //        int totalCustomers = customerService.getAllCustomers().size();
 //        totalCustomersValue.setText(String.valueOf(totalCustomers));
@@ -203,13 +219,13 @@ public class SystemAdminController implements Initializable {
 //        // Load total number of providers
 //        int totalProviders = providerService.getAllProviders().size();
 //        totalProvidersValue.setText(String.valueOf(totalProviders));
-//
-//        // Load the bar chart for claims
-//        this.loadClaimsSummaryData();
-//
-//        // Load the pie chart for customers
-//        this.loadCustomersSummaryData();
-//    }
+
+        // Load the bar chart for claims
+        this.loadClaimsSummaryData();
+
+        // Load the pie chart for customers
+        this.loadCustomersSummaryData();
+    }
 
     // Method to load the claims data to a bar chart
     private void loadClaimsSummaryData() {

@@ -3,6 +3,7 @@ package org.nikisurance.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 import org.nikisurance.util.ClaimIdGenerator;
 
 import java.io.Serializable;
@@ -55,6 +56,7 @@ public class Claim implements Serializable {
 
     @Column(name = "receiver_bank_info", nullable = false)
     private String receiverBankingInfo;
+
 
     @Column(name = "surveyor_name")
     private String surveyorName;

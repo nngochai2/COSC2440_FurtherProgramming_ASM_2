@@ -341,20 +341,17 @@
                   </JFXButton>
                   <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0" vbarPolicy="ALWAYS">
                      <content>
-                        <TableView fx:id="claimsTable" prefHeight="491.0" prefWidth="590.0">
+                        <TableView fx:id="claimTableView" prefHeight="491.0" prefWidth="590.0">
                            <columns>
                               <TableColumn fx:id="claimIdColumn" prefWidth="100.0" text="Claim ID" />
-                              <TableColumn fx:id="examDateColumn" prefWidth="100.0" text="Exam Date" />
+<!--                              <TableColumn fx:id="" prefWidth="100.0" text="Exam Date" />-->
                               <TableColumn fx:id="claimDateColumn" prefWidth="100.0" text="Claim Date" />
-                              <TableColumn fx:id="beneficiaryIdColumn" prefWidth="100.0" text="Beneficiary ID" />
-                              <TableColumn fx:id="insuredPersonColumn" prefWidth="100.0" text="Insured Person" />
-                              <TableColumn fx:id="cardNumberColumn" prefWidth="100.0" text="Card Number" />
+                              <TableColumn fx:id="insuredPersonIdColumn" prefWidth="100.0" text="Beneficiary ID" />
+                              <TableColumn fx:id="insuredPersonNameColumn" prefWidth="100.0" text="Insured Person" />
                               <TableColumn fx:id="claimAmountColumn" prefWidth="100.0" text="Claim Amount" />
-                              <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
-                              <TableColumn fx:id="receiverBankingInfoColumn" prefWidth="100.0" text="Receiver Banking Info" />
-                              <TableColumn fx:id="surveyorIdColumn" prefWidth="100.0" text="Surveyor ID" />
-                              <TableColumn fx:id="documentNameColumn" prefWidth="100.0" text="Document Name" />
-                              <TableColumn fx:id="documentPathColumn" prefWidth="100.0" text="Document Path" />
+                              <TableColumn fx:id="claimStatusColumn" prefWidth="100.0" text="Status" />
+                              <TableColumn fx:id="surveyorNameColumn" prefWidth="100.0" text="Surveyor ID" />
+<!--                              <TableColumn fx:id="documentNameColumn" prefWidth="100.0" text="Document Name" />-->
                            </columns>
                         </TableView>
                      </content>
