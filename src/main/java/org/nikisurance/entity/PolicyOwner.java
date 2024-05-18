@@ -43,4 +43,12 @@ public class PolicyOwner extends Customer implements Serializable {
     public void setDependentRate(double dependentRate) {
         this.dependentRate = dependentRate;
     }
+
+    public void addBeneficiary(Beneficiary beneficiary) {
+        beneficiaries.add(beneficiary);
+    }
+
+    public void removeBeneficiary(Beneficiary beneficiary) {
+        beneficiaries.remove(beneficiary);
+    }
 }
