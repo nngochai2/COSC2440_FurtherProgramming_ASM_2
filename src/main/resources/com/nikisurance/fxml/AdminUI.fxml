@@ -49,155 +49,6 @@
                   </Label>
                </children></Pane>
             <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
-            <Pane fx:id="pnUsers" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
-               <children>
-                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="User Management" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <TableView fx:id="customerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="501.0">
-                     <columns>
-                        <TableColumn fx:id="customerIdColumn" prefWidth="100.0" text="Customer ID" />
-                        <TableColumn fx:id="customerNameColumn" prefWidth="100.0" text="Full Name" />
-                        <TableColumn fx:id="customerUsernameColumn" prefWidth="100.0" text="Username" />
-                        <TableColumn fx:id="customerPasswordColumn" prefWidth="100.0" text="Customer Type" />
-                        <TableColumn fx:id="customerRoleColumn" prefWidth="100.0" text="Customer Type" />
-                     </columns>
-                  </TableView>
-                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <graphic>
-                        <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
-                           <iconColor>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop>
-                                       <color>
-                                          <Color />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="1.0">
-                                       <color>
-                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                       </color>
-                                    </Stop>
-                                 </stops>
-                              </LinearGradient>
-                           </iconColor>
-                        </FontIcon>
-                     </graphic>
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <graphic>
-                        <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
-                           <iconColor>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop>
-                                       <color>
-                                          <Color />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="1.0">
-                                       <color>
-                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                       </color>
-                                    </Stop>
-                                 </stops>
-                              </LinearGradient>
-                           </iconColor>
-                        </FontIcon>
-                     </graphic>
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-               </children></Pane>
-            <Pane fx:id="pnProviders" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
-               <children>
-                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Providers Management" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <graphic>
-                        <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
-                           <iconColor>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop>
-                                       <color>
-                                          <Color />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="1.0">
-                                       <color>
-                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                       </color>
-                                    </Stop>
-                                 </stops>
-                              </LinearGradient>
-                           </iconColor>
-                        </FontIcon>
-                     </graphic>
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <graphic>
-                        <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
-                           <iconColor>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop>
-                                       <color>
-                                          <Color />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="1.0">
-                                       <color>
-                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                       </color>
-                                    </Stop>
-                                 </stops>
-                              </LinearGradient>
-                           </iconColor>
-                        </FontIcon>
-                     </graphic>
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <TableView fx:id="providerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="602.0">
-                     <columns>
-                        <TableColumn fx:id="providerIdColumn" prefWidth="100.0" text="Provider ID" />
-                        <TableColumn fx:id="providerNameColumn" prefWidth="100.0" text="Provider Name" />
-                        <TableColumn fx:id="providerUsernameColumn" prefWidth="100.0" text="Provider Type" />
-                        <TableColumn fx:id="providerPasswordColumn" prefWidth="100.0" text="Provider Type" />
-                        <TableColumn fx:id="providerRoleColumn" prefWidth="100.0" text="Provider Type" />
-                     </columns>
-                  </TableView>
-               </children>
-            </Pane>
             <Pane fx:id="pnDashboard" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="87.0" layoutY="79.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25;">
@@ -305,6 +156,205 @@
                   </Pane>
                   <Line endX="81.82463836669922" layoutX="578.0" layoutY="449.0" rotate="90.0" startX="-180.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
                </children></Pane>
+            <Pane fx:id="pnProviders" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+               <children>
+                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Providers Management" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-add-alt" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <TableView fx:id="providerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="600.0">
+                     <columns>
+                        <TableColumn fx:id="providerIdColumn" prefWidth="107.2691650390625" text="Provider ID" />
+                        <TableColumn fx:id="providerNameColumn" prefWidth="112.73065185546875" text="Provider Name" />
+                        <TableColumn fx:id="providerUsernameColumn" prefWidth="115.9615478515625" text="Provider Type" />
+                        <TableColumn fx:id="providerPasswordColumn" prefWidth="107.0384521484375" text="Provider Type" />
+                        <TableColumn fx:id="providerRoleColumn" prefWidth="143.3076171875" text="Provider Type" />
+                     </columns>
+                  </TableView>
+               </children>
+            </Pane>
+            <Pane fx:id="pnUsers" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+               <children>
+                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="User Management" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <TableView fx:id="customerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="600.0">
+                     <columns>
+                        <TableColumn fx:id="customerIdColumn" prefWidth="110.38455200195312" text="Customer ID" />
+                        <TableColumn fx:id="customerNameColumn" prefWidth="127.384521484375" text="Full Name" />
+                        <TableColumn fx:id="customerUsernameColumn" prefWidth="107.65383911132812" text="Username" />
+                        <TableColumn fx:id="customerPasswordColumn" prefWidth="106.34619140625" text="Customer Type" />
+                        <TableColumn fx:id="customerRoleColumn" prefWidth="131.46160888671875" text="Customer Type" />
+                     </columns>
+                  </TableView>
+                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-add-alt" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+               </children></Pane>
             <Pane fx:id="pnClaims" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
@@ -332,7 +382,7 @@
                         <Font size="1.0" />
                      </font>
                   </JFXButton>
-                  <TableView fx:id="claimTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="590.0">
+                  <TableView fx:id="claimTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="600.0">
                      <columns>
                         <TableColumn fx:id="claimIdColumn" prefWidth="113.0" text="Claim ID" />
 <!--                              <TableColumn fx:id="" prefWidth="100.0" text="Exam Date" />-->
@@ -360,6 +410,31 @@
                   <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
                      <graphic>
                         <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-add-alt" iconSize="40" wrappingWidth="40.87493896484375">
                            <iconColor>
                               <LinearGradient endX="1.0" endY="1.0">
                                  <stops>
@@ -416,7 +491,7 @@
                         <FontIcon iconColor="WHITE" iconLiteral="ci-baggage-claim" iconSize="23" text="    " />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnUsers" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="55.0" prefWidth="244.0" text="Users" textFill="WHITE">
+                  <JFXButton fx:id="btnUsers" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="55.0" prefWidth="244.0" text="Customers" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
