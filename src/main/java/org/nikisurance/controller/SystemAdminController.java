@@ -25,10 +25,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.nikisurance.entity.Claim;
-import org.nikisurance.entity.ClaimStatus;
-import org.nikisurance.entity.Customer;
-import org.nikisurance.entity.Provider;
+import org.nikisurance.entity.*;
 import org.nikisurance.service.impl.*;
 import org.nikisurance.service.interfaces.*;
 
@@ -181,6 +178,27 @@ public class SystemAdminController implements Initializable {
     @FXML
     private TableColumn<Provider, String> providerRoleColumn;
 
+    @FXML
+    private TextField policyHolderIdField;
+
+    @FXML
+    private TextField policyHolderNameField;
+
+    @FXML
+    private TextField policyHolderUsernameField;
+
+    @FXML
+    private TextField policyHolderPasswordField;
+
+    @FXML
+    private TextField policyHolderEmailField;
+
+    @FXML
+    private TextField policyHolderPhoneNumberField;
+
+    @FXML
+    private TextField policyHolderAddressField;
+
     private double x = 0, y = 0;
 
     private Stage stage;
@@ -287,29 +305,6 @@ public class SystemAdminController implements Initializable {
         customerPieChart.getData().addAll(slice1, slice2, slice3, slice4, slice5);
     }
 
-    @FXML
-    private void retrieveInfo() {
-        String id = entityIdField.getText();
-        Customer customer = customerService.getCustomer(Long.parseLong(id));
-        if (customer != null) {
-            showAlert(AlertType.INFORMATION, "Customer Retrieved", "Customer ID: " + customer.getId() + ", Name: " + customer.getFullName());
-        } else {
-            showAlert(AlertType.ERROR, "Customer Not Found", "No customer found with ID: " + id);
-        }
-    }
-
-    @FXML
-    private void updateInfo() {
-        // Logic to update information of entities (claims, customers, etc.)
-    }
-
-    @FXML
-    private void deleteEntity() {
-        String id = entityIdField.getText();
-        customerService.deleteCustomer(Long.parseLong(id));
-        showAlert(AlertType.INFORMATION, "Entity Deleted", "Entity with ID: " + id + " has been deleted.");
-    }
-
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -385,6 +380,22 @@ public class SystemAdminController implements Initializable {
             currentStage.close();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "IOException found.");
+        }
+    }
+
+    @FXML
+    private void addPolicyHolder() {
+        try {
+            PolicyHolder policyHolder = new PolicyHolder();
+            policyHolder.setFullName(policyHolderNameField.getText());
+            policyHolder.setUsername(policyHolderUsernameField.getText());
+            policyHolder.setPassword(policyHolderPasswordField.getText());
+            policyHolder.setEmail(policyHolderEmailField.getText());
+            policyHolder.setPhoneNumber(Long.valueOf(policyHolderPhoneNumberField.getText()));
+            policyHolder.setAddress(policyHolderAddressField.getText());
+            this.
+        } catch (Exception e) {
+            showAlert(AlertType.ERROR, "Error", "Failed to add policy holder: " + e.getMessage());
         }
     }
 }
