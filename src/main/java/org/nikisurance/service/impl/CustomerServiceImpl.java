@@ -5,7 +5,6 @@ import org.nikisurance.entity.Customer;
 import org.nikisurance.service.interfaces.CustomerService;
 
 import java.util.List;
-import jakarta.persistence.TypedQuery;
 
 public class CustomerServiceImpl extends EntityRepository implements CustomerService {
 

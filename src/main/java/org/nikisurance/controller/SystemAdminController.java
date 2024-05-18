@@ -114,14 +114,14 @@ public class SystemAdminController implements Initializable {
     @FXML
     private Label totalProvidersLabel;
 
-    @FXML
-    private Label totalCustomersValue;
-
-    @FXML
-    private Label totalClaimsValue;
-
-    @FXML
-    private Label totalProvidersValue;
+//    @FXML
+//    private Label totalCustomersValue;
+//
+//    @FXML
+//    private Label totalClaimsValue;
+//
+//    @FXML
+//    private Label totalProvidersValue;
 
     @FXML
     private TableView<Claim> claimTableView;
@@ -182,7 +182,7 @@ public class SystemAdminController implements Initializable {
             stage.setY(mouseEvent.getScreenY() - y);
         });
 
-        this.loadDashboard();
+//        this.loadDashboard();
     }
 
     private void initializeColumns() {
@@ -190,26 +190,26 @@ public class SystemAdminController implements Initializable {
 
     }
 
-    // Method to load the dashboard for admin
-    private void loadDashboard() {
-        // Load total number of customers
-        int totalCustomers = customerService.getAllCustomers().size();
-        totalCustomersValue.setText(String.valueOf(totalCustomers));
-
-        // Load total number of claims
-        int totalClaims = claimService.getAllClaims().size();
-        totalClaimsValue.setText(String.valueOf(totalClaims));
-
-        // Load total number of providers
-        int totalProviders = providerService.getAllProviders().size();
-        totalProvidersValue.setText(String.valueOf(totalProviders));
-
-        // Load the bar chart for claims
-        this.loadClaimsSummaryData();
-
-        // Load the pie chart for customers
-        this.loadCustomersSummaryData();
-    }
+//    // Method to load the dashboard for admin
+//    private void loadDashboard() {
+//        // Load total number of customers
+//        int totalCustomers = customerService.getAllCustomers().size();
+//        totalCustomersValue.setText(String.valueOf(totalCustomers));
+//
+//        // Load total number of claims
+//        int totalClaims = claimService.getAllClaims().size();
+//        totalClaimsValue.setText(String.valueOf(totalClaims));
+//
+//        // Load total number of providers
+//        int totalProviders = providerService.getAllProviders().size();
+//        totalProvidersValue.setText(String.valueOf(totalProviders));
+//
+//        // Load the bar chart for claims
+//        this.loadClaimsSummaryData();
+//
+//        // Load the pie chart for customers
+//        this.loadCustomersSummaryData();
+//    }
 
     // Method to load the claims data to a bar chart
     private void loadClaimsSummaryData() {

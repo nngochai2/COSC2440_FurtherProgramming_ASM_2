@@ -4,7 +4,6 @@ import org.nikisurance.entity.InsuranceCard;
 import org.nikisurance.service.interfaces.InsuranceCardService;
 
 import java.util.List;
-import jakarta.persistence.TypedQuery;
 
 public class InsuranceCardServiceImpl extends EntityRepository implements InsuranceCardService {
 

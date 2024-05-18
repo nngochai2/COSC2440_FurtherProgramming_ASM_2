@@ -1,11 +1,9 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.Beneficiary;
-import org.nikisurance.entity.Customer;
 import org.nikisurance.service.interfaces.BeneficiaryService;
 
 import java.util.List;
-import jakarta.persistence.TypedQuery;
 
 public class BeneficiaryServiceImpl extends EntityRepository implements BeneficiaryService {
 

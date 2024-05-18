@@ -5,7 +5,6 @@ import org.nikisurance.entity.Dependent;
 import org.nikisurance.service.interfaces.DependentService;
 
 import java.util.List;
-import jakarta.persistence.TypedQuery;
 
 public class DependentServiceImpl extends EntityRepository implements DependentService {
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import jakarta.persistence.TypedQuery;
 
-@Service
 public class PolicyHolderServiceImpl extends EntityRepository implements PolicyHolderService {
 
     @Override
