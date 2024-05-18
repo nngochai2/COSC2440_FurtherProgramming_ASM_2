@@ -7,7 +7,6 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -64,19 +63,15 @@
                         </Label>
                      </children>
                   </Pane>
-                  <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0">
-                     <content>
-                        <TableView fx:id="customerTableView" prefHeight="491.0" prefWidth="501.0">
-                           <columns>
-                              <TableColumn fx:id="customerIdColumn" prefWidth="100.0" text="Customer ID" />
-                              <TableColumn fx:id="customerNameColumn" prefWidth="100.0" text="Full Name" />
-                              <TableColumn fx:id="customerUsernameColumn" prefWidth="100.0" text="Username" />
-                              <TableColumn fx:id="customerPasswordColumn" prefWidth="100.0" text="Customer Type" />
-                              <TableColumn fx:id="customerRoleColumn" prefWidth="100.0" text="Customer Type" />
-                           </columns>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
+                  <TableView fx:id="customerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="501.0">
+                     <columns>
+                        <TableColumn fx:id="customerIdColumn" prefWidth="100.0" text="Customer ID" />
+                        <TableColumn fx:id="customerNameColumn" prefWidth="100.0" text="Full Name" />
+                        <TableColumn fx:id="customerUsernameColumn" prefWidth="100.0" text="Username" />
+                        <TableColumn fx:id="customerPasswordColumn" prefWidth="100.0" text="Customer Type" />
+                        <TableColumn fx:id="customerRoleColumn" prefWidth="100.0" text="Customer Type" />
+                     </columns>
+                  </TableView>
                   <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
                      <graphic>
                         <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
@@ -192,102 +187,15 @@
                         <Font size="1.0" />
                      </font>
                   </JFXButton>
-                  <ScrollPane layoutX="81.0" layoutY="81.0">
-                     <content>
-                        <TableView fx:id="providerTableView" prefHeight="491.0" prefWidth="602.0">
-                           <columns>
-                              <TableColumn fx:id="providerIdColumn" prefWidth="100.0" text="Provider ID" />
-                              <TableColumn fx:id="providerNameColumn" prefWidth="100.0" text="Provider Name" />
-                              <TableColumn fx:id="providerUsernameColumn" prefWidth="100.0" text="Provider Type" />
-                              <TableColumn fx:id="providerPasswordColumn" prefWidth="100.0" text="Provider Type" />
-                              <TableColumn fx:id="providerRoleColumn" prefWidth="100.0" text="Provider Type" />
-                           </columns>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </Pane>
-            <Pane fx:id="pnClaims" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
-               <children>
-                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <graphic>
-                        <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
-                           <iconColor>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop>
-                                       <color>
-                                          <Color />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="1.0">
-                                       <color>
-                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                       </color>
-                                    </Stop>
-                                 </stops>
-                              </LinearGradient>
-                           </iconColor>
-                        </FontIcon>
-                     </graphic>
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <ScrollPane hbarPolicy="ALWAYS" layoutX="81.0" layoutY="81.0" vbarPolicy="ALWAYS">
-                     <content>
-                        <TableView fx:id="claimTableView" prefHeight="491.0" prefWidth="590.0">
-                           <columns>
-                              <TableColumn fx:id="claimIdColumn" prefWidth="100.0" text="Claim ID" />
-<!--                              <TableColumn fx:id="" prefWidth="100.0" text="Exam Date" />-->
-                              <TableColumn fx:id="claimDateColumn" prefWidth="100.0" text="Claim Date" />
-                              <TableColumn fx:id="insuredPersonIdColumn" prefWidth="100.0" text="Beneficiary ID" />
-                              <TableColumn fx:id="insuredPersonNameColumn" prefWidth="100.0" text="Insured Person" />
-                              <TableColumn fx:id="claimAmountColumn" prefWidth="100.0" text="Claim Amount" />
-                              <TableColumn fx:id="claimStatusColumn" prefWidth="100.0" text="Status" />
-                              <TableColumn fx:id="surveyorIdColumn" prefWidth="100.0" text="Surveyor ID" />
-<!--                              <TableColumn fx:id="documentNameColumn" prefWidth="100.0" text="Document Name" />-->
-                           </columns>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
-                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Claim Management " textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <graphic>
-                        <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
-                           <iconColor>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop>
-                                       <color>
-                                          <Color />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="1.0">
-                                       <color>
-                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                       </color>
-                                    </Stop>
-                                 </stops>
-                              </LinearGradient>
-                           </iconColor>
-                        </FontIcon>
-                     </graphic>
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
+                  <TableView fx:id="providerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="602.0">
+                     <columns>
+                        <TableColumn fx:id="providerIdColumn" prefWidth="100.0" text="Provider ID" />
+                        <TableColumn fx:id="providerNameColumn" prefWidth="100.0" text="Provider Name" />
+                        <TableColumn fx:id="providerUsernameColumn" prefWidth="100.0" text="Provider Type" />
+                        <TableColumn fx:id="providerPasswordColumn" prefWidth="100.0" text="Provider Type" />
+                        <TableColumn fx:id="providerRoleColumn" prefWidth="100.0" text="Provider Type" />
+                     </columns>
+                  </TableView>
                </children>
             </Pane>
             <Pane fx:id="pnDashboard" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
@@ -397,6 +305,85 @@
                   </Pane>
                   <Line endX="81.82463836669922" layoutX="578.0" layoutY="449.0" rotate="90.0" startX="-180.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
                </children></Pane>
+            <Pane fx:id="pnClaims" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+               <children>
+                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-trash-can" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <TableView fx:id="claimTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="590.0">
+                     <columns>
+                        <TableColumn fx:id="claimIdColumn" prefWidth="113.0" text="Claim ID" />
+<!--                              <TableColumn fx:id="" prefWidth="100.0" text="Exam Date" />-->
+                        <TableColumn fx:id="claimDateColumn" prefWidth="99.0" text="Claim Date" />
+                        <TableColumn fx:id="insuredPersonIdColumn" prefWidth="90.0" text="Beneficiary ID" />
+                        <TableColumn fx:id="insuredPersonNameColumn" prefWidth="100.0" text="Insured Person" />
+                        <TableColumn fx:id="claimAmountColumn" prefWidth="95.0" text="Claim Amount" />
+                        <TableColumn fx:id="claimStatusColumn" prefWidth="77.0" text="Status" />
+                        <TableColumn fx:id="surveyorIdColumn" prefWidth="126.0" text="Surveyor ID" />
+<!--                              <TableColumn fx:id="documentNameColumn" prefWidth="100.0" text="Document Name" />-->
+                     </columns>
+                  </TableView>
+                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Claim Management " textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <graphic>
+                        <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="-1.0" style="-fx-background-radius: 25;">
