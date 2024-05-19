@@ -172,13 +172,16 @@
                         </Label>
                      </children>
                   </Pane>
-                  <TableView fx:id="customerTableView" layoutX="81.0" layoutY="81.0" onMouseClicked="#handleCustomerClick" prefHeight="491.0" prefWidth="600.0">
+                  <TableView fx:id="beneficiaryTable" layoutX="81.0" layoutY="81.0" onMouseClicked="#handleCustomerClick" prefHeight="491.0" prefWidth="600.0">
                      <columns>
-                        <TableColumn fx:id="customerIdColumn" prefWidth="110.38455200195312" text="Customer ID" />
-                        <TableColumn fx:id="customerNameColumn" prefWidth="127.384521484375" text="Full Name" />
-                        <TableColumn fx:id="customerUsernameColumn" prefWidth="107.65383911132812" text="Username" />
-                        <TableColumn fx:id="customerPasswordColumn" prefWidth="106.34619140625" text="Customer Type" />
-                        <TableColumn fx:id="customerRoleColumn" prefWidth="131.46160888671875" text="Customer Type" />
+                        <TableColumn fx:id="idColumn" prefWidth="110.38455200195312" text="Customer ID" />
+                        <TableColumn fx:id="nameColumn" prefWidth="127.384521484375" text="Full Name" />
+                        <TableColumn fx:id="usernameColumn" prefWidth="107.65383911132812" text="Username" />
+                        <TableColumn fx:id="passwordColumn" prefWidth="106.34619140625" text="Password" />
+                        <TableColumn fx:id="emailColumn" prefWidth="106.34619140625" text="Email" />
+                        <TableColumn fx:id="phoneNumberColumn" prefWidth="106.34619140625" text="Phone" />
+                        <TableColumn fx:id="addressColumn" prefWidth="106.34619140625" text="Address" />
+                        <TableColumn fx:id="beneficiaryTypeColumn" prefWidth="106.34619140625" text="Type" />
                      </columns>
                   </TableView>
                   <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
