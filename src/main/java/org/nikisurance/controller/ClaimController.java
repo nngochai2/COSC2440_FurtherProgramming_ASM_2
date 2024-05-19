@@ -138,18 +138,6 @@ public class ClaimController implements Initializable {
         claimStatusComboBox.setItems(FXCollections.observableArrayList(ClaimStatus.values()));
     }
 
-
-//    public void populateTable() {
-//        getClaimsFromDB();
-//        filteredClaims = new FilteredList<>(claimsData, p -> true);
-//        sortedClaims = new SortedList<>(filteredClaims); // Sử dụng filteredClaims
-//        sortedClaims.comparatorProperty().bind(claimTable.comparatorProperty());
-//        claimTable.setItems(sortedClaims); // Sử dụng sortedClaims
-//
-//        claimStatusComboBox.setItems(FXCollections.observableArrayList(ClaimStatus.values()));
-//    }
-
-
     public void setupFilteringAndSorting() {
         filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredClaims.setPredicate(createPredicate());

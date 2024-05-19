@@ -6,6 +6,9 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +35,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -199,6 +203,12 @@ public class SystemAdminController implements Initializable {
     @FXML
     private TextField policyHolderAddressField;
 
+    @FXML
+    private TextField filterTextField;
+
+    @FXML
+    private FilteredList<Claim> filteredClaims;
+
     private double x = 0, y = 0;
 
     private Stage stage;
@@ -214,6 +224,7 @@ public class SystemAdminController implements Initializable {
             stage = (Stage) sideBar.getScene().getWindow();
 //            stage.initStyle(StageStyle.TRANSPARENT);
             loadDashboard();
+            setupFiltering();
         });
         sideBar.setOnMousePressed(mouseEvent -> {
             x = mouseEvent.getSceneX();
@@ -223,11 +234,14 @@ public class SystemAdminController implements Initializable {
             stage.setX(mouseEvent.getScreenX() - x);
             stage.setY(mouseEvent.getScreenY() - y);
         });
-
     }
 
     private void populateTables() {
-        claimTableView.setItems(FXCollections.observableList(claimService.getAllClaims()));
+        List<Claim> claims = claimService.getAllClaims();
+        ObservableList<Claim> claimObservableList = FXCollections.observableList(claims);
+        filteredClaims = new FilteredList<>(claimObservableList, p -> true);
+
+        claimTableView.setItems(new SortedList<>(filteredClaims));
         customerTableView.setItems(FXCollections.observableList(customerService.getAllCustomers()));
         providerTableView.setItems(FXCollections.observableList(providerService.getAllProviders()));
     }
@@ -291,6 +305,31 @@ public class SystemAdminController implements Initializable {
 
         // Load the pie chart for customers
         this.loadCustomersSummaryData();
+    }
+
+    public void setupFiltering() {
+        filterTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (filteredClaims != null) {
+                filteredClaims.setPredicate(claim -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    String lowerCaseFilterText = newValue.toLowerCase();
+
+                    return claim.getClaimId().toLowerCase().contains(lowerCaseFilterText) ||
+                            claim.getClaimDate().toString().contains(lowerCaseFilterText) ||
+                            (claim.getExamDate() != null && claim.getExamDate().toString().contains(lowerCaseFilterText)) ||
+                            Double.toString(claim.getClaimAmount()).contains(lowerCaseFilterText) ||
+                            claim.getStatus().toString().toLowerCase().contains(lowerCaseFilterText) ||
+                            (claim.getReceiverBankingInfo() != null && claim.getReceiverBankingInfo().toLowerCase().contains(lowerCaseFilterText));
+                });
+            }
+        });
+
+        SortedList<Claim> sortedData = new SortedList<>(filteredClaims);
+        sortedData.comparatorProperty().bind(claimTableView.comparatorProperty());
+        claimTableView.setItems(sortedData);
     }
 
     // Method to load the claims data to a bar chart
