@@ -441,24 +441,26 @@ public class SystemAdminController implements Initializable {
             Customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
             if (selectedCustomer != null) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/CustomerDetails.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
                     Parent root = loader.load();
 
                     CustomerDetailsController controller = loader.getController();
-//                    controller.setCustomerDetails(selectedCustomer);
+                    controller.setCustomer(selectedCustomer); // Corrected method name
 
                     Stage stage = new Stage();
                     stage.setTitle("Customer Details");
                     stage.setScene(new Scene(root));
                     stage.show();
+
                 } catch (IOException e) {
-                    showAlert(AlertType.ERROR, "Error", "Cannot view this customer.");
-                    logger.log(Level.SEVERE, "IOException found.");
+                    logger.log(Level.SEVERE, "Failed to load customer details view", e);
+                    showAlert(Alert.AlertType.ERROR, "Error", "Cannot load the customer details view.");
                 }
+            } else {
+                showAlert(Alert.AlertType.WARNING, "No Selection", "No customer selected.");
             }
         }
     }
-
 
     @FXML
     private void addPolicyHolder() {
@@ -475,43 +477,6 @@ public class SystemAdminController implements Initializable {
             this.refreshCustomerTable();
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Error", "Failed to add policy holder: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    private void updatePolicyHolder() {
-        try {
-            Long id = Long.parseLong(idField.getText());
-            PolicyHolder policyHolder = policyHolderService.getPolicyHolder(id);
-            if (policyHolder != null) {
-                policyHolder.setPassword(passwordField.getText());
-                policyHolder.setEmail(policyHolderEmailField.getText());
-                policyHolder.setPhoneNumber(Long.parseLong(policyHolderPhoneNumberField.getText()));
-                policyHolder.setAddress(policyHolderAddressField.getText());
-
-                policyHolderService.updatePolicyHolder(policyHolder);
-
-                showAlert(AlertType.INFORMATION, "Success", "Policy holder updated successfully");
-            }
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Error", "Failed to update policy holder: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    private void deletePolicyHolder() {
-        try {
-            Long id = Long.parseLong(idField.getText());
-            PolicyHolder policyHolder = policyHolderService.getPolicyHolder(id);
-            if (policyHolder != null) {
-                policyHolderService.deletePolicyHolder(id);
-                showAlert(AlertType.INFORMATION, "Success", "Policy holder deleted successfully");
-                refreshCustomerTable();
-            } else {
-                showAlert(AlertType.ERROR, "Error", "Policy holder not found.");
-            }
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Error", "Failed to delete policy holder:" + e.getMessage());
         }
     }
 }

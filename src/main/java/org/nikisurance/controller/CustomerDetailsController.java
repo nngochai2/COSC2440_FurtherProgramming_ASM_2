@@ -12,21 +12,13 @@ import java.util.Optional;
 
 public class CustomerDetailsController {
     @FXML private TextField idField, nameField, usernameField, passwordField, emailField, phoneNumberField, addressField, customerTypeField, policyHolderField, basePremiumField, dependentRateField, cardNumberField;
-    @FXML private HBox emailContainer, phoneContainer, addressContainer, cardNumberContainer, basePremiumContainer, dependentRateContainer, policyHolderContainer;
+    @FXML private HBox emailContainer, phoneContainer, addressContainer, cardNumberContainer, basePremiumContainer, dependentRateContainer, policyHolderContainer, customerTypeContainer;
     @FXML private Button editButton, saveButton, deleteButton, cancelButton;
 
     private final CustomerService customerService;
-    private final BeneficiaryService beneficiaryService;
-    private final PolicyOwnerService policyOwnerService;
-    private final PolicyHolderService policyHolderService;
-    private final DependentService dependentService;
 
     public CustomerDetailsController() {
         this.customerService = new CustomerServiceImpl();
-        this.policyOwnerService = new PolicyOwnerServiceImpl();
-        this.policyHolderService = new PolicyHolderServiceImpl();
-        this.dependentService = new DependentServiceImpl();
-        this.beneficiaryService = new BeneficiaryServiceImpl();
     }
 
     public void setCustomer(Customer customer) {
@@ -34,16 +26,22 @@ public class CustomerDetailsController {
         nameField.setText(customer.getFullName());
         usernameField.setText(customer.getUsername());
         passwordField.setText(customer.getPassword());
-        customerTypeField.setText(customer.getClass().getSimpleName());  // Dynamically fetch the type
 
+        // Hide all fields initially
         hideAllFields();
 
+        // Determine the specific type of customer and set the text accordingly
         if (customer instanceof PolicyHolder) {
+            customerTypeField.setText("Policy Holder");  // Set the text as per your requirement
             showPolicyHolderFields((PolicyHolder) customer);
         } else if (customer instanceof Dependent) {
+            customerTypeField.setText("Dependent");
             showDependentFields((Dependent) customer);
         } else if (customer instanceof PolicyOwner) {
+            customerTypeField.setText("Policy Owner");
             showPolicyOwnerFields((PolicyOwner) customer);
+        } else {
+            customerTypeField.setText("Customer");  // Default or other types, if there are any
         }
     }
 
@@ -57,14 +55,14 @@ public class CustomerDetailsController {
         phoneNumberField.setText(String.valueOf(holder.getPhoneNumber()));
         addressField.setText(holder.getAddress());
 
-        setFieldVisibility(true, emailContainer, phoneContainer, addressContainer);
+        setFieldVisibility(true, emailContainer, phoneContainer, addressContainer, customerTypeContainer);
     }
 
     private void showDependentFields(Dependent dependent) {
         policyHolderField.setText(String.valueOf(dependent.getPolicyHolder().getId()));
         cardNumberField.setText(String.valueOf(dependent.getInsuranceCard().getCardID()));
 
-        setFieldVisibility(true, policyHolderContainer, cardNumberContainer);
+        setFieldVisibility(true, policyHolderContainer, cardNumberContainer, customerTypeContainer);
     }
 
     private void showPolicyOwnerFields(PolicyOwner owner) {
@@ -76,8 +74,12 @@ public class CustomerDetailsController {
 
     private void setFieldVisibility(boolean visible, HBox... containers) {
         for (HBox container : containers) {
-            container.setManaged(visible);
-            container.setVisible(visible);
+            if (container != null) {
+                container.setManaged(visible);
+                container.setVisible(visible);
+            } else {
+                System.out.println("One of the containers is null");
+            }
         }
     }
 
@@ -122,7 +124,8 @@ public class CustomerDetailsController {
     }
 
     private void closeWindow() {
-        ((Stage) idField.getScene().getWindow()).close();
+        // Closes the current window assuming this method is triggered from a stage
+        ((Stage) deleteButton.getScene().getWindow()).close();
     }
 
     @FXML
@@ -168,7 +171,7 @@ public class CustomerDetailsController {
 
     @FXML
     private void handleDeleteAction() {
-        if (showConfirmationDialog("Confirm Delete", "Are you sure you want to delete this customer?")) {
+        if (showConfirmationDialog()) {
             deleteCustomer();
             ((Stage) idField.getScene().getWindow()).close(); // Close the window after deletion
         }
@@ -183,11 +186,11 @@ public class CustomerDetailsController {
         }
     }
 
-    private boolean showConfirmationDialog(String title, String content) {
+    private boolean showConfirmationDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
+        alert.setTitle("Confirm Delete");
         alert.setHeaderText(null);
-        alert.setContentText(content);
+        alert.setContentText("Are you sure you want to delete this customer?");
         Optional<ButtonType> action = alert.showAndWait();
         return action.isPresent() && action.get() == ButtonType.OK;
     }

@@ -22,15 +22,15 @@
             <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
          </graphic>
       </Label>
-       <VBox layoutX="59.0" layoutY="65.0" prefHeight="231.0" prefWidth="307.0" spacing="15">
+       <VBox layoutX="14.0" layoutY="65.0" prefHeight="311.0" prefWidth="244.0" spacing="15">
            <children>
                <HBox spacing="10">
                    <children>
-                       <Label prefWidth="100" text="Customer ID:">
+                       <Label prefWidth="100" text="ID">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                       <TextField prefWidth="187" />
+                       <TextField fx:id="idField" prefWidth="187" />
                    </children>
                </HBox>
                <HBox spacing="10">
@@ -39,7 +39,7 @@
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                       <TextField prefWidth="187" />
+                       <TextField fx:id="nameField" prefWidth="187" />
                    </children>
                </HBox>
                <HBox spacing="10">
@@ -48,7 +48,7 @@
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                       <TextField prefWidth="187" />
+                       <TextField fx:id="usernameField" prefWidth="187" />
                    </children>
                </HBox>
                <HBox spacing="10">
@@ -57,44 +57,44 @@
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                       <TextField prefWidth="187" />
+                       <TextField fx:id="passwordField" prefWidth="187" />
                    </children>
                </HBox>
-               <HBox spacing="10">
+               <HBox fx:id="cardNumberContainer" spacing="10">
                    <children>
-                       <Label prefWidth="100" text="Card number:">
+                       <Label prefWidth="100" text="Card">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                       <TextField prefWidth="187" />
+                       <TextField fx:id="cardNumberField" prefWidth="187" />
                    </children>
                </HBox>
-               <HBox spacing="10">
+               <HBox fx:id="emailContainer" spacing="10">
                    <children>
-                       <Label prefWidth="100" text="Email">
+                       <Label prefWidth="100" text="Email:">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                       <TextField prefWidth="187" />
+                       <TextField fx:id="emailField" prefWidth="187" />
                    </children>
                </HBox>
-               <HBox spacing="10">
+               <HBox fx:id="phoneContainer" spacing="10">
                    <children>
-                       <Label prefWidth="100" text="Phone number">
+                       <Label prefWidth="100" text="Phone:">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                       <TextField prefWidth="187" />
+                       <TextField fx:id="phoneNumberField" prefWidth="187" />
                    </children>
                </HBox>
-            <HBox spacing="10">
+            <HBox fx:id="addressContainer" spacing="10">
                <children>
-                  <Label prefWidth="100" text="Address">
+                  <Label prefWidth="100" text="Address:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField prefWidth="187" />
+                  <TextField fx:id="addressField" prefWidth="187" />
                </children>
             </HBox>
            </children>
@@ -104,7 +104,7 @@
             <Font size="1.0" />
          </font>
       </JFXButton>
-      <FontIcon iconLiteral="ci-trash-can" iconSize="40" layoutX="486.0" layoutY="282.0" onMouseClicked="#deleteCustomer" text="" wrappingWidth="40.87493896484375">
+      <FontIcon iconLiteral="ci-trash-can" iconSize="40" layoutX="541.0" layoutY="383.0" text="" wrappingWidth="40.87493896484375">
          <iconColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -122,7 +122,7 @@
             </LinearGradient>
          </iconColor>
       </FontIcon>
-      <FontIcon iconLiteral="ci-edit" iconSize="40" layoutX="486.0" layoutY="218.0" onMouseClicked="#editCustomer" wrappingWidth="40.87493896484375">
+      <FontIcon iconLiteral="ci-edit" iconSize="40" layoutX="484.0" layoutY="383.0" wrappingWidth="40.87493896484375">
          <iconColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -140,7 +140,7 @@
             </LinearGradient>
          </iconColor>
       </FontIcon>
-      <FontIcon iconLiteral="ci-add-alt" iconSize="40" layoutX="486.0" layoutY="151.0" onMouseClicked="#saveCustomer" wrappingWidth="40.87493896484375">
+      <FontIcon iconLiteral="ci-add-alt" iconSize="40" layoutX="428.0" layoutY="383.0" wrappingWidth="40.87493896484375">
          <iconColor>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -158,5 +158,54 @@
             </LinearGradient>
          </iconColor>
       </FontIcon>
+      <VBox layoutX="291.0" layoutY="65.0" prefHeight="183.0" prefWidth="306.0" spacing="15">
+         <children>
+            <HBox fx:id="customerTypeContainer" spacing="10">
+               <children>
+                  <Label prefWidth="100" text="Type:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="customerTypeField" prefWidth="187.0" />
+               </children>
+            </HBox>
+            <HBox fx:id="policyHolderContainer" spacing="10">
+               <children>
+                  <Label prefWidth="100" text="Holder:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="policyHolderField" prefWidth="187" />
+               </children>
+            </HBox>
+            <HBox fx:id="basePremiumContainer" spacing="10">
+               <children>
+                  <Label prefWidth="100" text="Base Premium:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="basePremiumField" prefWidth="187" />
+               </children>
+            </HBox>
+            <HBox fx:id="dependentRateContainer" spacing="10">
+               <children>
+                  <Label prefWidth="100" text="Rate">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="dependentRateField" prefWidth="187" />
+               </children>
+            </HBox>
+            <HBox spacing="10" />
+            <HBox spacing="10" />
+            <HBox spacing="10" />
+            <HBox spacing="10" />
+            <HBox spacing="10" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

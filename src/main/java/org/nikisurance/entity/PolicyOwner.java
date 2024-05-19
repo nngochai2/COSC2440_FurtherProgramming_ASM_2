@@ -10,7 +10,7 @@ import java.util.Set;
 public class PolicyOwner extends Customer implements Serializable {
 
     @Column(name = "base_premium", nullable = false)
-    private Long basePremium;
+    private double basePremium;
 
     @Column(name = "dependent_rate", nullable = false)
     private double dependentRate;
@@ -28,7 +28,7 @@ public class PolicyOwner extends Customer implements Serializable {
         this.beneficiaries = beneficiaries;
     }
 
-    public Long getBasePremium() {
+    public double getBasePremium() {
         return basePremium;
     }
 
