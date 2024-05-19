@@ -2,15 +2,42 @@ package org.nikisurance.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.nikisurance.entity.Dependent;
+import org.nikisurance.entity.InsuranceCard;
 import org.nikisurance.service.interfaces.DependentService;
+import org.nikisurance.service.interfaces.InsuranceCardService;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DependentServiceImpl extends EntityRepository implements DependentService {
 
+    private final InsuranceCardService insuranceCardService;
+
+    public DependentServiceImpl() {
+        insuranceCardService = new InsuranceCardServiceImpl();
+    }
+
     @Override
     public void addDependent(Dependent dependent) {
-        performOperation(em -> em.persist(dependent));
+        performOperation(em -> {
+            em.persist(dependent);
+            createInsuranceCardForDependent(dependent);
+        });
+    }
+
+    private void createInsuranceCardForDependent(Dependent dependent) {
+        InsuranceCard insuranceCard = new InsuranceCard();
+        insuranceCard.setCardHolder(dependent);
+        insuranceCard.setIssuedDate(new Date());
+
+        // Set the expiry date for one year from the issue date
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(insuranceCard.getIssuedDate());
+        calendar.add(Calendar.YEAR, 1);
+        insuranceCard.setExpiryDate(calendar.getTime());
+
+        insuranceCardService.addInsuranceCard(insuranceCard);
     }
 
     @Override

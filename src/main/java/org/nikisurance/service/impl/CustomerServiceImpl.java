@@ -2,6 +2,7 @@ package org.nikisurance.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.nikisurance.entity.Customer;
+import org.nikisurance.entity.InsuranceCard;
 import org.nikisurance.service.interfaces.CustomerService;
 
 import java.util.List;
@@ -33,5 +34,10 @@ public class CustomerServiceImpl extends EntityRepository implements CustomerSer
                 throw new EntityNotFoundException("Customer with id " + id + " not found");
             }
         });
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        performOperation(em -> em.merge(em.find(Customer.class, customer.getId())));
     }
 }

@@ -9,4 +9,5 @@ public interface PolicyHolderService {
     void addPolicyHolder(PolicyHolder policyHolder);
     List<PolicyHolder> getAllPolicyHolders();
     void deletePolicyHolder(Long id);
+    void updatePolicyHolder(PolicyHolder policyHolder);
 }

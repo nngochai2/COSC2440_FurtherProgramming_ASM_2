@@ -271,7 +271,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <TableView fx:id="customerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="600.0">
+                  <TableView fx:id="customerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="600.0" onMouseClicked="#handleCustomerClick">
                      <columns>
                         <TableColumn fx:id="customerIdColumn" prefWidth="110.38455200195312" text="Customer ID" />
                         <TableColumn fx:id="customerNameColumn" prefWidth="127.384521484375" text="Full Name" />

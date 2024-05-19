@@ -20,6 +20,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -435,6 +436,31 @@ public class SystemAdminController implements Initializable {
     }
 
     @FXML
+    private void handleCustomerClick(MouseEvent event) {
+        if (event.getClickCount() == 2) { // Double click
+            Customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+            if (selectedCustomer != null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/CustomerDetails.fxml"));
+                    Parent root = loader.load();
+
+                    CustomerDetailsController controller = loader.getController();
+//                    controller.setCustomerDetails(selectedCustomer);
+
+                    Stage stage = new Stage();
+                    stage.setTitle("Customer Details");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    showAlert(AlertType.ERROR, "Error", "Cannot view this customer.");
+                    logger.log(Level.SEVERE, "IOException found.");
+                }
+            }
+        }
+    }
+
+
+    @FXML
     private void addPolicyHolder() {
         try {
             PolicyHolder policyHolder = new PolicyHolder();
@@ -444,6 +470,7 @@ public class SystemAdminController implements Initializable {
             policyHolder.setEmail(policyHolderEmailField.getText());
             policyHolder.setPhoneNumber(Long.valueOf(policyHolderPhoneNumberField.getText()));
             policyHolder.setAddress(policyHolderAddressField.getText());
+
             this.showAlert(AlertType.INFORMATION, "Policy Added Successfully", "Policy has been added successfully.");
             this.refreshCustomerTable();
         } catch (Exception e) {
@@ -457,17 +484,34 @@ public class SystemAdminController implements Initializable {
             Long id = Long.parseLong(idField.getText());
             PolicyHolder policyHolder = policyHolderService.getPolicyHolder(id);
             if (policyHolder != null) {
-                policyHolder.setFullName(nameField.getText());
-                policyHolder.setUsername(usernameField.getText());
                 policyHolder.setPassword(passwordField.getText());
                 policyHolder.setEmail(policyHolderEmailField.getText());
                 policyHolder.setPhoneNumber(Long.parseLong(policyHolderPhoneNumberField.getText()));
+                policyHolder.setAddress(policyHolderAddressField.getText());
+
+                policyHolderService.updatePolicyHolder(policyHolder);
+
+                showAlert(AlertType.INFORMATION, "Success", "Policy holder updated successfully");
             }
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Error", "Failed to update policy holder: " + e.getMessage());
         }
     }
 
-
-
+    @FXML
+    private void deletePolicyHolder() {
+        try {
+            Long id = Long.parseLong(idField.getText());
+            PolicyHolder policyHolder = policyHolderService.getPolicyHolder(id);
+            if (policyHolder != null) {
+                policyHolderService.deletePolicyHolder(id);
+                showAlert(AlertType.INFORMATION, "Success", "Policy holder deleted successfully");
+                refreshCustomerTable();
+            } else {
+                showAlert(AlertType.ERROR, "Error", "Policy holder not found.");
+            }
+        } catch (Exception e) {
+            showAlert(AlertType.ERROR, "Error", "Failed to delete policy holder:" + e.getMessage());
+        }
+    }
 }
