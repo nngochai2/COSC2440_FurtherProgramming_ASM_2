@@ -275,9 +275,9 @@
                   <Line endX="81.82463836669922" layoutX="287.0" layoutY="150.0" rotate="90.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
                   <Pane layoutX="83.0" layoutY="241.0" prefHeight="37.0" prefWidth="429.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
                      <children>
-                        <Label alignment="BASELINE_LEFT" layoutX="18.0" layoutY="5.0" prefHeight="29.0" prefWidth="395.0" text="Last Registered Claim:  p-XXXXXXX (Dat Quoc)" textFill="#2a363f">
+                        <Label fx:id="lastAddedClaim" alignment="BASELINE_LEFT" layoutX="18.0" layoutY="5.0" prefHeight="29.0" prefWidth="408.0" text="Last Registered Claim:  f-XXXXXXXXXXX (Dat Quoc)" textFill="#2a363f">
                            <font>
-                              <Font size="15.0" />
+                              <Font size="14.0" />
                            </font>
                            <graphic>
                               <FontIcon iconColor="#2a363f" iconLiteral="ci-notification-new" iconSize="18" text=" " />

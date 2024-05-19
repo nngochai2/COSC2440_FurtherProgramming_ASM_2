@@ -114,6 +114,9 @@ public class SystemAdminController implements Initializable {
     private Label averageSuccessfulClaims;
 
     @FXML
+    private Label lastAddedClaim;
+
+    @FXML
     private TableView<Claim> claimTableView;
 
     @FXML
@@ -317,6 +320,7 @@ public class SystemAdminController implements Initializable {
         }
 
         totalClaimsAmountValue.setText(String.format("%.0f", totalApprovedClaimsAmount));
+        lastAddedClaim.setText("Last Registered Claim:  " + allClaims.get(allClaims.size() - 1).getClaimId() + "  ("+ allClaims.get(allClaims.size() - 1).getInsuredPerson() + ")");
 
         // Calculate percentage of approved claims
         int totalClaims = claimService.getAllClaims().size();
