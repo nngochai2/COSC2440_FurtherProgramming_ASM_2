@@ -90,3 +90,19 @@
 .default-color4.chart-pie {
     -fx-pie-color: #465058;
 }
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.axis {
+    -fx-border-color: transparent;
+}
+
+.chart-legend {
+    -fx-background-color: transparent; /* Light gray background */
+    -fx-padding: 10px;
+    -fx-border-width: 2px;
+    -fx-border-radius: 25px;
+    -fx-font-size: 11px;
+}

@@ -316,7 +316,7 @@ public class SystemAdminController implements Initializable {
             }
         }
 
-        totalClaimsAmountValue.setText(String.format("%.2f", totalApprovedClaimsAmount));
+        totalClaimsAmountValue.setText(String.format("%.0f", totalApprovedClaimsAmount));
 
         // Calculate percentage of approved claims
         int totalClaims = claimService.getAllClaims().size();
@@ -326,7 +326,7 @@ public class SystemAdminController implements Initializable {
             approvedClaimsPercentage = (double) approveClaimsCount / totalClaims * 100;
         }
 
-        averageSuccessfulClaims.setText(String.format("%.2f%%", approvedClaimsPercentage));
+        averageSuccessfulClaims.setText(String.format("%.1f%%", approvedClaimsPercentage));
 
         // Load the bar chart for claims
         this.loadClaimsSummaryData();
@@ -369,17 +369,19 @@ public class SystemAdminController implements Initializable {
         series.getData().add(new XYChart.Data<>("Rejected", claimService.getCountByStatus(ClaimStatus.REJECTED)));
         xAxis.setCategories(FXCollections.observableArrayList("New", "Processing", "Approved", "Rejected"));
         claimsBarChart.getData().add(series);
+        claimsBarChart.setLegendVisible(false);
     }
 
     // Method to load the users data to a pie chart
     private void loadCustomersSummaryData() {
-        PieChart.Data slice1 = new PieChart.Data("Dependents", dependentService.getAllDependents().size());
-        PieChart.Data slice2 = new PieChart.Data("Policy Holders", policyHolderService.getAllPolicyHolders().size());
-        PieChart.Data slice3 = new PieChart.Data("Policy Owners", policyOwnerService.getAllPolicyOwners().size());
-        PieChart.Data slice4 = new PieChart.Data("Insurance Managers", providerService.countInsuranceManagers());
-        PieChart.Data slice5 = new PieChart.Data("Insurance Surveyors", providerService.countInsuranceSurveyors());
+        PieChart.Data slice1 = new PieChart.Data("DEP", dependentService.getAllDependents().size());
+        PieChart.Data slice2 = new PieChart.Data("PH", policyHolderService.getAllPolicyHolders().size());
+        PieChart.Data slice3 = new PieChart.Data("PO", policyOwnerService.getAllPolicyOwners().size());
+        PieChart.Data slice4 = new PieChart.Data("IM", providerService.countInsuranceManagers());
+        PieChart.Data slice5 = new PieChart.Data("IS", providerService.countInsuranceSurveyors());
         customerPieChart.getData().addAll(slice1, slice2, slice3, slice4, slice5);
-        customerPieChart.setLabelsVisible(true);
+        customerPieChart.setLabelsVisible(false);
+        customerPieChart.setLegendVisible(true);
 
         // Calculate the total of all slices
         double total = slice1.getPieValue() + slice2.getPieValue() + slice3.getPieValue() + slice4.getPieValue() + slice5.getPieValue();
