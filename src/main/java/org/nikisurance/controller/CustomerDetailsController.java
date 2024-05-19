@@ -12,68 +12,36 @@ import java.util.Optional;
 
 public class CustomerDetailsController {
     @FXML private TextField idField, nameField, usernameField, passwordField, emailField, phoneNumberField, addressField, customerTypeField, policyHolderField, basePremiumField, dependentRateField, cardNumberField;
-    @FXML private HBox emailContainer, phoneContainer, addressContainer, cardNumberContainer, basePremiumContainer, dependentRateContainer, policyHolderContainer, customerTypeContainer;
+    @FXML private HBox policyHolderContainer;
     @FXML private Button editButton, saveButton, deleteButton, cancelButton;
 
     private final CustomerService customerService;
+    private final BeneficiaryService beneficiaryService;
 
     public CustomerDetailsController() {
         this.customerService = new CustomerServiceImpl();
+        this.beneficiaryService = new BeneficiaryServiceImpl();
     }
 
-    public void setCustomer(Customer customer) {
-        idField.setText(Long.toString(customer.getId()));
-        nameField.setText(customer.getFullName());
-        usernameField.setText(customer.getUsername());
-        passwordField.setText(customer.getPassword());
+    public void setBeneficiary(Beneficiary beneficiary) {
+        idField.setText(Long.toString(beneficiary.getId()));
+        nameField.setText(beneficiary.getFullName());
+        usernameField.setText(beneficiary.getUsername());
+        passwordField.setText(beneficiary.getPassword()); // Reset visibility for all fields
+        emailField.setText(beneficiary.getEmail());
+        phoneNumberField.setText(String.valueOf(beneficiary.getPhoneNumber()));
+        addressField.setText(beneficiary.getAddress());
+        customerTypeField.setText(beneficiary.getCustomerType());
+        cardNumberField.setText(String.valueOf(beneficiary.getInsuranceCard().getCardID()));
 
-        hideAllFields(); // Reset visibility for all fields
+        policyHolderContainer.setVisible(false);
+        policyHolderContainer.setManaged(false);
 
-        if (customer instanceof PolicyOwner) {
-            showPolicyOwnerFields((PolicyOwner) customer);
-        } else if (customer instanceof PolicyHolder) {
-            showPolicyHolderFields((PolicyHolder) customer);
-        } else if (customer instanceof Dependent) {
-            showDependentFields((Dependent) customer);
-        }
-    }
+        if (beneficiary instanceof Dependent) {
+            policyHolderContainer.setVisible(true);
+            policyHolderContainer.setManaged(true);
 
-
-    private void hideAllFields() {
-        // Hide all optional fields
-        setFieldVisibility(false, emailContainer, phoneContainer, addressContainer, basePremiumContainer, dependentRateContainer, cardNumberContainer, policyHolderContainer);
-    }
-
-    private void showPolicyHolderFields(PolicyHolder holder) {
-        emailField.setText(holder.getEmail());
-        phoneNumberField.setText(String.valueOf(holder.getPhoneNumber()));
-        addressField.setText(holder.getAddress());
-
-        setFieldVisibility(true, emailContainer, phoneContainer, addressContainer, customerTypeContainer);
-    }
-
-    private void showDependentFields(Dependent dependent) {
-        policyHolderField.setText(String.valueOf(dependent.getPolicyHolder().getId()));
-        cardNumberField.setText(String.valueOf(dependent.getInsuranceCard().getCardID()));
-
-        setFieldVisibility(true, policyHolderContainer, cardNumberContainer, customerTypeContainer);
-    }
-
-    private void showPolicyOwnerFields(PolicyOwner owner) {
-        basePremiumField.setText(String.format("%.2f", owner.getBasePremium()));
-        dependentRateField.setText(String.format("%.2f", owner.getDependentRate()));
-
-        setFieldVisibility(true, basePremiumContainer, dependentRateContainer);
-    }
-
-    private void setFieldVisibility(boolean visible, HBox... containers) {
-        for (HBox container : containers) {
-            if (container != null) {
-                container.setManaged(visible);
-                container.setVisible(visible);
-            } else {
-                System.out.println("One of the containers is null");
-            }
+            policyHolderField.setText(String.valueOf(((Dependent) beneficiary).getPolicyHolder()));
         }
     }
 
@@ -191,7 +159,7 @@ public class CustomerDetailsController {
 
     @FXML
     private void handleCancelAction() {
-        setCustomer(customerService.getCustomer(Long.parseLong(idField.getText()))); // Re-fetch and reset the details
+        setBeneficiary(beneficiaryService.getBeneficiary((Long.parseLong(idField.getText())))); // Re-fetch and reset the details
         setEditable(false);
         saveButton.setDisable(true);
         cancelButton.setDisable(true);

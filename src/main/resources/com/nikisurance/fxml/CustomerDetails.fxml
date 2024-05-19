@@ -180,26 +180,6 @@
                   <TextField fx:id="policyHolderField" prefWidth="187" />
                </children>
             </HBox>
-            <HBox fx:id="basePremiumContainer" spacing="10">
-               <children>
-                  <Label prefWidth="100" text="Base Premium:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="basePremiumField" prefWidth="187" />
-               </children>
-            </HBox>
-            <HBox fx:id="dependentRateContainer" spacing="10">
-               <children>
-                  <Label prefWidth="100" text="Rate">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="dependentRateField" prefWidth="187" />
-               </children>
-            </HBox>
             <HBox spacing="10" />
             <HBox spacing="10" />
             <HBox spacing="10" />

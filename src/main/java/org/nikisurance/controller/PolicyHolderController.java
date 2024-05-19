@@ -412,32 +412,32 @@ public class PolicyHolderController extends ClaimController implements Initializ
         customerTableView.setItems(FXCollections.observableArrayList(customerService.getAllCustomers()));
     }
 
-    @FXML
-    private void handleCustomerClick(MouseEvent event) {
-        if (event.getClickCount() == 2) { // Double click
-            Customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
-            if (selectedCustomer != null) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
-                    Parent root = loader.load();
-
-                    CustomerDetailsController controller = loader.getController();
-                    controller.setCustomer(selectedCustomer); // Corrected method name
-
-                    Stage stage = new Stage();
-                    stage.setTitle("Customer Details");
-                    stage.setScene(new Scene(root));
-                    stage.show();
-
-                } catch (IOException e) {
-                    logger.log(Level.SEVERE, "Failed to load customer details view", e);
-                    showAlert(Alert.AlertType.ERROR, "Error", "Cannot load the customer details view.");
-                }
-            } else {
-                showAlert(Alert.AlertType.WARNING, "No Selection", "No customer selected.");
-            }
-        }
-    }
+//    @FXML
+//    private void handleCustomerClick(MouseEvent event) {
+//        if (event.getClickCount() == 2) { // Double click
+//            Beneficiary selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+//            if (selectedCustomer != null) {
+//                try {
+//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
+//                    Parent root = loader.load();
+//
+//                    CustomerDetailsController controller = loader.getController();
+//                    controller.setBeneficiary(s); // Corrected method name
+//
+//                    Stage stage = new Stage();
+//                    stage.setTitle("Customer Details");
+//                    stage.setScene(new Scene(root));
+//                    stage.show();
+//
+//                } catch (IOException e) {
+//                    logger.log(Level.SEVERE, "Failed to load customer details view", e);
+//                    showAlert(Alert.AlertType.ERROR, "Error", "Cannot load the customer details view.");
+//                }
+//            } else {
+//                showAlert(Alert.AlertType.WARNING, "No Selection", "No customer selected.");
+//            }
+//        }
+//    }
 
     @FXML
     private void addPolicyHolder() {

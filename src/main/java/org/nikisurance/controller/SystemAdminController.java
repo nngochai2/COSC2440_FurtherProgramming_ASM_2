@@ -462,14 +462,14 @@ public class SystemAdminController implements Initializable {
     @FXML
     private void handleCustomerClick(MouseEvent event) {
         if (event.getClickCount() == 2) { // Double click
-            Customer selectedCustomer = beneficiaryTable.getSelectionModel().getSelectedItem();
-            if (selectedCustomer != null) {
+            Beneficiary selectedBeneficiary = beneficiaryTable.getSelectionModel().getSelectedItem();
+            if (selectedBeneficiary != null) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
                     Parent root = loader.load();
 
                     CustomerDetailsController controller = loader.getController();
-                    controller.setCustomer(selectedCustomer); // Corrected method name
+                    controller.setBeneficiary(selectedBeneficiary); // Corrected method name
 
                     Stage stage = new Stage();
                     stage.setTitle("Customer Details");
