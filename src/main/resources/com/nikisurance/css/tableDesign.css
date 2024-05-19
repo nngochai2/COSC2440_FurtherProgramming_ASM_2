@@ -67,3 +67,26 @@
     -fx-background-radius: 15px;
 }
 
+.default-color0.chart-bar {
+    -fx-bar-fill: #2A363F;
+}
+
+.default-color0.chart-pie {
+    -fx-pie-color: #1dbbdd44;
+}
+
+.default-color1.chart-pie {
+    -fx-pie-color: #2A363F;
+}
+
+.default-color2.chart-pie {
+    -fx-pie-color: #93f9b944;
+}
+
+.default-color3.chart-pie {
+    -fx-pie-color: #1f93ff00;
+}
+
+.default-color4.chart-pie {
+    -fx-pie-color: #465058;
+}

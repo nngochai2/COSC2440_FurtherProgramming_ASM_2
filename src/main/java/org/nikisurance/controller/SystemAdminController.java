@@ -15,9 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -203,6 +201,7 @@ public class SystemAdminController implements Initializable {
     private FilteredList<Claim> filteredClaims;
 
     @FXML
+<<<<<<< Updated upstream
     private TableView<Beneficiary> beneficiaryTable;
 
     @FXML
@@ -221,6 +220,12 @@ public class SystemAdminController implements Initializable {
     private TableColumn<Beneficiary, String> addressColumn;
     @FXML
     private TableColumn<Beneficiary, String> beneficiaryTypeColumn;
+=======
+    private NumberAxis yAxis;
+
+    @FXML
+    private CategoryAxis xAxis;
+>>>>>>> Stashed changes
 
     private double x = 0, y = 0;
 
@@ -363,6 +368,7 @@ public class SystemAdminController implements Initializable {
         series.getData().add(new XYChart.Data<>("Processing", claimService.getCountByStatus(ClaimStatus.PROCESSING)));
         series.getData().add(new XYChart.Data<>("Approved", claimService.getCountByStatus(ClaimStatus.APPROVED)));
         series.getData().add(new XYChart.Data<>("Rejected", claimService.getCountByStatus(ClaimStatus.REJECTED)));
+        xAxis.setCategories(FXCollections.observableArrayList("New", "Processing", "Approved", "Rejected"));
         claimsBarChart.getData().add(series);
     }
 
@@ -374,6 +380,17 @@ public class SystemAdminController implements Initializable {
         PieChart.Data slice4 = new PieChart.Data("Insurance Managers", providerService.countInsuranceManagers());
         PieChart.Data slice5 = new PieChart.Data("Insurance Surveyors", providerService.countInsuranceSurveyors());
         customerPieChart.getData().addAll(slice1, slice2, slice3, slice4, slice5);
+        customerPieChart.setLabelsVisible(true);
+
+        // Calculate the total of all slices
+        double total = slice1.getPieValue() + slice2.getPieValue() + slice3.getPieValue() + slice4.getPieValue() + slice5.getPieValue();
+
+        // Set the labels of the PieChart.Data objects to display the percentage of the total
+        slice1.setName(slice1.getName() + ": " + String.format("%.1f%%", 100*slice1.getPieValue()/total));
+        slice2.setName(slice2.getName() + ": " + String.format("%.1f%%", 100*slice2.getPieValue()/total));
+        slice3.setName(slice3.getName() + ": " + String.format("%.1f%%", 100*slice3.getPieValue()/total));
+        slice4.setName(slice4.getName() + ": " + String.format("%.1f%%", 100*slice4.getPieValue()/total));
+        slice5.setName(slice5.getName() + ": " + String.format("%.1f%%", 100*slice5.getPieValue()/total));
     }
 
     private void showAlert(AlertType alertType, String title, String message) {
