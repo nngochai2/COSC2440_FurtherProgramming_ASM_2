@@ -34,4 +34,15 @@ public class PolicyOwnerServiceImpl extends EntityRepository implements PolicyOw
             }
         });
     }
+
+    @Override
+    public List<Long> getBeneficiaryIds(Long policyOwnerId) {
+        // Example using JPQL, adjust according to your database schema
+        return performReturningOperation(em -> em.createQuery(
+                        "SELECT ph.id FROM PolicyHolder ph WHERE ph.policyOwner.id = :policyOwnerId " +
+                                "UNION " +
+                                "SELECT d.id FROM Dependent d WHERE d.policyHolder.policyOwner.id = :policyOwnerId", Long.class)
+                .setParameter("policyOwnerId", policyOwnerId)
+                .getResultList());
+    }
 }

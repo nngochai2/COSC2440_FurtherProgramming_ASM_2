@@ -13,4 +13,5 @@ public interface ClaimService {
     void updateClaim(Claim claim);
     long getCountByStatus(ClaimStatus status);
     List<Claim> getClaimsForPolicyHolderAndDependents(Long policyHolderId);
+    List<Claim> getClaimsForBeneficiaries(List<Long> beneficiaryIds);
 }

@@ -9,4 +9,5 @@ public interface PolicyOwnerService {
     void addPolicyOwner(PolicyOwner policyOwner);
     List<PolicyOwner> getAllPolicyOwners();
     void deletePolicyOwner(Long policyOwnerId);
+    List<Long> getBeneficiaryIds(Long policyOwnerId);
 }

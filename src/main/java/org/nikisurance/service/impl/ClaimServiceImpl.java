@@ -65,8 +65,16 @@ public class ClaimServiceImpl extends EntityRepository implements ClaimService {
             ids.add(dependent.getId());
         }
 
-        return performReturningOperation(em -> em.createQuery("SELECT c FROM Claim c WHERE c.beneficiaryId IN :ids", Claim.class))
+        return performReturningOperation(em -> em.createQuery("SELECT c FROM Claim c WHERE c.beneficiaryId IN :ids", Claim.class)
                 .setParameter("ids", ids)
-                .getResultList();
+                .getResultList());
+    }
+
+    @Override
+    public List<Claim> getClaimsForBeneficiaries(List<Long> beneficiaryIds) {
+        return performReturningOperation(em -> em.createQuery(
+                        "SELECT c FROM Claim c WHERE c.beneficiaryId IN :ids", Claim.class)
+                .setParameter("ids", beneficiaryIds)
+                .getResultList());
     }
 }

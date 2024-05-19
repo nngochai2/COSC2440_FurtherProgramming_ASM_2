@@ -14,7 +14,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.nikisurance.entity.*;
 import org.nikisurance.service.impl.ClaimServiceImpl;
+import org.nikisurance.service.impl.PolicyOwnerServiceImpl;
 import org.nikisurance.service.interfaces.ClaimService;
+import org.nikisurance.service.interfaces.PolicyOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -39,6 +41,8 @@ public class ClaimController implements Initializable {
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     private final ClaimService claimService;
+
+    private final PolicyOwnerService policyOwnerService;
 
     @FXML
     protected TableView<Claim> claimTable;
@@ -89,20 +93,44 @@ public class ClaimController implements Initializable {
     protected FilteredList<Claim> filteredClaims;
     protected SortedList<Claim> sortedClaims;
 
+
+
     private Person currentUser;
 
     public ClaimController() {
         this.claimService = new ClaimServiceImpl();
+        this.policyOwnerService = new PolicyOwnerServiceImpl();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.currentUser = UserSession.getInstance().getLoggedInPerson(); // Get the logged-in user
+        this.currentUser = UserSession.getInstance().getLoggedInPerson();
+        if (currentUser instanceof PolicyHolder) {
+            initializeClaimTableForPolicyHolder((PolicyHolder) currentUser);
+        } else if (currentUser instanceof PolicyOwner) {
+            initializeClaimTableForPolicyOwner((PolicyOwner) currentUser);
+        } else {
+            initializeClaimTable();
+        }
         this.initializeClaimTable();
         this.setupFilteringAndSorting();
         this.populateClaimantComboBox();
     }
 
+    private void initializeClaimTableForPolicyHolder(PolicyHolder policyHolder) {
+        List<Claim> claims = claimService.getClaimsForPolicyHolderAndDependents(policyHolder.getId());
+        claimsData = FXCollections.observableArrayList(claims);
+        claimTable.setItems(claimsData);
+    }
+
+    private void initializeClaimTableForPolicyOwner(PolicyOwner policyOwner) {
+        List<Long> beneficiaryIds = policyOwnerService.getBeneficiaryIds(policyOwner.getId());  // Use the service to get IDs
+        List<Claim> claims = claimService.getClaimsForBeneficiaries(beneficiaryIds);
+        claimsData = FXCollections.observableArrayList(claims);
+        claimTable.setItems(claimsData);
+    }
+
+    // This method allows the policy holders/policy owners to choose who to add claim for
     private void populateClaimantComboBox() {
         if (currentUser instanceof PolicyHolder) {
             ObservableList<Beneficiary> options = FXCollections.observableArrayList();
