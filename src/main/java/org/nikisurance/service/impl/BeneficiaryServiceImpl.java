@@ -33,4 +33,9 @@ public class BeneficiaryServiceImpl extends EntityRepository implements Benefici
             }
         });
     }
+
+    @Override
+    public void updateBeneficiary(Beneficiary b) {
+        performOperation(em -> em.merge(b));
+    }
 }

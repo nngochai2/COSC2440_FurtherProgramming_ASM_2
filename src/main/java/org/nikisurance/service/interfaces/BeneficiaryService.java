@@ -9,4 +9,5 @@ public interface BeneficiaryService {
     Beneficiary getBeneficiary(Long id);
     List<Beneficiary> getAllBeneficiaries();
     void deleteBeneficiary(Long id);
+    void updateBeneficiary(Beneficiary b);
 }
