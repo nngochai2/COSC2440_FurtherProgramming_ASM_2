@@ -10,4 +10,5 @@ public interface DependentService {
     List<Dependent> getAllDependents();
     void deleteDependent(Long id);
     void updateDependent(Dependent dependent);
+    List<Dependent> getDependentsByPolicyHolderId(Long policyHolderId);
 }

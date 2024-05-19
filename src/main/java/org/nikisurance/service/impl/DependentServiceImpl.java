@@ -66,4 +66,13 @@ public class DependentServiceImpl extends EntityRepository implements DependentS
     public void updateDependent(Dependent dependent) {
         performOperation(em -> em.merge(dependent));
     }
+
+    @Override
+    public List<Dependent> getDependentsByPolicyHolderId(Long policyHolderId) {
+        return performReturningOperation(em ->
+                em.createQuery("SELECT d FROM Dependent d WHERE d.policyHolder.id = :policyHolderId", Dependent.class)
+                        .setParameter("policyHolderId", policyHolderId)
+                        .getResultList()
+        );
+    }
 }
