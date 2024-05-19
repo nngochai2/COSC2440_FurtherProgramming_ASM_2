@@ -51,4 +51,9 @@ public class PolicyOwner extends Customer implements Serializable {
     public void removeBeneficiary(Beneficiary beneficiary) {
         beneficiaries.remove(beneficiary);
     }
+
+    @Override
+    public String getCustomerType() {
+        return "POLICYOWNER";
+    }
 }

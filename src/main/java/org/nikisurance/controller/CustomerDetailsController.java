@@ -27,23 +27,17 @@ public class CustomerDetailsController {
         usernameField.setText(customer.getUsername());
         passwordField.setText(customer.getPassword());
 
-        // Hide all fields initially
-        hideAllFields();
+        hideAllFields(); // Reset visibility for all fields
 
-        // Determine the specific type of customer and set the text accordingly
-        if (customer instanceof PolicyHolder) {
-            customerTypeField.setText("Policy Holder");  // Set the text as per your requirement
+        if (customer instanceof PolicyOwner) {
+            showPolicyOwnerFields((PolicyOwner) customer);
+        } else if (customer instanceof PolicyHolder) {
             showPolicyHolderFields((PolicyHolder) customer);
         } else if (customer instanceof Dependent) {
-            customerTypeField.setText("Dependent");
             showDependentFields((Dependent) customer);
-        } else if (customer instanceof PolicyOwner) {
-            customerTypeField.setText("Policy Owner");
-            showPolicyOwnerFields((PolicyOwner) customer);
-        } else {
-            customerTypeField.setText("Customer");  // Default or other types, if there are any
         }
     }
+
 
     private void hideAllFields() {
         // Hide all optional fields

@@ -93,4 +93,9 @@ public class PolicyHolder extends Beneficiary implements Serializable {
         claim.setBeneficiaryId(dependent.getId());
         dependent.getClaims().add(claim);
     }
+
+    @Override
+    public String getCustomerType() {
+        return "POLICYHOLDER";
+    }
 }

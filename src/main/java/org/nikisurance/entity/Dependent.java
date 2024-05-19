@@ -21,4 +21,9 @@ public class Dependent extends Beneficiary implements Serializable {
     public void setPolicyHolder(PolicyHolder policyHolder) {
         this.policyHolder = policyHolder;
     }
+
+    @Override
+    public String getCustomerType() {
+        return "DEPENDENT";
+    }
 }
