@@ -421,7 +421,7 @@ public class PolicyHolderController extends ClaimController implements Initializ
 //                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
 //                    Parent root = loader.load();
 //
-//                    CustomerDetailsController controller = loader.getController();
+//                    BeneficiaryDetailsController controller = loader.getController();
 //                    controller.setBeneficiary(s); // Corrected method name
 //
 //                    Stage stage = new Stage();

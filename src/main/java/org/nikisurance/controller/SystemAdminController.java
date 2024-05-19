@@ -20,7 +20,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -468,7 +467,7 @@ public class SystemAdminController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
                     Parent root = loader.load();
 
-                    CustomerDetailsController controller = loader.getController();
+                    BeneficiaryDetailsController controller = loader.getController();
                     controller.setBeneficiary(selectedBeneficiary); // Corrected method name
 
                     Stage stage = new Stage();
