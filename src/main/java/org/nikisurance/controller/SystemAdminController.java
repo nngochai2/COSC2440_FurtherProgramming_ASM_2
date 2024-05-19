@@ -201,7 +201,6 @@ public class SystemAdminController implements Initializable {
     private FilteredList<Claim> filteredClaims;
 
     @FXML
-<<<<<<< Updated upstream
     private TableView<Beneficiary> beneficiaryTable;
 
     @FXML
@@ -220,12 +219,12 @@ public class SystemAdminController implements Initializable {
     private TableColumn<Beneficiary, String> addressColumn;
     @FXML
     private TableColumn<Beneficiary, String> beneficiaryTypeColumn;
-=======
+
+    @FXML
     private NumberAxis yAxis;
 
     @FXML
     private CategoryAxis xAxis;
->>>>>>> Stashed changes
 
     private double x = 0, y = 0;
 
