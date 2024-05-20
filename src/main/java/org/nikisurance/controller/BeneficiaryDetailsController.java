@@ -81,69 +81,30 @@ public class BeneficiaryDetailsController {
 
     @FXML
     private void handleSaveAction() {
-        try {
-            this.saveBeneficiaryDetails();
-            setEditable(false);
-            editButton.setText("Edit");
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR,"Error", "Failed to save beneficiary details: " + e.getMessage());
+        if (showSaveConfirmationDialog()) {
+            try {
+                this.saveBeneficiaryDetails();
+                setEditable(false);
+//            editButton.setText("Edit");
+                ((Stage) idField.getScene().getWindow()).close();
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR,"Error", "Failed to save beneficiary details: " + e.getMessage());
+            }
         }
-    }
-
-    private void updateBeneficiaryFields(Beneficiary beneficiary) {
-        beneficiary.setFullName(nameField.getText());
-        beneficiary.setUsername(usernameField.getText());
-        beneficiary.setPassword(passwordField.getText());
-        beneficiary.setEmail(emailField.getText());
-        beneficiary.setPhoneNumber(Long.parseLong(phoneNumberField.getText()));
-        beneficiary.setAddress(addressField.getText());
     }
 
     @FXML
     private void handleDeleteAction() {
-        if (showConfirmationDialog()) {
+        if (showDeleteConfirmationDialog()) {
             deleteCustomer();
             ((Stage) idField.getScene().getWindow()).close();
         }
-    }
-
-    private void deleteCustomer() {
-        try {
-            beneficiaryService.deleteBeneficiary(Long.parseLong(idField.getText()));
-            showAlert(Alert.AlertType.INFORMATION, "Deleted", "Beneficiary has been deleted.");
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Unable to delete beneficiary: " + e.getMessage());
-        }
-    }
-
-    private boolean showConfirmationDialog() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm Delete");
-        alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to delete this beneficiary?");
-        Optional<ButtonType> action = alert.showAndWait();
-        return action.isPresent() && action.get() == ButtonType.OK;
     }
 
     @FXML
     private void handleCancelAction() {
         setBeneficiary(beneficiaryService.getBeneficiary(Long.parseLong(idField.getText()))); // Re-fetch and reset the details
         toggleEdit(); // Reset editable state to non-editable
-    }
-
-    @FXML
-    private void toggleEdit() {
-        boolean isEditable = !nameField.isEditable();
-        setEditable(isEditable);
-        editButton.setText(isEditable ? "Save" : "Edit");
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.show();
     }
 
     private void saveBeneficiaryDetails() {
@@ -160,5 +121,56 @@ public class BeneficiaryDetailsController {
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Unable to save beneficiary details: " + e.getMessage());
         }
+    }
+
+    private void updateBeneficiaryFields(Beneficiary beneficiary) {
+        beneficiary.setFullName(nameField.getText());
+        beneficiary.setUsername(usernameField.getText());
+        beneficiary.setPassword(passwordField.getText());
+        beneficiary.setEmail(emailField.getText());
+        beneficiary.setPhoneNumber(Long.parseLong(phoneNumberField.getText()));
+        beneficiary.setAddress(addressField.getText());
+    }
+
+    private void deleteCustomer() {
+        try {
+            beneficiaryService.deleteBeneficiary(Long.parseLong(idField.getText()));
+            showAlert(Alert.AlertType.INFORMATION, "Deleted", "Beneficiary has been deleted.");
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Unable to delete beneficiary: " + e.getMessage());
+        }
+    }
+
+    private boolean showDeleteConfirmationDialog() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete this beneficiary?");
+        Optional<ButtonType> action = alert.showAndWait();
+        return action.isPresent() && action.get() == ButtonType.OK;
+    }
+
+    private boolean showSaveConfirmationDialog() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Edit");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to edit this beneficiary?");
+        Optional<ButtonType> action = alert.showAndWait();
+        return action.isPresent() && action.get() == ButtonType.OK;
+    }
+
+    @FXML
+    private void toggleEdit() {
+        boolean isEditable = !nameField.isEditable();
+        setEditable(isEditable);
+        editButton.setText(isEditable ? "Save" : "Edit");
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.show();
     }
 }

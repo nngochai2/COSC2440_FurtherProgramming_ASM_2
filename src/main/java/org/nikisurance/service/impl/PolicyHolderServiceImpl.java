@@ -1,7 +1,9 @@
 package org.nikisurance.service.impl;
 
+import org.nikisurance.entity.Dependent;
 import org.nikisurance.entity.InsuranceCard;
 import org.nikisurance.entity.PolicyHolder;
+import org.nikisurance.service.interfaces.DependentService;
 import org.nikisurance.service.interfaces.InsuranceCardService;
 import org.nikisurance.service.interfaces.PolicyHolderService;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,11 @@ import jakarta.persistence.TypedQuery;
 public class PolicyHolderServiceImpl extends EntityRepository implements PolicyHolderService {
 
     private final InsuranceCardService insuranceCardService;
+    private final DependentService dependentService;
 
     public PolicyHolderServiceImpl() {
         insuranceCardService = new InsuranceCardServiceImpl();
+        dependentService = new DependentServiceImpl();
     }
     @Override
     public void addPolicyHolder(PolicyHolder policyHolder) {
@@ -55,6 +59,11 @@ public class PolicyHolderServiceImpl extends EntityRepository implements PolicyH
         performOperation(em -> {
             PolicyHolder policyHolder = em.find(PolicyHolder.class, id);
             if (policyHolder != null) {
+                // Delete a policy holder also deletes their dependents
+                List<Dependent> dependentsToDelete = dependentService.getDependentsByPolicyHolderId(id);
+                for (Dependent dependent : dependentsToDelete) {
+                    dependentService.deleteDependent(dependent.getId());
+                }
                 em.remove(policyHolder);
             } else {
                 throw new IllegalArgumentException("PolicyHolder with id " + id + " not found");
