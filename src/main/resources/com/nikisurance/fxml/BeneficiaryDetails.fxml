@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -104,61 +105,7 @@
             <Font size="1.0" />
          </font>
       </JFXButton>
-      <FontIcon iconLiteral="ci-trash-can" iconSize="40" layoutX="541.0" layoutY="383.0" text="" wrappingWidth="40.87493896484375">
-         <iconColor>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </iconColor>
-      </FontIcon>
-      <FontIcon iconLiteral="ci-edit" iconSize="40" layoutX="484.0" layoutY="383.0" wrappingWidth="40.87493896484375">
-         <iconColor>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </iconColor>
-      </FontIcon>
-      <FontIcon iconLiteral="ci-add-alt" iconSize="40" layoutX="428.0" layoutY="383.0" wrappingWidth="40.87493896484375">
-         <iconColor>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </iconColor>
-      </FontIcon>
-      <VBox layoutX="291.0" layoutY="65.0" prefHeight="183.0" prefWidth="306.0" spacing="15">
+      <VBox layoutX="291.0" layoutY="65.0" prefHeight="60.0" prefWidth="306.0" spacing="15">
          <children>
             <HBox fx:id="customerTypeContainer" spacing="10">
                <children>
@@ -187,5 +134,95 @@
             <HBox spacing="10" />
          </children>
       </VBox>
+      <JFXDrawer />
+      <JFXButton fx:id="cancelButton" layoutX="493.0" layoutY="263.0" onAction="#handleCancelAction" text="Cancel">
+         <graphic>
+            <FontIcon iconLiteral="ci-trash-can" iconSize="40" text="" wrappingWidth="40.87493896484375">
+               <iconColor>
+                  <LinearGradient>
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </iconColor>
+            </FontIcon>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="editButton" layoutX="392.0" layoutY="263.0" onAction="#handleEditAction" text="Edit">
+         <graphic>
+            <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
+               <iconColor>
+                  <LinearGradient>
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </iconColor>
+            </FontIcon>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="deleteButton" layoutX="493.0" layoutY="328.0" onAction="#handleDeleteAction" text="Delete">
+         <graphic>
+            <FontIcon iconLiteral="ci-trash-can" iconSize="40" text="" wrappingWidth="40.87493896484375">
+               <iconColor>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </iconColor>
+            </FontIcon>
+         </graphic>
+      </JFXButton>
+      <FontIcon />
+      <JFXButton fx:id="saveButton" layoutX="392.0" layoutY="328.0" onAction="#handleSaveAction" text="Save">
+         <graphic>
+            <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
+               <iconColor>
+                  <LinearGradient>
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </iconColor>
+            </FontIcon>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

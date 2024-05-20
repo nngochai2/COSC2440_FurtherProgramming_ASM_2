@@ -8,12 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.nikisurance.entity.Beneficiary;
-import org.nikisurance.entity.Customer;
 import org.nikisurance.entity.Dependent;
 import org.nikisurance.service.impl.BeneficiaryServiceImpl;
-import org.nikisurance.service.impl.CustomerServiceImpl;
 import org.nikisurance.service.interfaces.BeneficiaryService;
-import org.nikisurance.service.interfaces.CustomerService;
 
 import java.util.Optional;
 
@@ -23,6 +20,12 @@ public class BeneficiaryDetailsController {
     @FXML private HBox policyHolderContainer;
     @FXML private Button editButton, saveButton, deleteButton, cancelButton;
     private final BeneficiaryService beneficiaryService;
+
+    private SystemAdminController systemAdminController;
+
+    public void setSystemAdminController(SystemAdminController systemAdminController) {
+        this.systemAdminController = systemAdminController;
+    }
 
     public BeneficiaryDetailsController() {
         this.beneficiaryService = new BeneficiaryServiceImpl();
@@ -36,16 +39,24 @@ public class BeneficiaryDetailsController {
         emailField.setText(beneficiary.getEmail());
         phoneNumberField.setText(String.valueOf(beneficiary.getPhoneNumber()));
         addressField.setText(beneficiary.getAddress());
-        customerTypeField.setText(beneficiary.getCustomerType());
+        customerTypeField.setText(beneficiary.getBeneficiaryType());
         cardNumberField.setText(String.valueOf(beneficiary.getInsuranceCard().getCardID()));
 
         setEditable(false);
+
+        idField.setEditable(false);
+        idField.setManaged(false);
 
         policyHolderContainer.setVisible(beneficiary instanceof Dependent);
         policyHolderContainer.setManaged(beneficiary instanceof Dependent);
         if (beneficiary instanceof Dependent) {
             policyHolderField.setText(String.valueOf(((Dependent) beneficiary).getPolicyHolder().getId()));
+            policyHolderField.setEditable(false);
+            policyHolderField.setManaged(false);
         }
+
+        saveButton.setDisable(true);
+        cancelButton.setDisable(true);
     }
 
     private void setEditable(boolean value) {
@@ -55,16 +66,15 @@ public class BeneficiaryDetailsController {
         emailField.setEditable(value);
         phoneNumberField.setEditable(value);
         addressField.setEditable(value);
-        customerTypeField.setEditable(value);
         cardNumberField.setEditable(value);
-        policyHolderField.setEditable(value);
     }
 
     @FXML
     private void handleEditAction() {
         boolean isEditable = !nameField.isEditable();
         setEditable(isEditable);
-        editButton.setText(isEditable ? "Save" : "Edit");
+//        editButton.setText(isEditable ? "Save" : "Edit");
+        editButton.setDisable(true);
         saveButton.setDisable(!isEditable);
         cancelButton.setDisable(!isEditable);
     }
@@ -72,27 +82,21 @@ public class BeneficiaryDetailsController {
     @FXML
     private void handleSaveAction() {
         try {
-            Beneficiary beneficiary = beneficiaryService.getBeneficiary(Long.parseLong(idField.getText()));
-            updateCustomerFields(beneficiary);
-            beneficiaryService.updateBeneficiary(beneficiary);
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Customer details updated successfully.");
+            this.saveBeneficiaryDetails();
             setEditable(false);
             editButton.setText("Edit");
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR,"Error", "Failed to save customer details: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR,"Error", "Failed to save beneficiary details: " + e.getMessage());
         }
     }
 
-    private void updateCustomerFields(Customer customer) {
-        customer.setFullName(nameField.getText());
-        customer.setUsername(usernameField.getText());
-        customer.setPassword(passwordField.getText());
-        if (customer instanceof Beneficiary) {
-            Beneficiary beneficiary = (Beneficiary) customer;
-            beneficiary.setEmail(emailField.getText());
-            beneficiary.setPhoneNumber(Long.parseLong(phoneNumberField.getText()));
-            beneficiary.setAddress(addressField.getText());
-        }
+    private void updateBeneficiaryFields(Beneficiary beneficiary) {
+        beneficiary.setFullName(nameField.getText());
+        beneficiary.setUsername(usernameField.getText());
+        beneficiary.setPassword(passwordField.getText());
+        beneficiary.setEmail(emailField.getText());
+        beneficiary.setPhoneNumber(Long.parseLong(phoneNumberField.getText()));
+        beneficiary.setAddress(addressField.getText());
     }
 
     @FXML
@@ -106,9 +110,9 @@ public class BeneficiaryDetailsController {
     private void deleteCustomer() {
         try {
             beneficiaryService.deleteBeneficiary(Long.parseLong(idField.getText()));
-            showAlert(Alert.AlertType.INFORMATION, "Deleted", "Customer has been deleted.");
+            showAlert(Alert.AlertType.INFORMATION, "Deleted", "Beneficiary has been deleted.");
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Unable to delete customer: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Error", "Unable to delete beneficiary: " + e.getMessage());
         }
     }
 
@@ -116,7 +120,7 @@ public class BeneficiaryDetailsController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Delete");
         alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to delete this customer?");
+        alert.setContentText("Are you sure you want to delete this beneficiary?");
         Optional<ButtonType> action = alert.showAndWait();
         return action.isPresent() && action.get() == ButtonType.OK;
     }
@@ -140,5 +144,21 @@ public class BeneficiaryDetailsController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.show();
+    }
+
+    private void saveBeneficiaryDetails() {
+        try {
+            Beneficiary beneficiary = beneficiaryService.getBeneficiary(Long.parseLong(idField.getText()));
+            updateBeneficiaryFields(beneficiary);
+            beneficiaryService.updateBeneficiary(beneficiary);
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Beneficiary details updated successfully.");
+
+            if (systemAdminController != null) {
+                // Refresh the table in Admin.fxml
+                systemAdminController.refreshBeneficiaryTable();
+            }
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Unable to save beneficiary details: " + e.getMessage());
+        }
     }
 }

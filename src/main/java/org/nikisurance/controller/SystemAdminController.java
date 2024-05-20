@@ -479,33 +479,10 @@ public class SystemAdminController implements Initializable {
         stage.close();
     }
 
-    @FXML
-    private void signOut() {
-        try {
-            // Load the Main.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/Main.fxml"));
-            Parent root = loader.load();
-
-            // Create a new scene and display it
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            scene.setFill(Color.TRANSPARENT);
-            stage.initStyle(StageStyle.TRANSPARENT);
-            stage.setTitle("Nikisurance");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-
-            // Close the current window
-            Stage currentStage = (Stage) btnSignOut.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "IOException found.");
-        }
-    }
-
-    private void refreshBeneficiaryTable() {
-        beneficiaryTable.setItems(FXCollections.observableArrayList(beneficiaryService.getAllBeneficiaries()));
+    public void refreshBeneficiaryTable() {
+        List<Beneficiary> updatedList = beneficiaryService.getAllBeneficiaries();
+        beneficiaryTable.getItems().setAll(updatedList);
+//        beneficiaryTable.setItems(FXCollections.observableArrayList(beneficiaryService.getAllBeneficiaries()));
     }
 
     @FXML
@@ -515,10 +492,11 @@ public class SystemAdminController implements Initializable {
             if (selectedBeneficiary != null) {
                 try {
                     FXMLLoader loader = new FXMLLoader(
-                            getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
+                            getClass().getResource("/com/nikisurance/fxml/BeneficiaryDetails.fxml"));
                     Parent root = loader.load();
 
                     BeneficiaryDetailsController controller = loader.getController();
+                    controller.setSystemAdminController(this);
                     controller.setBeneficiary(selectedBeneficiary); // Corrected method name
 
                     Stage stage = new Stage();
@@ -551,6 +529,31 @@ public class SystemAdminController implements Initializable {
             this.refreshBeneficiaryTable();
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Error", "Failed to add policy holder: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void signOut() {
+        try {
+            // Load the Main.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/Main.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene and display it
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            scene.setFill(Color.TRANSPARENT);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setTitle("Nikisurance");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+
+            // Close the current window
+            Stage currentStage = (Stage) btnSignOut.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "IOException found.");
         }
     }
 }

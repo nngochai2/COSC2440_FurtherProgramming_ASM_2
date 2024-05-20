@@ -418,7 +418,7 @@ public class PolicyHolderController extends ClaimController implements Initializ
 //            Beneficiary selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
 //            if (selectedCustomer != null) {
 //                try {
-//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
+//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/BeneficiaryDetails.fxml"));
 //                    Parent root = loader.load();
 //
 //                    BeneficiaryDetailsController controller = loader.getController();
