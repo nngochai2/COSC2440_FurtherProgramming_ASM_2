@@ -106,3 +106,7 @@
     -fx-border-radius: 25px;
     -fx-font-size: 11px;
 }
+
+#tier {
+    -fx-background-color: linear-gradient(to bottom,  #A8a9ad, #e3e3e3);
+}
