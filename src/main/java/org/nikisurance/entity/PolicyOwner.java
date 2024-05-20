@@ -32,7 +32,7 @@ public class PolicyOwner extends Customer implements Serializable {
         return basePremium;
     }
 
-    public void setBasePremium(Long basePremium) {
+    public void setBasePremium(double basePremium) {
         this.basePremium = basePremium;
     }
 

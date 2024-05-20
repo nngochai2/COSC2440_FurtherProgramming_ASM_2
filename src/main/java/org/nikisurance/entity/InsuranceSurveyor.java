@@ -11,7 +11,7 @@ import java.util.Set;
 public class InsuranceSurveyor extends Provider implements Serializable {
 
     @OneToMany
-    private Set<Claim> claims;
+    private Set<Claim> processingClaims;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
@@ -28,10 +28,10 @@ public class InsuranceSurveyor extends Provider implements Serializable {
     }
 
     public Set<Claim> getClaims() {
-        return claims;
+        return processingClaims;
     }
 
-    public void setClaims(Set<Claim> claims) {
-        this.claims = claims;
+    public void setClaims(Set<Claim> processingClaims) {
+        this.processingClaims = processingClaims;
     }
 }

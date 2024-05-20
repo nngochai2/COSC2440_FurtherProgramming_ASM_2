@@ -438,23 +438,4 @@ public class PolicyHolderController extends ClaimController implements Initializ
 //            }
 //        }
 //    }
-
-    @FXML
-    private void addPolicyHolder() {
-        try {
-            PolicyHolder policyHolder = new PolicyHolder();
-            policyHolder.setFullName(nameField.getText());
-            policyHolder.setUsername(usernameField.getText());
-            policyHolder.setPassword(passwordField.getText());
-            policyHolder.setEmail(policyHolderEmailField.getText());
-            policyHolder.setPhoneNumber(Long.valueOf(policyHolderPhoneNumberField.getText()));
-            policyHolder.setAddress(policyHolderAddressField.getText());
-
-            this.showAlert(Alert.AlertType.INFORMATION, "Policy Added Successfully", "Policy has been added successfully.");
-            this.refreshCustomerTable();
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to add policy holder: " + e.getMessage());
-        }
-    }
-
 }

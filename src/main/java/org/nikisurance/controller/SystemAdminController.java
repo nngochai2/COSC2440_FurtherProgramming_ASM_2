@@ -24,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.nikisurance.entity.*;
@@ -515,45 +516,18 @@ public class SystemAdminController implements Initializable {
     }
 
     @FXML
-    private void addPolicyHolder() {
+    private void handleAddNewBeneficiaryAction() {
         try {
-            PolicyHolder policyHolder = new PolicyHolder();
-            policyHolder.setFullName(nameField.getText());
-            policyHolder.setUsername(usernameField.getText());
-            policyHolder.setPassword(passwordField.getText());
-            policyHolder.setEmail(policyHolderEmailField.getText());
-            policyHolder.setPhoneNumber(Long.valueOf(policyHolderPhoneNumberField.getText()));
-            policyHolder.setAddress(policyHolderAddressField.getText());
-
-            this.showAlert(AlertType.INFORMATION, "Policy Added Successfully", "Policy has been added successfully.");
-            this.refreshBeneficiaryTable();
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Error", "Failed to add policy holder: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    private void signOut() {
-        try {
-            // Load the Main.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/Main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/AddUserUI.fxml"));
             Parent root = loader.load();
 
-            // Create a new scene and display it
-            Scene scene = new Scene(root);
             Stage stage = new Stage();
-            scene.setFill(Color.TRANSPARENT);
-            stage.initStyle(StageStyle.TRANSPARENT);
-            stage.setTitle("Nikisurance");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-
-            // Close the current window
-            Stage currentStage = (Stage) btnSignOut.getScene().getWindow();
-            currentStage.close();
+            stage.setTitle("Add New Beneficiary");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "IOException found.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Cannot load the add user action.");
         }
     }
 }
