@@ -131,6 +131,7 @@ public class AddingUserController {
                     insuranceManager.setFullName(fullNameField.getText());
                     insuranceManager.setUsername(usernameField.getText());
                     insuranceManager.setPassword(passwordField.getText());
+                    providerService.addProvider(insuranceManager);
                 }
             }
             showAlert(Alert.AlertType.INFORMATION, "Success", "New person has been added successfully.");

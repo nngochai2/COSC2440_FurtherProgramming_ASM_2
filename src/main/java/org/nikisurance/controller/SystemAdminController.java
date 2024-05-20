@@ -530,4 +530,29 @@ public class SystemAdminController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "Cannot load the add user action.");
         }
     }
+
+    @FXML
+    private void signOut() {
+        try {
+            // Load the Main.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/Main.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene and display it
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            scene.setFill(Color.TRANSPARENT);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setTitle("Nikisurance");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+
+            // Close the current window
+            Stage currentStage = (Stage) btnSignOut.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "IOException found.");
+        }
+    }
 }

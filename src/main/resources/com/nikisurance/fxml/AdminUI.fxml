@@ -26,66 +26,6 @@
    <children>
       <AnchorPane layoutX="161.0" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25;">
          <children>
-            <Pane fx:id="pnUsers" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
-               <children>
-                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Customer Management" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <TableView fx:id="beneficiaryTable" layoutX="81.0" layoutY="81.0" onMouseClicked="#handleCustomerClick" prefHeight="491.0" prefWidth="600.0">
-                     <columns>
-                        <TableColumn fx:id="idColumn" prefWidth="110.38455200195312" text="Customer ID" />
-                        <TableColumn fx:id="nameColumn" prefWidth="127.384521484375" text="Full Name" />
-                        <TableColumn fx:id="usernameColumn" prefWidth="107.65383911132812" text="Username" />
-                        <TableColumn fx:id="passwordColumn" prefWidth="106.34619140625" text="Password" />
-                        <TableColumn fx:id="emailColumn" prefWidth="106.34619140625" text="Email" />
-                        <TableColumn fx:id="phoneNumberColumn" prefWidth="106.34619140625" text="Phone" />
-                        <TableColumn fx:id="addressColumn" prefWidth="106.34619140625" text="Address" />
-                        <TableColumn fx:id="beneficiaryTypeColumn" prefWidth="106.34619140625" text="Type" />
-                     </columns>
-                  </TableView>
-                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <FontIcon iconLiteral="ci-add-alt" iconSize="40" layoutX="705.0" layoutY="319.0" wrappingWidth="40.87493896484375">
-                     <iconColor>
-                        <LinearGradient endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </iconColor>
-                  </FontIcon>
-               </children></Pane>
             <Pane fx:id="pnSettings" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
@@ -217,6 +157,59 @@
                   </Text>
                </children>
             </Pane>
+            <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
+            <Pane fx:id="pnUsers" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+               <children>
+                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Customer Management" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <TableView fx:id="beneficiaryTable" layoutX="81.0" layoutY="81.0" onMouseClicked="#handleCustomerClick" prefHeight="491.0" prefWidth="600.0">
+                     <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="110.38455200195312" text="Customer ID" />
+                        <TableColumn fx:id="nameColumn" prefWidth="127.384521484375" text="Full Name" />
+                        <TableColumn fx:id="usernameColumn" prefWidth="107.65383911132812" text="Username" />
+                        <TableColumn fx:id="passwordColumn" prefWidth="106.34619140625" text="Password" />
+                        <TableColumn fx:id="emailColumn" prefWidth="106.34619140625" text="Email" />
+                        <TableColumn fx:id="phoneNumberColumn" prefWidth="106.34619140625" text="Phone" />
+                        <TableColumn fx:id="addressColumn" prefWidth="106.34619140625" text="Address" />
+                        <TableColumn fx:id="beneficiaryTypeColumn" prefWidth="106.34619140625" text="Type" />
+                     </columns>
+                  </TableView>
+                  <JFXButton layoutX="700.0" layoutY="265.0" onAction="#handleAddNewBeneficiaryAction" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="ci-add-alt" iconSize="40" wrappingWidth="40.87493896484375">
+                           <iconColor>
+                              <LinearGradient endX="1.0" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </iconColor>
+                        </FontIcon>
+                     </graphic>
+                  </JFXButton>
+               </children></Pane>
             <Pane fx:id="pnDashboard" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="87.0" layoutY="79.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25;">
@@ -324,7 +317,6 @@
                   </Pane>
                   <Line endX="81.82463836669922" layoutX="464.0" layoutY="445.0" rotate="90.0" startX="-180.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
                </children></Pane>
-            <FontAwesomeIconView fx:id="closeButton" fill="#465058" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="-1.0" style="-fx-background-radius: 25;">
