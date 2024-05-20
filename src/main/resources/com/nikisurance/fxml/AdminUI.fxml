@@ -26,137 +26,6 @@
    <children>
       <AnchorPane layoutX="161.0" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25;">
          <children>
-            <Pane fx:id="pnSettings" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
-               <children>
-                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Settings" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="101.0" layoutY="272.0" prefHeight="29.0" prefWidth="627.0" text="Settings are not available " textFill="#2a363f">
-                     <font>
-                        <Font size="38.0" />
-                     </font>
-                     <graphic>
-                        <FontIcon iconColor="#2a363f" iconLiteral="ci-face-dissatisfied" iconSize="45" text="" />
-                     </graphic>
-                  </Label>
-               </children></Pane>
-            <Pane fx:id="pnClaims" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
-               <children>
-                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <TableView fx:id="claimTableView" layoutX="81.0" layoutY="123.0" prefHeight="449.0" prefWidth="657.0">
-                     <columns>
-                        <TableColumn fx:id="claimIdColumn" prefWidth="113.0" text="Claim ID" />
-<!--                              <TableColumn fx:id="" prefWidth="100.0" text="Exam Date" />-->
-                        <TableColumn fx:id="claimDateColumn" prefWidth="99.0" text="Claim Date" />
-                        <TableColumn fx:id="insuredPersonIdColumn" prefWidth="90.0" text="Beneficiary ID" />
-                        <TableColumn fx:id="insuredPersonNameColumn" prefWidth="100.0" text="Insured Person" />
-                        <TableColumn fx:id="claimAmountColumn" prefWidth="95.0" text="Claim Amount" />
-                        <TableColumn fx:id="claimStatusColumn" prefWidth="77.0" text="Status" />
-                        <TableColumn fx:id="surveyorIdColumn" prefWidth="126.0" text="Surveyor ID" />
-<!--                              <TableColumn fx:id="documentNameColumn" prefWidth="100.0" text="Document Name" />-->
-                     </columns>
-                  </TableView>
-                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Claim Management " textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <TextField fx:id="filterTextField" layoutX="199.0" layoutY="78.0" prefHeight="25.0" prefWidth="538.0" />
-                  <Text layoutX="86.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Claim:">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane fx:id="pnProviders" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
-               <children>
-                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Providers Management" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <graphic>
-                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
-                           </graphic>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
-                     <font>
-                        <Font size="1.0" />
-                     </font>
-                  </JFXButton>
-                  <TableView fx:id="providerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="600.0">
-                     <columns>
-                        <TableColumn fx:id="providerIdColumn" prefWidth="107.2691650390625" text="Provider ID" />
-                        <TableColumn fx:id="providerNameColumn" prefWidth="112.73065185546875" text="Provider Name" />
-                        <TableColumn fx:id="providerUsernameColumn" prefWidth="115.9615478515625" text="Provider Type" />
-                        <TableColumn fx:id="providerPasswordColumn" prefWidth="107.0384521484375" text="Provider Type" />
-                        <TableColumn fx:id="providerRoleColumn" prefWidth="143.3076171875" text="Provider Type" />
-                     </columns>
-                  </TableView>
-                  <FontIcon iconLiteral="ci-add-alt" iconSize="40" layoutX="703.0" layoutY="333.0" wrappingWidth="40.87493896484375">
-                     <iconColor>
-                        <LinearGradient endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </iconColor>
-                  </FontIcon>
-               </children>
-            </Pane>
             <Pane fx:id="pnUsers" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
@@ -217,6 +86,137 @@
                      </iconColor>
                   </FontIcon>
                </children></Pane>
+            <Pane fx:id="pnSettings" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+               <children>
+                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Settings" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="101.0" layoutY="272.0" prefHeight="29.0" prefWidth="627.0" text="Settings are not available " textFill="#2a363f">
+                     <font>
+                        <Font size="38.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconColor="#2a363f" iconLiteral="ci-face-dissatisfied" iconSize="45" text="" />
+                     </graphic>
+                  </Label>
+               </children></Pane>
+            <Pane fx:id="pnProviders" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+               <children>
+                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Providers Management" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <TableView fx:id="providerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="600.0">
+                     <columns>
+                        <TableColumn fx:id="providerIdColumn" prefWidth="107.2691650390625" text="Provider ID" />
+                        <TableColumn fx:id="providerNameColumn" prefWidth="112.73065185546875" text="Provider Name" />
+                        <TableColumn fx:id="providerUsernameColumn" prefWidth="115.9615478515625" text="Provider Type" />
+                        <TableColumn fx:id="providerPasswordColumn" prefWidth="107.0384521484375" text="Provider Type" />
+                        <TableColumn fx:id="providerRoleColumn" prefWidth="143.3076171875" text="Provider Type" />
+                     </columns>
+                  </TableView>
+                  <FontIcon iconLiteral="ci-add-alt" iconSize="40" layoutX="703.0" layoutY="333.0" wrappingWidth="40.87493896484375">
+                     <iconColor>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </iconColor>
+                  </FontIcon>
+               </children>
+            </Pane>
+            <Pane fx:id="pnClaims" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+               <children>
+                  <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <TableView fx:id="claimTableView" layoutX="81.0" layoutY="123.0" prefHeight="449.0" prefWidth="657.0">
+                     <columns>
+                        <TableColumn fx:id="claimIdColumn" prefWidth="113.0" text="Claim ID" />
+<!--                              <TableColumn fx:id="" prefWidth="100.0" text="Exam Date" />-->
+                        <TableColumn fx:id="claimDateColumn" prefWidth="99.0" text="Claim Date" />
+                        <TableColumn fx:id="insuredPersonIdColumn" prefWidth="90.0" text="Beneficiary ID" />
+                        <TableColumn fx:id="insuredPersonNameColumn" prefWidth="100.0" text="Insured Person" />
+                        <TableColumn fx:id="claimAmountColumn" prefWidth="95.0" text="Claim Amount" />
+                        <TableColumn fx:id="claimStatusColumn" prefWidth="77.0" text="Status" />
+                        <TableColumn fx:id="surveyorIdColumn" prefWidth="126.0" text="Surveyor ID" />
+<!--                              <TableColumn fx:id="documentNameColumn" prefWidth="100.0" text="Document Name" />-->
+                     </columns>
+                  </TableView>
+                  <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Claim Management " textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                     <font>
+                        <Font size="1.0" />
+                     </font>
+                  </JFXButton>
+                  <TextField fx:id="filterTextField" layoutX="199.0" layoutY="78.0" prefHeight="25.0" prefWidth="538.0" style="-fx-background-radius: 25; -fx-border-width: 0; -fx-border-color: #fff;" />
+                  <Text layoutX="86.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Claim:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
             <Pane fx:id="pnDashboard" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
                <children>
                   <Pane layoutX="87.0" layoutY="79.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25;">

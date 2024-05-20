@@ -75,6 +75,9 @@ public class SystemAdminController implements Initializable {
     private JFXButton btnSettings;
 
     @FXML
+    private JFXButton btnHistory;
+
+    @FXML
     private FontAwesomeIconView closeButton;
 
     @FXML
@@ -264,34 +267,47 @@ public class SystemAdminController implements Initializable {
 
         beneficiaryTable.setItems(FXCollections.observableList(beneficiaryService.getAllBeneficiaries()));
         claimTableView.setItems(new SortedList<>(filteredClaims));
-//        customerTableView.setItems(FXCollections.observableList(customerService.getAllCustomers()));
+        // customerTableView.setItems(FXCollections.observableList(customerService.getAllCustomers()));
         providerTableView.setItems(FXCollections.observableList(providerService.getAllProviders()));
     }
 
     private void initializeColumns() {
         // Initialize columns for claims
         claimIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClaimId()));
-        claimAmountColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimAmount()));
-        claimDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimDate()).asString());
-        insuredPersonNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInsuredPerson()));
-        insuredPersonIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBeneficiaryId()));
-        surveyorIdColumn.setCellValueFactory(cellDate -> new SimpleObjectProperty<>(cellDate.getValue().getBeneficiaryId()));
-        claimStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().name()));
+        claimAmountColumn
+                .setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimAmount()));
+        claimDateColumn.setCellValueFactory(
+                cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimDate()).asString());
+        insuredPersonNameColumn
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInsuredPerson()));
+        insuredPersonIdColumn
+                .setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBeneficiaryId()));
+        surveyorIdColumn
+                .setCellValueFactory(cellDate -> new SimpleObjectProperty<>(cellDate.getValue().getBeneficiaryId()));
+        claimStatusColumn
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().name()));
 
         // Initialize columns for customers
-//        customerIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
-//        customerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
-//        customerUsernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
-//        customerPasswordColumn.setCellValueFactory(cellDate -> new SimpleStringProperty(cellDate.getValue().getPassword()));
-//        customerRoleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomerType()));
+        // customerIdColumn.setCellValueFactory(cellData -> new
+        // SimpleObjectProperty<>(cellData.getValue().getId()));
+        // customerNameColumn.setCellValueFactory(cellData -> new
+        // SimpleStringProperty(cellData.getValue().getFullName()));
+        // customerUsernameColumn.setCellValueFactory(cellData -> new
+        // SimpleStringProperty(cellData.getValue().getUsername()));
+        // customerPasswordColumn.setCellValueFactory(cellDate -> new
+        // SimpleStringProperty(cellDate.getValue().getPassword()));
+        // customerRoleColumn.setCellValueFactory(cellData -> new
+        // SimpleStringProperty(cellData.getValue().getCustomerType()));
 
         // Initialize columns for providers
         providerIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
         providerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
-        providerUsernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
-        providerPasswordColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
-        providerRoleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRole())));
-
+        providerUsernameColumn
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
+        providerPasswordColumn
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
+        providerRoleColumn.setCellValueFactory(
+                cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRole())));
 
         // Set up the columns to map to the respective fields of the Beneficiary entity
         idColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
@@ -299,9 +315,11 @@ public class SystemAdminController implements Initializable {
         usernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
         passwordColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassword()));
         emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
-        phoneNumberColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPhoneNumber()));
+        phoneNumberColumn
+                .setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPhoneNumber()));
         addressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
-        beneficiaryTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBeneficiaryType()));
+        beneficiaryTypeColumn
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBeneficiaryType()));
     }
 
     // Method to load the dashboard for admin
@@ -320,7 +338,8 @@ public class SystemAdminController implements Initializable {
         }
 
         totalClaimsAmountValue.setText(String.format("%.0f", totalApprovedClaimsAmount));
-        lastAddedClaim.setText("Last Registered Claim:  " + allClaims.get(allClaims.size() - 1).getClaimId() + "  ("+ allClaims.get(allClaims.size() - 1).getInsuredPerson() + ")");
+        lastAddedClaim.setText("Last Registered Claim:  " + allClaims.get(allClaims.size() - 1).getClaimId() + "  ("
+                + allClaims.get(allClaims.size() - 1).getInsuredPerson() + ")");
 
         // Calculate percentage of approved claims
         int totalClaims = claimService.getAllClaims().size();
@@ -351,10 +370,13 @@ public class SystemAdminController implements Initializable {
 
                     return claim.getClaimId().toLowerCase().contains(lowerCaseFilterText) ||
                             claim.getClaimDate().toString().contains(lowerCaseFilterText) ||
-                            (claim.getExamDate() != null && claim.getExamDate().toString().contains(lowerCaseFilterText)) ||
+                            (claim.getExamDate() != null
+                                    && claim.getExamDate().toString().contains(lowerCaseFilterText))
+                            ||
                             Double.toString(claim.getClaimAmount()).contains(lowerCaseFilterText) ||
                             claim.getStatus().toString().toLowerCase().contains(lowerCaseFilterText) ||
-                            (claim.getReceiverBankingInfo() != null && claim.getReceiverBankingInfo().toLowerCase().contains(lowerCaseFilterText));
+                            (claim.getReceiverBankingInfo() != null
+                                    && claim.getReceiverBankingInfo().toLowerCase().contains(lowerCaseFilterText));
                 });
             }
         });
@@ -388,14 +410,16 @@ public class SystemAdminController implements Initializable {
         customerPieChart.setLegendVisible(true);
 
         // Calculate the total of all slices
-        double total = slice1.getPieValue() + slice2.getPieValue() + slice3.getPieValue() + slice4.getPieValue() + slice5.getPieValue();
+        double total = slice1.getPieValue() + slice2.getPieValue() + slice3.getPieValue() + slice4.getPieValue()
+                + slice5.getPieValue();
 
-        // Set the labels of the PieChart.Data objects to display the percentage of the total
-        slice1.setName(slice1.getName() + ": " + String.format("%.1f%%", 100*slice1.getPieValue()/total));
-        slice2.setName(slice2.getName() + ": " + String.format("%.1f%%", 100*slice2.getPieValue()/total));
-        slice3.setName(slice3.getName() + ": " + String.format("%.1f%%", 100*slice3.getPieValue()/total));
-        slice4.setName(slice4.getName() + ": " + String.format("%.1f%%", 100*slice4.getPieValue()/total));
-        slice5.setName(slice5.getName() + ": " + String.format("%.1f%%", 100*slice5.getPieValue()/total));
+        // Set the labels of the PieChart.Data objects to display the percentage of the
+        // total
+        slice1.setName(slice1.getName() + ": " + String.format("%.1f%%", 100 * slice1.getPieValue() / total));
+        slice2.setName(slice2.getName() + ": " + String.format("%.1f%%", 100 * slice2.getPieValue() / total));
+        slice3.setName(slice3.getName() + ": " + String.format("%.1f%%", 100 * slice3.getPieValue() / total));
+        slice4.setName(slice4.getName() + ": " + String.format("%.1f%%", 100 * slice4.getPieValue() / total));
+        slice5.setName(slice5.getName() + ": " + String.format("%.1f%%", 100 * slice5.getPieValue() / total));
     }
 
     private void showAlert(AlertType alertType, String title, String message) {
@@ -408,42 +432,46 @@ public class SystemAdminController implements Initializable {
 
     public void handleClicks(ActionEvent actionEvent) {
         // Reset all buttons to normal font weight
-        btnDashboard.setFont(Font.font(btnDashboard.getFont().getFamily(), FontWeight.NORMAL, btnDashboard.getFont().getSize()));
+        btnDashboard.setFont(
+                Font.font(btnDashboard.getFont().getFamily(), FontWeight.NORMAL, btnDashboard.getFont().getSize()));
         btnClaims.setFont(Font.font(btnClaims.getFont().getFamily(), FontWeight.NORMAL, btnClaims.getFont().getSize()));
         btnUsers.setFont(Font.font(btnUsers.getFont().getFamily(), FontWeight.NORMAL, btnUsers.getFont().getSize()));
-        btnProviders.setFont(Font.font(btnProviders.getFont().getFamily(), FontWeight.NORMAL, btnProviders.getFont().getSize()));
-        btnSettings.setFont(Font.font(btnSettings.getFont().getFamily(), FontWeight.NORMAL, btnSettings.getFont().getSize()));
+        btnProviders.setFont(
+                Font.font(btnProviders.getFont().getFamily(), FontWeight.NORMAL, btnProviders.getFont().getSize()));
+        btnSettings.setFont(
+                Font.font(btnSettings.getFont().getFamily(), FontWeight.NORMAL, btnSettings.getFont().getSize()));
 
         if (actionEvent.getSource() == btnDashboard) {
             pnDashboard.toFront();
             closeButton.toFront();
-            btnDashboard.setFont(Font.font(btnDashboard.getFont().getFamily(), FontWeight.BOLD, btnDashboard.getFont().getSize()));
+            btnDashboard.setFont(
+                    Font.font(btnDashboard.getFont().getFamily(), FontWeight.BOLD, btnDashboard.getFont().getSize()));
 
         }
         if (actionEvent.getSource() == btnClaims) {
             pnClaims.toFront();
             closeButton.toFront();
-            btnClaims.setFont(Font.font(btnClaims.getFont().getFamily(), FontWeight.BOLD, btnClaims.getFont().getSize()));
+            btnClaims.setFont(
+                    Font.font(btnClaims.getFont().getFamily(), FontWeight.BOLD, btnClaims.getFont().getSize()));
         }
         if (actionEvent.getSource() == btnUsers) {
             pnUsers.toFront();
             closeButton.toFront();
             btnUsers.setFont(Font.font(btnUsers.getFont().getFamily(), FontWeight.BOLD, btnUsers.getFont().getSize()));
         }
-        if(actionEvent.getSource()==btnProviders)
-        {
+        if (actionEvent.getSource() == btnProviders) {
             pnProviders.toFront();
             closeButton.toFront();
-            btnProviders.setFont(Font.font(btnProviders.getFont().getFamily(), FontWeight.BOLD, btnProviders.getFont().getSize()));
+            btnProviders.setFont(
+                    Font.font(btnProviders.getFont().getFamily(), FontWeight.BOLD, btnProviders.getFont().getSize()));
         }
-        if(actionEvent.getSource()==btnSettings)
-        {
+        if (actionEvent.getSource() == btnSettings) {
             pnSettings.toFront();
             closeButton.toFront();
-            btnSettings.setFont(Font.font(btnSettings.getFont().getFamily(), FontWeight.BOLD, btnSettings.getFont().getSize()));
+            btnSettings.setFont(
+                    Font.font(btnSettings.getFont().getFamily(), FontWeight.BOLD, btnSettings.getFont().getSize()));
         }
     }
-
 
     @FXML
     private void closeProgram(javafx.scene.input.MouseEvent e) {
@@ -486,7 +514,8 @@ public class SystemAdminController implements Initializable {
             Beneficiary selectedBeneficiary = beneficiaryTable.getSelectionModel().getSelectedItem();
             if (selectedBeneficiary != null) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/com/nikisurance/fxml/CustomerDetails.fxml"));
                     Parent root = loader.load();
 
                     BeneficiaryDetailsController controller = loader.getController();
