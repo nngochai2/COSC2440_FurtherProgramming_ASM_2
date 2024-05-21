@@ -60,6 +60,7 @@ public class PolicyHolderController extends AddingClaimController implements Ini
 
     @FXML private JFXButton btnSettings;
 
+
     @FXML private FontAwesomeIconView closeButton;
 
     @FXML private Pane pnDashboard;
@@ -265,7 +266,6 @@ public class PolicyHolderController extends AddingClaimController implements Ini
         btnDashboard.setFont(Font.font(btnDashboard.getFont().getFamily(), FontWeight.NORMAL, btnDashboard.getFont().getSize()));
         btnClaims.setFont(Font.font(btnClaims.getFont().getFamily(), FontWeight.NORMAL, btnClaims.getFont().getSize()));
         btnUsers.setFont(Font.font(btnUsers.getFont().getFamily(), FontWeight.NORMAL, btnUsers.getFont().getSize()));
-        btnProviders.setFont(Font.font(btnProviders.getFont().getFamily(), FontWeight.NORMAL, btnProviders.getFont().getSize()));
         btnSettings.setFont(Font.font(btnSettings.getFont().getFamily(), FontWeight.NORMAL, btnSettings.getFont().getSize()));
 
         if (actionEvent.getSource() == btnDashboard) {
