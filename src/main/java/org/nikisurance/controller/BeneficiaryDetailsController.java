@@ -9,8 +9,13 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.nikisurance.entity.Beneficiary;
 import org.nikisurance.entity.Dependent;
+import org.nikisurance.entity.PolicyHolder;
 import org.nikisurance.service.impl.BeneficiaryServiceImpl;
+import org.nikisurance.service.impl.DependentServiceImpl;
+import org.nikisurance.service.impl.PolicyHolderServiceImpl;
 import org.nikisurance.service.interfaces.BeneficiaryService;
+import org.nikisurance.service.interfaces.DependentService;
+import org.nikisurance.service.interfaces.PolicyHolderService;
 
 import java.util.Optional;
 
@@ -19,7 +24,10 @@ public class BeneficiaryDetailsController {
     private TextField idField, nameField, usernameField, passwordField, emailField, phoneNumberField, addressField, customerTypeField, policyHolderField, cardNumberField;
     @FXML private HBox policyHolderContainer;
     @FXML private Button editButton, saveButton, deleteButton, cancelButton;
+
     private final BeneficiaryService beneficiaryService;
+    private final DependentService dependentService;
+    private final PolicyHolderService policyHolderService;
 
     private SystemAdminController systemAdminController;
 
@@ -29,6 +37,8 @@ public class BeneficiaryDetailsController {
 
     public BeneficiaryDetailsController() {
         this.beneficiaryService = new BeneficiaryServiceImpl();
+        this.dependentService = new DependentServiceImpl();
+        this.policyHolderService = new PolicyHolderServiceImpl();
     }
 
     public void setBeneficiary(Beneficiary beneficiary) {
@@ -134,7 +144,12 @@ public class BeneficiaryDetailsController {
 
     private void deleteCustomer() {
         try {
-            beneficiaryService.deleteBeneficiary(Long.parseLong(idField.getText()));
+            Beneficiary beneficiary = beneficiaryService.getBeneficiary(Long.parseLong(idField.getText()));
+            if (beneficiary instanceof Dependent) {
+                dependentService.deleteDependent(beneficiary.getId());
+            } else if (beneficiary instanceof PolicyHolder) {
+                policyHolderService.deletePolicyHolder(beneficiary.getId());
+            }
             showAlert(Alert.AlertType.INFORMATION, "Deleted", "Beneficiary has been deleted.");
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Unable to delete beneficiary: " + e.getMessage());
