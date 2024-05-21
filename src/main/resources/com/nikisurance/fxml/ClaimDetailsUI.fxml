@@ -1,14 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.nikisurance.fxml.ClaimDetailsUI"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.controller.ClaimDetailsController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="20.0" layoutY="14.0" prefHeight="30.0" prefWidth="560.0" style="-fx-background-color: #2A363F; -fx-background-radius: 25;" text="Claim Details" textFill="WHITE">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <VBox layoutX="14.0" layoutY="65.0" prefHeight="311.0" prefWidth="244.0" spacing="15">
+            <children>
+                <HBox spacing="10">
+                    <children>
+                        <Label prefWidth="100" text="ID">
+                            <font>
+                                <Font size="14.0" />
+                            </font></Label>
+                        <TextField fx:id="idField" prefWidth="187" />
+                    </children>
+                </HBox>
+                <HBox spacing="10">
+                    <children>
+                        <Label prefWidth="100" text="Claim Date:">
+                            <font>
+                                <Font size="14.0" />
+                            </font></Label>
+                        <TextField fx:id="claimDateField" prefWidth="187" />
+                    </children>
+                </HBox>
+                <HBox spacing="10">
+                    <children>
+                        <Label fx:id="claimDateField" prefWidth="100" text="Exam Date: ">
+                            <font>
+                                <Font size="14.0" />
+                            </font></Label>
+                        <TextField fx:id="examDateField" prefWidth="187" />
+                    </children>
+                </HBox>
+                <HBox spacing="10">
+                    <children>
+                        <Label fx:id="beneficiaryIDField" prefWidth="100" text="ClaimantID:">
+                            <font>
+                                <Font size="14.0" />
+                            </font></Label>
+                        <TextField fx:id="passwordField" prefWidth="187" />
+                    </children>
+                </HBox>
+                <HBox fx:id="cardNumberContainer" spacing="10">
+                    <children>
+                        <Label prefWidth="100" text="Claimant:">
+                            <font>
+                                <Font size="14.0" />
+                            </font></Label>
+                        <TextField fx:id="insuredPersonNameField" prefWidth="187" />
+                    </children>
+                </HBox>
+                <HBox fx:id="emailContainer" spacing="10">
+                    <children>
+                        <Label prefWidth="100" text="Card:">
+                            <font>
+                                <Font size="14.0" />
+                            </font></Label>
+                        <TextField fx:id="insuranceCardNumberField" prefWidth="187" />
+                    </children>
+                </HBox>
+                <HBox fx:id="phoneContainer" spacing="10">
+                    <children>
+                        <Label prefWidth="100" text="Amount:">
+                            <font>
+                                <Font size="14.0" />
+                            </font></Label>
+                        <TextField fx:id="claimAmountField" prefWidth="187" />
+                    </children>
+                </HBox>
+                <HBox fx:id="addressContainer" spacing="10">
+                    <children>
+                        <Label prefWidth="100" text="Bank:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="bankingInformationField" prefWidth="187" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <JFXButton layoutX="497.0" layoutY="121.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+            <font>
+                <Font size="1.0" />
+            </font>
+        </JFXButton>
+        <VBox layoutX="291.0" layoutY="65.0" prefHeight="162.0" prefWidth="306.0" spacing="15">
+            <children>
+                <HBox spacing="10">
+                    <children>
+                        <Label prefWidth="100" text="Doc Name:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="documentNameField" prefWidth="187.0" />
+                    </children>
+                </HBox>
+                <HBox fx:id="policyHolderContainer" spacing="10">
+                    <children>
+                        <Label prefWidth="100" text="Doc Path:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="documentPathField" prefWidth="187" />
+                    </children>
+                </HBox>
+            <HBox fx:id="policyHolderContainer2" spacing="10">
+               <children>
+                  <Label prefWidth="100" text="Surveyor ID:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="surveyorID" prefWidth="187" />
+               </children>
+            </HBox>
+            <HBox fx:id="policyHolderContainer1" spacing="10">
+               <children>
+                  <Label prefWidth="100" text="Status">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="claimStatusComboBox" prefWidth="150.0" />
+               </children>
+            </HBox>
+            </children>
+        </VBox>
+        <JFXDrawer />
+        <JFXButton fx:id="cancelButton" layoutX="493.0" layoutY="263.0" onAction="#handleCancelAction" text="Cancel">
+            <graphic>
+                <FontIcon iconLiteral="ci-trash-can" iconSize="40" text="" wrappingWidth="40.87493896484375">
+                    <iconColor>
+                        <LinearGradient>
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </LinearGradient>
+                    </iconColor>
+                </FontIcon>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="editButton" layoutX="392.0" layoutY="263.0" onAction="#handleEditAction" text="Edit">
+            <graphic>
+                <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
+                    <iconColor>
+                        <LinearGradient>
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </LinearGradient>
+                    </iconColor>
+                </FontIcon>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="deleteButton" layoutX="493.0" layoutY="328.0" onAction="#handleDeleteAction" text="Delete">
+            <graphic>
+                <FontIcon iconLiteral="ci-trash-can" iconSize="40" text="" wrappingWidth="40.87493896484375">
+                    <iconColor>
+                        <LinearGradient>
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </LinearGradient>
+                    </iconColor>
+                </FontIcon>
+            </graphic>
+        </JFXButton>
+        <FontIcon />
+        <JFXButton fx:id="saveButton" layoutX="392.0" layoutY="328.0" onAction="#handleSaveAction" text="Save">
+            <graphic>
+                <FontIcon iconLiteral="ci-edit" iconSize="40" wrappingWidth="40.87493896484375">
+                    <iconColor>
+                        <LinearGradient>
+                            <stops>
+                                <Stop>
+                                    <color>
+                                        <Color />
+                                    </color>
+                                </Stop>
+                                <Stop offset="1.0">
+                                    <color>
+                                        <Color red="0.16470588743686676" green="0.21176470816135406" blue="0.24705882370471954" />
+                                    </color>
+                                </Stop>
+                            </stops>
+                        </LinearGradient>
+                    </iconColor>
+                </FontIcon>
+            </graphic>
+        </JFXButton>
+    </children>
 </AnchorPane>
