@@ -60,14 +60,27 @@ public class DependentController implements Initializable {
     @FXML private CategoryAxis xAxis;
 
     @FXML private TableView<Claim> claimTableView;
+
     @FXML private TableColumn<Claim, String> claimIdColumn;
+
     @FXML private TableColumn<Claim, Double> claimAmountColumn;
+
     @FXML private TableColumn<Claim, String> claimDateColumn;
+
     @FXML private TableColumn<Claim, String> examDateColumn;
+
+    @FXML private TableColumn<Claim, String> insuredPersonNameColumn;
+
+    @FXML private TableColumn<Claim, Long> insuredPersonIdColumn;
+
+    @FXML private TableColumn<Claim, Long> surveyorIdColumn;
+
     @FXML private TableColumn<Claim, String> claimStatusColumn;
+
 
     @FXML private TextField idField;
     @FXML private TextField fullNameField;
+    @FXML private TextField usernameField;
     @FXML private TextField passwordField;
     @FXML private TextField emailField;
     @FXML private TextField phoneField;
@@ -88,12 +101,13 @@ public class DependentController implements Initializable {
         currentDependent = (Dependent) UserSession.getInstance().getLoggedInPerson();
 
         initializeColumns();
+        this.populatePersonalInfo();
 
         Platform.runLater(() -> {
             stage = (Stage) sideBar.getScene().getWindow();
             loadDashboard();
             setupFiltering();
-            populatePersonalInfo();
+
         });
         sideBar.setOnMousePressed(mouseEvent -> {
             x = mouseEvent.getSceneX();
@@ -108,9 +122,21 @@ public class DependentController implements Initializable {
     private void initializeColumns() {
         claimIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClaimId()));
         claimAmountColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimAmount()));
-        claimDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getClaimDate())));
-        examDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getExamDate())));
-        claimStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().toString()));
+        claimDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimDate()).asString());
+        examDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getExamDate()).asString());
+        insuredPersonNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInsuredPerson()));
+        insuredPersonIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBeneficiaryId()));
+        surveyorIdColumn.setCellValueFactory(cellDate -> new SimpleObjectProperty<>(cellDate.getValue().getBeneficiaryId()));
+        claimStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().name()));
+
+        populateTable();
+    }
+
+    private void populateTable() {
+        List<Claim> claims = claimService.getClaimsByPersonId(currentDependent.getId());
+        ObservableList<Claim> claimObservableList = FXCollections.observableList(claims);
+        filteredClaims = new FilteredList<>(claimObservableList);
+        claimTableView.setItems(filteredClaims);
     }
 
     private void loadClaims() {
@@ -122,18 +148,25 @@ public class DependentController implements Initializable {
     private void populatePersonalInfo() {
         idField.setText(String.valueOf(currentDependent.getId()));
         idField.setEditable(false);
+
+        usernameField.setText(currentDependent.getUsername());
+        usernameField.setEditable(false);
+
         fullNameField.setText(currentDependent.getFullName());
         fullNameField.setEditable(false);
+
         passwordField.setText(currentDependent.getPassword());
         passwordField.setEditable(false);
+
         emailField.setText(currentDependent.getEmail());
         emailField.setEditable(false);
+
         phoneField.setText(String.valueOf(currentDependent.getPhoneNumber()));
         phoneField.setEditable(false);
+
         addressField.setText(currentDependent.getAddress());
         addressField.setEditable(false);
     }
-
 
     @FXML
     public void handleClicks(ActionEvent actionEvent) {

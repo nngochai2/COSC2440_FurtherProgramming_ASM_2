@@ -330,6 +330,7 @@ public class PolicyHolderController extends AddingClaimController implements Ini
         insuranceCardNumber.setText(String.valueOf(currentPolicyHolder.getInsuranceCard().getCardID()));
         insuranceCardNumber.setEditable(false);
 
+        policyHolderPasswordField.setText(currentPolicyHolder.getPassword());
         policyHolderFullNameField.setText(currentPolicyHolder.getFullName());
         policyHolderUsernameField.setText(currentPolicyHolder.getUsername());
         policyHolderEmailField.setText(currentPolicyHolder.getEmail());
@@ -341,9 +342,7 @@ public class PolicyHolderController extends AddingClaimController implements Ini
 
     @FXML
     private void handleEditPersonalInfo() {
-        boolean isEditable = !policyHolderFullNameField.isEditable();
         setEditable(true);
-
         btnEdit.setDisable(true);
         btnSave.setDisable(false);
         btnCancel.setDisable(false);
