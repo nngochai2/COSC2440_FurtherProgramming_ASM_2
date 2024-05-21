@@ -2,7 +2,6 @@ package org.nikisurance.controller;
 
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import jakarta.persistence.Persistence;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,8 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,8 +28,6 @@ import javafx.stage.StageStyle;
 import org.nikisurance.entity.*;
 import org.nikisurance.service.impl.*;
 import org.nikisurance.service.interfaces.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,12 +36,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PolicyHolderController extends ClaimController implements Initializable {
+public class PolicyHolderController extends AddingClaimController implements Initializable {
 
     private final Logger logger = Logger.getLogger(SystemAdminController.class.getName());
 
     private final ClaimService claimService;
-    private DependentService dependentService;
+    private final DependentService dependentService;
     private PolicyHolderService policyHolderService;
 
     public PolicyHolderController() {
@@ -55,81 +50,57 @@ public class PolicyHolderController extends ClaimController implements Initializ
         policyHolderService = new PolicyHolderServiceImpl();
     }
 
-    @FXML
-    private JFXButton btnDashboard;
+    @FXML private JFXButton btnDashboard;
 
-    @FXML
-    private JFXButton btnClaims;
+    @FXML private JFXButton btnClaims;
 
-    @FXML
-    private JFXButton btnUsers;
+    @FXML private JFXButton btnUsers;
 
-    @FXML
-    private JFXButton btnProviders;
+    @FXML private JFXButton btnProviders;
 
-    @FXML
-    private JFXButton btnSettings;
+    @FXML private JFXButton btnSettings;
 
-    @FXML
-    private FontAwesomeIconView closeButton;
+    @FXML private FontAwesomeIconView closeButton;
 
-    @FXML
-    private Pane pnDashboard;
+    @FXML private Pane pnDashboard;
 
-    @FXML
-    private Pane pnClaims;
+    @FXML private Pane pnClaims;
 
-    @FXML
-    private Pane pnUsers;
+    @FXML private Pane pnUsers;
 
-    @FXML
-    private Pane pnProviders;
+    @FXML private Pane pnProviders;
 
-    @FXML
-    private Pane pnSettings;
+    @FXML private Pane pnSettings;
 
-    @FXML
-    private AnchorPane sideBar;
+    @FXML private AnchorPane sideBar;
 
-    @FXML
-    private JFXButton btnSignOut;
+    @FXML private JFXButton btnSignOut;
 
-    @FXML
-    private BarChart<String, Number> claimsBarChart;
+    @FXML private BarChart<String, Number> claimsBarChart;
 
-    @FXML
-    private Label totalClaimsAmountValue;
+    @FXML private Label totalClaimsAmountValue;
 
     @FXML private Label totalSuccessfulClaims;
 
     @FXML private Label totalRejectedClaims;
 
-    @FXML
-    private TableView<Claim> claimTableView;
+    @FXML private TableView<Claim> claimTableView;
 
-    @FXML
-    private TableColumn<Claim, String> claimIdColumn;
+    @FXML private TableColumn<Claim, String> claimIdColumn;
 
-    @FXML
-    private TableColumn<Claim, Double> claimAmountColumn;
+    @FXML private TableColumn<Claim, Double> claimAmountColumn;
 
-    @FXML
-    private TableColumn<Claim, String> claimDateColumn;
+    @FXML private TableColumn<Claim, String> claimDateColumn;
 
-    @FXML
-    private TableColumn<Claim, String> examDateColumn;
+    @FXML private TableColumn<Claim, String> examDateColumn;
 
-    @FXML
-    private TableColumn<Claim, String> insuredPersonNameColumn;
+    @FXML private TableColumn<Claim, String> insuredPersonNameColumn;
 
-    @FXML
-    private TableColumn<Claim, Long> insuredPersonIdColumn;
+    @FXML private TableColumn<Claim, Long> insuredPersonIdColumn;
 
-    @FXML
-    private TableColumn<Claim, Long> surveyorIdColumn;
+    @FXML private TableColumn<Claim, Long> surveyorIdColumn;
 
-    @FXML
-    private TableColumn<Claim, String> claimStatusColumn;
+    @FXML private TableColumn<Claim, String> claimStatusColumn;
 
     @FXML private TableView<Dependent> dependentTableView;
 
@@ -166,11 +137,14 @@ public class PolicyHolderController extends ClaimController implements Initializ
 
     private PolicyHolder currentPolicyHolder;
 
-    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.currentPolicyHolder = null;
         Person person = UserSession.getInstance().getLoggedInPerson();
-        person = currentPolicyHolder;
+
+        if (person instanceof PolicyHolder) {
+            this.currentPolicyHolder = (PolicyHolder) person;
+        }
 
         initializeColumns();
 

@@ -9,11 +9,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.hibernate.usertype.UserType;
 import org.nikisurance.entity.*;
 import org.nikisurance.service.impl.*;
 import org.nikisurance.service.interfaces.*;
-import org.w3c.dom.Text;
 
 public class AddingUserController {
     @FXML private TextField fullNameField;
