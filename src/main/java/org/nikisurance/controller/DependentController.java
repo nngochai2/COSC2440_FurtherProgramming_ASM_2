@@ -11,23 +11,30 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.nikisurance.entity.Claim;
 import org.nikisurance.entity.ClaimStatus;
 import org.nikisurance.entity.Dependent;
 import org.nikisurance.service.impl.ClaimServiceImpl;
 import org.nikisurance.service.interfaces.ClaimService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DependentController implements Initializable {
@@ -67,6 +74,7 @@ public class DependentController implements Initializable {
 
     private Dependent currentDependent;
     private Stage stage;
+    private double x = 0, y = 0;
 
     public DependentController() {
         this.claimService = new ClaimServiceImpl();
@@ -75,13 +83,22 @@ public class DependentController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentDependent = (Dependent) UserSession.getInstance().getLoggedInPerson();
-        if (currentDependent != null) {
-            initializeColumns();
-            loadClaims();
-            populatePersonalInfo();
-        } else {
-            logger.severe("No Dependent found in session.");
-        }
+
+        initializeColumns();
+
+        Platform.runLater(() -> {
+            stage = (Stage) sideBar.getScene().getWindow();
+            loadDashboard();
+            setupFiltering();
+        });
+        sideBar.setOnMousePressed(mouseEvent -> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+        sideBar.setOnMouseDragged(mouseEvent -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
     }
 
     private void initializeColumns() {
@@ -202,6 +219,31 @@ public class DependentController implements Initializable {
         SortedList<Claim> sortedData = new SortedList<>(filteredClaims);
         sortedData.comparatorProperty().bind(claimTableView.comparatorProperty());
         claimTableView.setItems(sortedData);
+    }
+
+    @FXML
+    private void signOut() {
+        try {
+            // Load the Main.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/Main.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene and display it
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            scene.setFill(Color.TRANSPARENT);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setTitle("Nikisurance");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+
+            // Close the current window
+            Stage currentStage = (Stage) btnSignOut.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "IOException found.");
+        }
     }
 
     public void showAlert(Alert.AlertType alertType, String title, String message) {
