@@ -121,30 +121,24 @@ public class DependentController implements Initializable {
 
     private void populatePersonalInfo() {
         idField.setText(String.valueOf(currentDependent.getId()));
+        idField.setEditable(false);
         fullNameField.setText(currentDependent.getFullName());
+        fullNameField.setEditable(false);
         passwordField.setText(currentDependent.getPassword());
+        passwordField.setEditable(false);
         emailField.setText(currentDependent.getEmail());
+        emailField.setEditable(false);
         phoneField.setText(String.valueOf(currentDependent.getPhoneNumber()));
+        phoneField.setEditable(false);
         addressField.setText(currentDependent.getAddress());
+        addressField.setEditable(false);
     }
 
-    private void loadClaimsSummaryData() {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.getData().add(new XYChart.Data<>("Approved", claimService.getCountByStatus(ClaimStatus.NEW)));
-        series.getData().add(new XYChart.Data<>("Processing", claimService.getCountByStatus(ClaimStatus.PROCESSING)));
-        series.getData().add(new XYChart.Data<>("Approved", claimService.getCountByStatus(ClaimStatus.APPROVED)));
-        series.getData().add(new XYChart.Data<>("Rejected", claimService.getCountByStatus(ClaimStatus.REJECTED)));
-        xAxis.setCategories(FXCollections.observableArrayList("New", "Processing", "Approved", "Rejected"));
-        claimsBarChart.getData().add(series);
-        claimsBarChart.setLegendVisible(false);
-    }
 
     @FXML
     public void handleClicks(ActionEvent actionEvent) {
         // Reset all buttons to normal font weight
-        btnDashboard.setFont(Font.font(btnDashboard.getFont().getFamily(), FontWeight.NORMAL, btnDashboard.getFont().getSize()));
         btnClaims.setFont(Font.font(btnClaims.getFont().getFamily(), FontWeight.NORMAL, btnClaims.getFont().getSize()));
-        btnSettings.setFont(Font.font(btnSettings.getFont().getFamily(), FontWeight.NORMAL, btnSettings.getFont().getSize()));
 
         if (actionEvent.getSource() == btnDashboard) {
             pnDashboard.toFront();
@@ -165,11 +159,6 @@ public class DependentController implements Initializable {
         }
     }
 
-    @FXML
-    private void closeProgram(javafx.scene.input.MouseEvent e) {
-        stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
 
     // Method to load the dashboard for policy holder
     private void loadDashboard() {
@@ -249,6 +238,12 @@ public class DependentController implements Initializable {
         } catch (IOException e) {
             logger.log(Level.SEVERE, "IOException found.");
         }
+    }
+
+    @FXML
+    private void closeProgram(javafx.scene.input.MouseEvent e) {
+        stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 
     public void showAlert(Alert.AlertType alertType, String title, String message) {
