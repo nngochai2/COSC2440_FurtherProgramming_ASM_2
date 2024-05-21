@@ -21,3 +21,12 @@ implemented by:
 	- overriding the default SQL type when mapping a column to a property
 	- mapping Java Enums to columns 
 	- mapping a single property to multiple columns
+
+## Contribution Score
+
+Nguyen Ngoc Hai (s3978281)  - 5
+Nguyen Chi Nghia (s3979170) - 5
+Duong Viet Hoang (s3962514) - 5
+
+
+
