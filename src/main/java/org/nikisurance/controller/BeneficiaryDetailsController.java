@@ -125,7 +125,7 @@ public class BeneficiaryDetailsController {
             showAlert(Alert.AlertType.INFORMATION, "Success", "Beneficiary details updated successfully.");
 
             if (systemAdminController != null) {
-                // Refresh the table in Admin.fxml
+                // Refresh the table in Admin view
                 systemAdminController.refreshBeneficiaryTable();
             }
         } catch (Exception e) {
@@ -150,7 +150,7 @@ public class BeneficiaryDetailsController {
             } else if (beneficiary instanceof PolicyHolder) {
                 policyHolderService.deletePolicyHolder(beneficiary.getId());
             }
-            showAlert(Alert.AlertType.INFORMATION, "Deleted", "Beneficiary has been deleted.");
+            showAlert(Alert.AlertType.INFORMATION, "Deleted", "Beneficiary has been deleted successfully.");
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Error", "Unable to delete beneficiary: " + e.getMessage());
         }

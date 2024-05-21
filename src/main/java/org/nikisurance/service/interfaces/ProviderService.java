@@ -9,6 +9,7 @@ public interface ProviderService {
     Provider getProvider(Long id);
     List<Provider> getAllProviders();
     void deleteProvider(Long id);
+    void updateProvider(Provider provider);
     int countInsuranceManagers();
     int countInsuranceSurveyors();
 }

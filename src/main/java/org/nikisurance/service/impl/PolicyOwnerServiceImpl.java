@@ -36,6 +36,11 @@ public class PolicyOwnerServiceImpl extends EntityRepository implements PolicyOw
     }
 
     @Override
+    public void updatePolicyOwner(PolicyOwner policyOwner) {
+        performOperation(em -> em.merge(policyOwner));
+    }
+
+    @Override
     public List<Long> getBeneficiaryIds(Long policyOwnerId) {
         // Example using JPQL, adjust according to your database schema
         return performReturningOperation(em -> em.createQuery(

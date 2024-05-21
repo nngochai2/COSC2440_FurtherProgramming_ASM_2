@@ -532,6 +532,31 @@ public class SystemAdminController implements Initializable {
     }
 
     @FXML
+    private void handleProviderClick(MouseEvent event) {
+        if (event.getClickCount() == 2) { // Double click
+            Provider provider = providerTableView.getSelectionModel().getSelectedItem();
+            if (provider != null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/com/nikisurance/fxml/ProviderDetails.fxml"));
+                    Parent root = loader.load();
+                    ProviderDetailsController controller = loader.getController();
+                    controller.setSystemAdminController(this);
+                    controller.setProvider(provider);
+
+                    Stage stage = new Stage();
+                    stage.setTitle("Provider Details");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    logger.log(Level.SEVERE, "Failed to load provider details view", e);
+                    showAlert(AlertType.ERROR, "Error", "Cannot load the provider details view.");
+                }
+            }
+        }
+    }
+
+    @FXML
     private void signOut() {
         try {
             // Load the Main.fxml file

@@ -37,6 +37,11 @@ public class ProviderServiceImpl extends EntityRepository implements ProviderSer
     }
 
     @Override
+    public void updateProvider(Provider provider) {
+        performOperation(em -> em.merge(provider));
+    }
+
+    @Override
     public int countInsuranceManagers() {
         return performReturningOperation(em -> em.createQuery(
                         "select count(p) from Provider p where p.role = :role", Long.class)
