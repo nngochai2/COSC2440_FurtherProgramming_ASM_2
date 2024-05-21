@@ -82,9 +82,11 @@ public class BeneficiaryDetailsController {
     private void handleEditAction() {
         boolean isEditable = !nameField.isEditable();
         setEditable(isEditable);
+
+        deleteButton.setDisable(true);
         editButton.setDisable(true);
-        saveButton.setDisable(!isEditable);
-        cancelButton.setDisable(!isEditable);
+        saveButton.setDisable(false);
+        cancelButton.setDisable(false);
     }
 
     @FXML
@@ -112,8 +114,11 @@ public class BeneficiaryDetailsController {
     @FXML
     private void handleCancelAction() {
         setBeneficiary(beneficiaryService.getBeneficiary(Long.parseLong(idField.getText()))); // Re-fetch and reset the details
-        toggleEdit(); // Reset editable state to non-editable
+        setEditable(false); // Reset editable state to non-editable
         editButton.setDisable(false);
+        cancelButton.setDisable(true);
+        saveButton.setDisable(true);
+        deleteButton.setDisable(false);
     }
 
     private void saveBeneficiaryDetails() {
@@ -171,12 +176,6 @@ public class BeneficiaryDetailsController {
         alert.setContentText("Are you sure you want to edit this beneficiary?");
         Optional<ButtonType> action = alert.showAndWait();
         return action.isPresent() && action.get() == ButtonType.OK;
-    }
-
-    @FXML
-    private void toggleEdit() {
-        boolean isEditable = !nameField.isEditable();
-        setEditable(isEditable);
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

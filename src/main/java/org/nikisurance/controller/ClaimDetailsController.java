@@ -96,6 +96,7 @@ public class ClaimDetailsController {
 
     @FXML void handleCancelAction() {
         setClaim(claimService.getClaim(idField.getText()));
+        setEditable(false);
         editButton.setDisable(false);
         saveButton.setDisable(true);
         deleteButton.setDisable(false);
@@ -112,6 +113,14 @@ public class ClaimDetailsController {
             } catch (Exception e) {
                 showAlert(Alert.AlertType.ERROR, "Error saving claim details", e.getMessage());
             }
+        }
+    }
+
+    @FXML
+    private void handleDeleteAction() {
+        if(showDeleteConfirmationDialog()) {
+            this.deleteClaim();
+            ((Stage) idField.getScene().getWindow()).close();
         }
     }
 
@@ -148,7 +157,26 @@ public class ClaimDetailsController {
     }
 
     private void deleteClaim() {
-        
+        try {
+            Claim claim = claimService.getClaim(idField.getText());
+            if (claim.getStatus().equals(ClaimStatus.NEW)) {
+                claimService.deleteClaim(claim);
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error!", "You can only delete 'NEW' claims");
+            }
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error!", "Something went wrong!");
+        }
     }
+
+    private boolean showDeleteConfirmationDialog() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete this claim?");
+        Optional<ButtonType> action = alert.showAndWait();
+        return action.isPresent() && action.get() == ButtonType.OK;
+    }
+
 }
 
