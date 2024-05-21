@@ -21,8 +21,7 @@ import java.util.Optional;
 
 public class BeneficiaryDetailsController {
     @FXML
-    private TextField idField, nameField, usernameField, passwordField, emailField, phoneNumberField, addressField, customerTypeField, policyHolderField, cardNumberField;
-    @FXML private HBox policyHolderContainer;
+    private TextField idField, nameField, usernameField, passwordField, emailField, phoneNumberField, addressField, customerTypeField, cardNumberField;
     @FXML private Button editButton, saveButton, deleteButton, cancelButton;
 
     private final BeneficiaryService beneficiaryService;
@@ -55,14 +54,6 @@ public class BeneficiaryDetailsController {
         setEditable(false);
 
         idField.setEditable(false);
-
-        policyHolderContainer.setVisible(beneficiary instanceof Dependent);
-        policyHolderContainer.setManaged(beneficiary instanceof Dependent);
-        if (beneficiary instanceof Dependent) {
-            policyHolderField.setText(String.valueOf(((Dependent) beneficiary).getPolicyHolder().getId()));
-            policyHolderField.setEditable(false);
-            policyHolderField.setManaged(false);
-        }
 
         saveButton.setDisable(true);
         cancelButton.setDisable(true);
@@ -124,8 +115,8 @@ public class BeneficiaryDetailsController {
     private void saveBeneficiaryDetails() {
         try {
             Beneficiary beneficiary = beneficiaryService.getBeneficiary(Long.parseLong(idField.getText()));
-            updateBeneficiaryFields(beneficiary);
             beneficiaryService.updateBeneficiary(beneficiary);
+            updateBeneficiaryFields(beneficiary);
             showAlert(Alert.AlertType.INFORMATION, "Success", "Beneficiary details updated successfully.");
 
             if (systemAdminController != null) {

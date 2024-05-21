@@ -117,16 +117,6 @@
                   <TextField fx:id="customerTypeField" prefWidth="187.0" />
                </children>
             </HBox>
-            <HBox fx:id="policyHolderContainer" spacing="10">
-               <children>
-                  <Label prefWidth="100" text="Holder:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="policyHolderField" prefWidth="187" />
-               </children>
-            </HBox>
             <HBox spacing="10" />
             <HBox spacing="10" />
             <HBox spacing="10" />

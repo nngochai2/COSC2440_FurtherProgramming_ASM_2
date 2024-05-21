@@ -32,6 +32,7 @@ import org.nikisurance.service.interfaces.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,17 +118,29 @@ public class PolicyHolderController extends AddingClaimController implements Ini
 
     @FXML private TableColumn<Dependent, String> dependentAddressColumn;
 
-    @FXML
-    private TextField policyHolderEmailField;
+    @FXML private TextField policyHolderIdField;
 
-    @FXML
-    private TextField policyHolderPhoneNumberField;
+    @FXML private TextField policyHolderFullNameField;
 
-    @FXML
-    private TextField policyHolderAddressField;
+    @FXML private TextField policyHolderUsernameField;
 
-    @FXML
-    private TextField filterTextField;
+    @FXML private TextField policyHolderPasswordField;
+
+    @FXML private TextField policyHolderEmailField;
+
+    @FXML private TextField policyHolderPhoneNumberField;
+
+    @FXML private TextField policyHolderAddressField;
+
+    @FXML private TextField filterTextField;
+
+    @FXML private TextField insuranceCardNumber;
+
+    @FXML private JFXButton btnSave;
+
+    @FXML private JFXButton btnEdit;
+
+    @FXML private JFXButton btnCancel;
 
     @FXML
     private FilteredList<Claim> filteredClaims;
@@ -148,6 +161,7 @@ public class PolicyHolderController extends AddingClaimController implements Ini
         }
 
         initializeColumns();
+        this.populatePersonalInfo();
 
         Platform.runLater(() -> {
             stage = (Stage) sideBar.getScene().getWindow();
@@ -307,6 +321,83 @@ public class PolicyHolderController extends AddingClaimController implements Ini
     public void refreshDependentTable() {
         List<Dependent> updatedList = dependentService.getDependentsByPolicyHolderId(currentPolicyHolder.getId());
         dependentTableView.getItems().setAll(updatedList);
+    }
+
+    private void populatePersonalInfo() {
+        policyHolderIdField.setText(String.valueOf(currentPolicyHolder.getId()));
+        policyHolderIdField.setEditable(false);
+
+        insuranceCardNumber.setText(String.valueOf(currentPolicyHolder.getInsuranceCard().getCardID()));
+        insuranceCardNumber.setEditable(false);
+
+        policyHolderFullNameField.setText(currentPolicyHolder.getFullName());
+        policyHolderUsernameField.setText(currentPolicyHolder.getUsername());
+        policyHolderEmailField.setText(currentPolicyHolder.getEmail());
+        policyHolderPhoneNumberField.setText(String.valueOf(currentPolicyHolder.getPhoneNumber()));
+        policyHolderAddressField.setText(currentPolicyHolder.getAddress());
+
+        setEditable(false);
+    }
+
+    @FXML
+    private void handleEditPersonalInfo() {
+        boolean isEditable = !policyHolderFullNameField.isEditable();
+        setEditable(true);
+
+        btnEdit.setDisable(true);
+        btnSave.setDisable(false);
+        btnCancel.setDisable(false);
+    }
+
+    @FXML
+    private void handleCancelAction() {
+        populatePersonalInfo();
+        setEditable(false);
+        btnEdit.setDisable(false);
+        btnSave.setDisable(true);
+        btnCancel.setDisable(false);
+    }
+
+    @FXML
+    private void handleSaveAction() {
+        if (showSaveConfirmationDialog()) {
+            try {
+                this.savePersonalDetails();
+                setEditable(false);
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Error saving personal details: " + e.getMessage());
+            }
+        }
+    }
+
+    private void savePersonalDetails() {
+        try {
+            PolicyHolder policyHolder = policyHolderService.getPolicyHolder(Long.parseLong(policyHolderIdField.getText()));
+            policyHolderService.updatePolicyHolder(policyHolder);
+            showAlert(Alert.AlertType.INFORMATION, "Policy updated", "Policy updated");
+
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Error saving personal details: " + e.getMessage());
+        }
+    }
+
+
+    private boolean showSaveConfirmationDialog() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Edit");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to edit this beneficiary?");
+        Optional<ButtonType> action = alert.showAndWait();
+        return action.isPresent() && action.get() == ButtonType.OK;
+    }
+
+    private void setEditable(boolean editable) {
+        policyHolderFullNameField.setEditable(editable);
+        policyHolderUsernameField.setEditable(editable);
+        policyHolderPasswordField.setEditable(editable);
+        policyHolderEmailField.setEditable(editable);
+        policyHolderPhoneNumberField.setEditable(editable);
+        policyHolderAddressField.setEditable(editable);
     }
 
     @FXML
