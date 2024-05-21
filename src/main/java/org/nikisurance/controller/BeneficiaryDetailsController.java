@@ -55,7 +55,6 @@ public class BeneficiaryDetailsController {
         setEditable(false);
 
         idField.setEditable(false);
-        idField.setManaged(false);
 
         policyHolderContainer.setVisible(beneficiary instanceof Dependent);
         policyHolderContainer.setManaged(beneficiary instanceof Dependent);
@@ -83,7 +82,6 @@ public class BeneficiaryDetailsController {
     private void handleEditAction() {
         boolean isEditable = !nameField.isEditable();
         setEditable(isEditable);
-//        editButton.setText(isEditable ? "Save" : "Edit");
         editButton.setDisable(true);
         saveButton.setDisable(!isEditable);
         cancelButton.setDisable(!isEditable);
@@ -115,6 +113,7 @@ public class BeneficiaryDetailsController {
     private void handleCancelAction() {
         setBeneficiary(beneficiaryService.getBeneficiary(Long.parseLong(idField.getText()))); // Re-fetch and reset the details
         toggleEdit(); // Reset editable state to non-editable
+        editButton.setDisable(false);
     }
 
     private void saveBeneficiaryDetails() {
@@ -178,7 +177,6 @@ public class BeneficiaryDetailsController {
     private void toggleEdit() {
         boolean isEditable = !nameField.isEditable();
         setEditable(isEditable);
-        editButton.setText(isEditable ? "Save" : "Edit");
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

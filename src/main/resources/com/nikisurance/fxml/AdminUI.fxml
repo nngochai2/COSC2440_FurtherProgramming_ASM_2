@@ -78,13 +78,14 @@
                         <Font size="1.0" />
                      </font>
                   </JFXButton>
-                  <TableView fx:id="providerTableView" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="600.0">
+                  <TableView fx:id="providerTableView" onMouseClicked="#handleProviderClick" layoutX="81.0" layoutY="81.0" prefHeight="491.0" prefWidth="600.0">
                      <columns>
                         <TableColumn fx:id="providerIdColumn" prefWidth="107.2691650390625" text="Provider ID" />
                         <TableColumn fx:id="providerNameColumn" prefWidth="112.73065185546875" text="Provider Name" />
                         <TableColumn fx:id="providerUsernameColumn" prefWidth="115.9615478515625" text="Provider Type" />
                         <TableColumn fx:id="providerPasswordColumn" prefWidth="107.0384521484375" text="Provider Type" />
                         <TableColumn fx:id="providerRoleColumn" prefWidth="143.3076171875" text="Provider Type" />
+                        <TableColumn fx:id="managerIdColumn" prefWidth="107.2691650390625" text="Manager ID" />
                      </columns>
                   </TableView>
                   <FontIcon iconLiteral="ci-add-alt" iconSize="40" layoutX="703.0" layoutY="333.0" wrappingWidth="40.87493896484375">

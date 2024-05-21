@@ -180,6 +180,8 @@ public class SystemAdminController implements Initializable {
     @FXML
     private TableColumn<Provider, String> providerRoleColumn;
 
+    @FXML TableColumn<Provider, String> managerIdColumn;
+
     @FXML
     private TextField idField;
 
@@ -268,7 +270,6 @@ public class SystemAdminController implements Initializable {
 
         beneficiaryTable.setItems(FXCollections.observableList(beneficiaryService.getAllBeneficiaries()));
         claimTableView.setItems(new SortedList<>(filteredClaims));
-        // customerTableView.setItems(FXCollections.observableList(customerService.getAllCustomers()));
         providerTableView.setItems(FXCollections.observableList(providerService.getAllProviders()));
     }
 
@@ -288,27 +289,24 @@ public class SystemAdminController implements Initializable {
         claimStatusColumn
                 .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().name()));
 
-        // Initialize columns for customers
-        // customerIdColumn.setCellValueFactory(cellData -> new
-        // SimpleObjectProperty<>(cellData.getValue().getId()));
-        // customerNameColumn.setCellValueFactory(cellData -> new
-        // SimpleStringProperty(cellData.getValue().getFullName()));
-        // customerUsernameColumn.setCellValueFactory(cellData -> new
-        // SimpleStringProperty(cellData.getValue().getUsername()));
-        // customerPasswordColumn.setCellValueFactory(cellDate -> new
-        // SimpleStringProperty(cellDate.getValue().getPassword()));
-        // customerRoleColumn.setCellValueFactory(cellData -> new
-        // SimpleStringProperty(cellData.getValue().getCustomerType()));
-
         // Initialize columns for providers
         providerIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
         providerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
         providerUsernameColumn
                 .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
         providerPasswordColumn
-                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassword()));
         providerRoleColumn.setCellValueFactory(
                 cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRole())));
+        managerIdColumn.setCellValueFactory(cellData -> {
+            Provider provider = cellData.getValue();
+            if (provider instanceof InsuranceSurveyor) {
+                InsuranceManager manager = ((InsuranceSurveyor) provider).getInsuranceManager();
+                return new SimpleStringProperty(manager != null ? String.valueOf(manager.getId()) : "N/A");
+            } else {
+                return new SimpleStringProperty("N/A");  // or just return null for other types of providers
+            }
+        });
 
         // Set up the columns to map to the respective fields of the Beneficiary entity
         idColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
@@ -329,7 +327,7 @@ public class SystemAdminController implements Initializable {
         int totalCustomers = customerService.getAllCustomers().size();
         totalCustomersValue.setText(String.valueOf(totalCustomers));
 
-        // Load total number of claims
+        // Load total claim amount
         List<Claim> allClaims = claimService.getAllClaims();
         double totalApprovedClaimsAmount = 0;
         for (Claim claim : allClaims) {
@@ -431,6 +429,7 @@ public class SystemAdminController implements Initializable {
         alert.show();
     }
 
+    @FXML
     public void handleClicks(ActionEvent actionEvent) {
         // Reset all buttons to normal font weight
         btnDashboard.setFont(
@@ -483,7 +482,6 @@ public class SystemAdminController implements Initializable {
     public void refreshBeneficiaryTable() {
         List<Beneficiary> updatedList = beneficiaryService.getAllBeneficiaries();
         beneficiaryTable.getItems().setAll(updatedList);
-//        beneficiaryTable.setItems(FXCollections.observableArrayList(beneficiaryService.getAllBeneficiaries()));
     }
 
     @FXML
@@ -498,7 +496,7 @@ public class SystemAdminController implements Initializable {
 
                     BeneficiaryDetailsController controller = loader.getController();
                     controller.setSystemAdminController(this);
-                    controller.setBeneficiary(selectedBeneficiary); // Corrected method name
+                    controller.setBeneficiary(selectedBeneficiary);
 
                     Stage stage = new Stage();
                     stage.setTitle("Customer Details");
@@ -552,6 +550,47 @@ public class SystemAdminController implements Initializable {
                     logger.log(Level.SEVERE, "Failed to load provider details view", e);
                     showAlert(AlertType.ERROR, "Error", "Cannot load the provider details view.");
                 }
+            }
+        }
+    }
+
+    @FXML
+    private void handleClaimClick(MouseEvent event) {
+        if (event.getClickCount() == 2) { // Double click
+            Claim selectedClaim = claimTableView.getSelectionModel().getSelectedItem();
+            if (selectedClaim != null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/com/nikisurance/fxml/ClaimDetails.fxml"));
+                    Parent root = loader.load();
+
+                } catch (IOException e) {
+                    logger.log(Level.SEVERE, "Failed to load claim details view", e);
+                    showAlert(Alert.AlertType.ERROR, "Error", "Cannot load the claim details view.");
+                }
+            }
+            Beneficiary selectedBeneficiary = beneficiaryTable.getSelectionModel().getSelectedItem();
+            if (selectedBeneficiary != null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/com/nikisurance/fxml/BeneficiaryDetails.fxml"));
+                    Parent root = loader.load();
+
+                    BeneficiaryDetailsController controller = loader.getController();
+                    controller.setSystemAdminController(this);
+                    controller.setBeneficiary(selectedBeneficiary);
+
+                    Stage stage = new Stage();
+                    stage.setTitle("Customer Details");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+
+                } catch (IOException e) {
+                    logger.log(Level.SEVERE, "Failed to load customer details view", e);
+                    showAlert(Alert.AlertType.ERROR, "Error", "Cannot load the customer details view.");
+                }
+            } else {
+                showAlert(Alert.AlertType.WARNING, "No Selection", "No customer selected.");
             }
         }
     }

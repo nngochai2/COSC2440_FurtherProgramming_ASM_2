@@ -17,6 +17,10 @@ public class InsuranceSurveyor extends Provider implements Serializable {
     @JoinColumn(name = "manager_id")
     private InsuranceManager insuranceManager;
 
+    // Recently added
+    @Column(name = "manager_id", insertable = false, updatable = false)
+    private Long managerId;
+
     public InsuranceSurveyor() {}
 
     public InsuranceManager getInsuranceManager() {
@@ -33,5 +37,13 @@ public class InsuranceSurveyor extends Provider implements Serializable {
 
     public void setClaims(Set<Claim> processingClaims) {
         this.processingClaims = processingClaims;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
     }
 }

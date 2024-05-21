@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.nikisurance.entity.InsuranceManager;
 import org.nikisurance.entity.InsuranceSurveyor;
@@ -27,6 +28,8 @@ public class ProviderDetailsController {
 
     @FXML private Button editButton, saveButton, deleteButton, cancelButton;
 
+    @FXML private HBox managerIdContainer;
+
     private final ProviderService providerService;
 
     private SystemAdminController systemAdminController;
@@ -40,22 +43,31 @@ public class ProviderDetailsController {
     }
 
     public void setProvider(Provider provider) {
-        idField.setText(Long.toString(provider.getId()));
-        idField.setEditable(false);
-        idField.setManaged(false);
-
+        idField.setText(String.valueOf(provider.getId()));
         nameField.setText(provider.getFullName());
         usernameField.setText(provider.getUsername());
         passwordField.setText(provider.getPassword());
+        managerIdContainer.setVisible(false);
 
         setEditable(false);
 
-        if (provider instanceof InsuranceSurveyor) {
-            managerIdField.setText(Long.toString(((InsuranceSurveyor) provider).getInsuranceManager().getId()));
+        idField.setEditable(false);
+
+        if (provider.getRole().equals("INSURANCE_SURVEYOR")) {
+            InsuranceSurveyor surveyor = (InsuranceSurveyor) provider;
+
             managerIdField.setEditable(false);
-            managerIdField.setManaged(false);
+            managerIdContainer.getChildren().add(managerIdField);
+            managerIdContainer.setVisible(true);
+
+            if (surveyor.getInsuranceManager() != null) {
+                managerIdField.setText(String.valueOf(surveyor.getInsuranceManager().getId()));
+            } else {
+                managerIdField.setText("Manager not assigned.");
+            }
         }
 
+        // Ensure the save and delete buttons are initially disabled
         saveButton.setDisable(true);
         deleteButton.setDisable(true);
     }
@@ -70,7 +82,6 @@ public class ProviderDetailsController {
     private void handleEditAction() {
         boolean isEditable = !nameField.isEditable();
         setEditable(isEditable);
-//        editButton.setText(isEditable ? "Save" : "Edit");
         editButton.setDisable(true);
         saveButton.setDisable(!isEditable);
         cancelButton.setDisable(!isEditable);
@@ -82,7 +93,6 @@ public class ProviderDetailsController {
             try {
                 this.saveProviderDetails();
                 setEditable(false);
-//            editButton.setText("Edit");
                 ((Stage) idField.getScene().getWindow()).close();
             } catch (Exception e) {
                 showAlert(Alert.AlertType.ERROR,"Error", "Failed to save beneficiary details: " + e.getMessage());

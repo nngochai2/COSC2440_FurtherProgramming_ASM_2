@@ -14,4 +14,5 @@ public interface ClaimService {
     long getCountByStatus(ClaimStatus status);
     List<Claim> getClaimsForPolicyHolderAndDependents(Long policyHolderId);
     List<Claim> getClaimsForBeneficiaries(List<Long> beneficiaryIds);
+    List<Claim> getClaimsByPersonId(Long personId);
 }

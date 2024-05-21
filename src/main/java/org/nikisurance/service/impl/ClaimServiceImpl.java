@@ -77,4 +77,12 @@ public class ClaimServiceImpl extends EntityRepository implements ClaimService {
                 .setParameter("ids", beneficiaryIds)
                 .getResultList());
     }
+
+    @Override
+    public List<Claim> getClaimsByPersonId(Long personId) {
+        return performReturningOperation(em -> em.createQuery(
+                        "SELECT c FROM Claim c WHERE c.beneficiary.id = :personId", Claim.class)
+                .setParameter("personId", personId)
+                .getResultList());
+    }
 }

@@ -1,11 +1,9 @@
 package org.nikisurance.service.impl;
 
 import org.nikisurance.entity.Provider;
-import org.nikisurance.entity.ProviderRole;
 import org.nikisurance.service.interfaces.ProviderService;
 
 import java.util.List;
-import jakarta.persistence.TypedQuery;
 
 public class ProviderServiceImpl extends EntityRepository implements ProviderService {
 
@@ -45,7 +43,7 @@ public class ProviderServiceImpl extends EntityRepository implements ProviderSer
     public int countInsuranceManagers() {
         return performReturningOperation(em -> em.createQuery(
                         "select count(p) from Provider p where p.role = :role", Long.class)
-                .setParameter("role", ProviderRole.INSURANCE_MANAGER)
+                .setParameter("role", "INSURANCE_MANAGER")
                 .getSingleResult()).intValue();
     }
 
@@ -53,7 +51,7 @@ public class ProviderServiceImpl extends EntityRepository implements ProviderSer
     public int countInsuranceSurveyors() {
         return performReturningOperation(em -> em.createQuery(
                         "select count(p) from Provider p where p.role = :role", Long.class)
-                .setParameter("role", ProviderRole.INSURANCE_SURVEYOR)
+                .setParameter("role", "INSURANCE_SURVEYOR")
                 .getSingleResult()).intValue();
     }
 }

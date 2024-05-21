@@ -11,16 +11,15 @@ import java.io.Serializable;
 @Table(name = "provider")
 public class Provider extends Person implements Serializable {
     @Column(name = "provider_role", insertable = false, updatable = false)
-    @Enumerated(EnumType.STRING)
-    private ProviderRole role;
+    private String role;
 
     public Provider() {}
 
-    public ProviderRole getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(ProviderRole role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

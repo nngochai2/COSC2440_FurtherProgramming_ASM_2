@@ -46,25 +46,14 @@ public class PolicyHolderController extends ClaimController implements Initializ
     private final Logger logger = Logger.getLogger(SystemAdminController.class.getName());
 
     private final ClaimService claimService;
-    private final CustomerService customerService;
     private DependentService dependentService;
     private PolicyHolderService policyHolderService;
 
     public PolicyHolderController() {
         claimService = new ClaimServiceImpl();
-        customerService = new CustomerServiceImpl();
         dependentService = new DependentServiceImpl();
         policyHolderService = new PolicyHolderServiceImpl();
     }
-
-    @FXML
-    private TextField entityIdField;
-
-    @FXML
-    private Button updateInfoButton;
-
-    @FXML
-    private Button deleteEntityButton;
 
     @FXML
     private JFXButton btnDashboard;
@@ -109,16 +98,11 @@ public class PolicyHolderController extends ClaimController implements Initializ
     private BarChart<String, Number> claimsBarChart;
 
     @FXML
-    private PieChart customerPieChart;
-
-    @FXML
-    private Label totalCustomersValue;
-
-    @FXML
     private Label totalClaimsAmountValue;
 
-    @FXML
-    private Label averageSuccessfulClaims;
+    @FXML private Label totalSuccessfulClaims;
+
+    @FXML private Label totalRejectedClaims;
 
     @FXML
     private TableView<Claim> claimTableView;
@@ -133,6 +117,9 @@ public class PolicyHolderController extends ClaimController implements Initializ
     private TableColumn<Claim, String> claimDateColumn;
 
     @FXML
+    private TableColumn<Claim, String> examDateColumn;
+
+    @FXML
     private TableColumn<Claim, String> insuredPersonNameColumn;
 
     @FXML
@@ -144,53 +131,19 @@ public class PolicyHolderController extends ClaimController implements Initializ
     @FXML
     private TableColumn<Claim, String> claimStatusColumn;
 
-    @FXML
-    private TableView<Customer> customerTableView;
+    @FXML private TableView<Dependent> dependentTableView;
 
-    @FXML
-    private TableColumn<Customer, Long> customerIdColumn;
+    @FXML private TableColumn<Dependent, Long> dependentIdColumn;
 
-    @FXML
-    private TableColumn<Customer, String> customerNameColumn;
+    @FXML private TableColumn<Dependent, String> dependentNameColumn;
 
-    @FXML
-    private TableColumn<Customer, String> customerUsernameColumn;
+    @FXML private TableColumn<Dependent, String> dependentUsernameColumn;
 
-    @FXML
-    private TableColumn<Customer, String> customerPasswordColumn;
+    @FXML private TableColumn<Dependent, String> dependentEmailColumn;
 
-    @FXML
-    private TableColumn<Customer, String> customerRoleColumn;
+    @FXML private TableColumn<Dependent, Long> dependentPhoneColumn;
 
-    @FXML
-    private TableView<Provider> providerTableView;
-
-    @FXML
-    private TableColumn<Provider, Long> providerIdColumn;
-
-    @FXML
-    private TableColumn<Provider, String> providerNameColumn;
-
-    @FXML
-    private TableColumn<Provider, String> providerUsernameColumn;
-
-    @FXML
-    private TableColumn<Provider, String> providerPasswordColumn;
-
-    @FXML
-    private TableColumn<Provider, String> providerRoleColumn;
-
-    @FXML
-    private TextField idField;
-
-    @FXML
-    private TextField nameField;
-
-    @FXML
-    private TextField usernameField;
-
-    @FXML
-    private TextField passwordField;
+    @FXML private TableColumn<Dependent, String> dependentAddressColumn;
 
     @FXML
     private TextField policyHolderEmailField;
@@ -211,16 +164,18 @@ public class PolicyHolderController extends ClaimController implements Initializ
 
     private Stage stage;
 
+    private PolicyHolder currentPolicyHolder;
+
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Person person = UserSession.getInstance().getLoggedInPerson();
+        person = currentPolicyHolder;
+
         initializeColumns();
 
-        // Use a background task for database operations
-        // Any initialization code
         Platform.runLater(() -> {
             stage = (Stage) sideBar.getScene().getWindow();
-//            stage.initStyle(StageStyle.TRANSPARENT);
             loadDashboard();
             setupFiltering();
         });
@@ -235,12 +190,14 @@ public class PolicyHolderController extends ClaimController implements Initializ
     }
 
     private void populateTables() {
-        List<Claim> claims = claimService.getAllClaims();
+        List<Claim> claims = claimService.getClaimsForPolicyHolderAndDependents(currentPolicyHolder.getId());
         ObservableList<Claim> claimObservableList = FXCollections.observableList(claims);
         filteredClaims = new FilteredList<>(claimObservableList, p -> true);
 
         claimTableView.setItems(new SortedList<>(filteredClaims));
-        customerTableView.setItems(FXCollections.observableList(customerService.getAllCustomers()));
+
+        dependentTableView.setItems(FXCollections.observableList(dependentService.getDependentsByPolicyHolderId(currentPolicyHolder.getId())));
+
     }
 
     private void initializeColumns() {
@@ -248,51 +205,51 @@ public class PolicyHolderController extends ClaimController implements Initializ
         claimIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClaimId()));
         claimAmountColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimAmount()));
         claimDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getClaimDate()).asString());
+        examDateColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getExamDate()).asString());
         insuredPersonNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getInsuredPerson()));
         insuredPersonIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getBeneficiaryId()));
         surveyorIdColumn.setCellValueFactory(cellDate -> new SimpleObjectProperty<>(cellDate.getValue().getBeneficiaryId()));
         claimStatusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus().name()));
 
         // Initialize columns for dependents
-        customerIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
-        customerNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
-        customerUsernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
-        customerPasswordColumn.setCellValueFactory(cellDate -> new SimpleStringProperty(cellDate.getValue().getPassword()));
-        customerRoleColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomerType()));
+        dependentIdColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getId()));
+        dependentNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
+        dependentUsernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
+        dependentEmailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
+        dependentPhoneColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPhoneNumber()));
+        dependentAddressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
 
         populateTables();
     }
 
-    // Method to load the dashboard for admin
+    // Method to load the dashboard for policy holder
     private void loadDashboard() {
-        // Load total number of customers
-        int totalCustomers = customerService.getAllCustomers().size();
-        totalCustomersValue.setText(String.valueOf(totalCustomers));
-
-        // Load total number of claims
-        List<Claim> allClaims = claimService.getAllClaims();
+        // Load total claim amount
+        List<Claim> allClaims = claimService.getClaimsByPersonId(currentPolicyHolder.getId());
         double totalApprovedClaimsAmount = 0;
         for (Claim claim : allClaims) {
             if (claim.getStatus() == ClaimStatus.APPROVED) {
                 totalApprovedClaimsAmount += claim.getClaimAmount();
             }
         }
-
         totalClaimsAmountValue.setText(String.format("%.2f", totalApprovedClaimsAmount));
 
-        // Calculate percentage of approved claims
-        int totalClaims = claimService.getAllClaims().size();
-        long approveClaimsCount = claimService.getCountByStatus(ClaimStatus.APPROVED);
-        double approvedClaimsPercentage = 0;
-        if (totalClaims > 0) {
-            approvedClaimsPercentage = (double) approveClaimsCount / totalClaims * 100;
+        // Count the total successful claims
+        double approvedClaimsNumber = 0;
+        for (Claim claim : allClaims) {
+            if (claim.getStatus() == ClaimStatus.APPROVED) {
+                approvedClaimsNumber += 1;
+            }
         }
+        totalSuccessfulClaims.setText(String.format("%.2f", approvedClaimsNumber));
 
-        averageSuccessfulClaims.setText(String.format("%.2f%%", approvedClaimsPercentage));
-
-        // Load the bar chart for claims
-        this.loadClaimsSummaryData();
-
+        double rejectedClaimsNumber = 0;
+        for (Claim claim : allClaims) {
+            if (claim.getStatus() == ClaimStatus.REJECTED) {
+                rejectedClaimsNumber += 1;
+            }
+        }
+        totalRejectedClaims.setText(String.format("%.2f", rejectedClaimsNumber));
     }
 
     public void setupFiltering() {
@@ -320,16 +277,6 @@ public class PolicyHolderController extends ClaimController implements Initializ
         claimTableView.setItems(sortedData);
     }
 
-    // Method to load the claims data to a bar chart
-    private void loadClaimsSummaryData() {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.getData().add(new XYChart.Data<>("New", claimService.getCountByStatus(ClaimStatus.NEW)));
-        series.getData().add(new XYChart.Data<>("Processing", claimService.getCountByStatus(ClaimStatus.PROCESSING)));
-        series.getData().add(new XYChart.Data<>("Approved", claimService.getCountByStatus(ClaimStatus.APPROVED)));
-        series.getData().add(new XYChart.Data<>("Rejected", claimService.getCountByStatus(ClaimStatus.REJECTED)));
-        claimsBarChart.getData().add(series);
-    }
-
     public void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -338,6 +285,7 @@ public class PolicyHolderController extends ClaimController implements Initializ
         alert.show();
     }
 
+    @FXML
     public void handleClicks(ActionEvent actionEvent) {
         // Reset all buttons to normal font weight
         btnDashboard.setFont(Font.font(btnDashboard.getFont().getFamily(), FontWeight.NORMAL, btnDashboard.getFont().getSize()));
@@ -376,11 +324,15 @@ public class PolicyHolderController extends ClaimController implements Initializ
         }
     }
 
-
     @FXML
     private void closeProgram(javafx.scene.input.MouseEvent e) {
         stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
+    }
+
+    public void refreshDependentTable() {
+        List<Dependent> updatedList = dependentService.getDependentsByPolicyHolderId(currentPolicyHolder.getId());
+        dependentTableView.getItems().setAll(updatedList);
     }
 
     @FXML
@@ -408,34 +360,30 @@ public class PolicyHolderController extends ClaimController implements Initializ
         }
     }
 
-    private void refreshCustomerTable() {
-        customerTableView.setItems(FXCollections.observableArrayList(customerService.getAllCustomers()));
-    }
+    @FXML
+    private void handleDependentClick(MouseEvent event) {
+        if (event.getClickCount() == 2) { // Double click
+            Dependent selectedDependent = dependentTableView.getSelectionModel().getSelectedItem();
+            if (selectedDependent != null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/BeneficiaryDetails.fxml"));
+                    Parent root = loader.load();
 
-//    @FXML
-//    private void handleCustomerClick(MouseEvent event) {
-//        if (event.getClickCount() == 2) { // Double click
-//            Beneficiary selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
-//            if (selectedCustomer != null) {
-//                try {
-//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/BeneficiaryDetails.fxml"));
-//                    Parent root = loader.load();
-//
-//                    BeneficiaryDetailsController controller = loader.getController();
-//                    controller.setBeneficiary(s); // Corrected method name
-//
-//                    Stage stage = new Stage();
-//                    stage.setTitle("Customer Details");
-//                    stage.setScene(new Scene(root));
-//                    stage.show();
-//
-//                } catch (IOException e) {
-//                    logger.log(Level.SEVERE, "Failed to load customer details view", e);
-//                    showAlert(Alert.AlertType.ERROR, "Error", "Cannot load the customer details view.");
-//                }
-//            } else {
-//                showAlert(Alert.AlertType.WARNING, "No Selection", "No customer selected.");
-//            }
-//        }
-//    }
+                    BeneficiaryDetailsController controller = loader.getController();
+                    controller.setBeneficiary(selectedDependent); // Corrected method name
+
+                    Stage stage = new Stage();
+                    stage.setTitle("Dependent Details");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+
+                } catch (IOException e) {
+                    logger.log(Level.SEVERE, "Failed to load customer details view", e);
+                    showAlert(Alert.AlertType.ERROR, "Error", "Cannot load the customer details view.");
+                }
+            } else {
+                showAlert(Alert.AlertType.WARNING, "No Selection", "No customer selected.");
+            }
+        }
+    }
 }

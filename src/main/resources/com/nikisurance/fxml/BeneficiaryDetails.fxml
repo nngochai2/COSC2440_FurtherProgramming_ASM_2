@@ -107,7 +107,7 @@
       </JFXButton>
       <VBox layoutX="291.0" layoutY="65.0" prefHeight="60.0" prefWidth="306.0" spacing="15">
          <children>
-            <HBox fx:id="customerTypeContainer" spacing="10">
+            <HBox spacing="10">
                <children>
                   <Label prefWidth="100" text="Type:">
                      <font>
@@ -183,7 +183,7 @@
          <graphic>
             <FontIcon iconLiteral="ci-trash-can" iconSize="40" text="" wrappingWidth="40.87493896484375">
                <iconColor>
-                  <LinearGradient endX="1.0" endY="1.0">
+                  <LinearGradient>
                      <stops>
                         <Stop>
                            <color>
