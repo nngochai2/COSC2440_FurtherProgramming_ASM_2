@@ -1,30 +1,43 @@
 package org.nikisurance.controller;
 
+import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.nikisurance.entity.Claim;
 import org.nikisurance.service.interfaces.ClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class InsuranceSurveyorController implements Initializable {
 
-    private final ClaimService claimService;
 
     @FXML
     private TableView<Claim> claimTable;
+
+    @FXML
+    private JFXButton btnSignOut;
 
     @FXML
     private TableColumn<Claim, String> claimIdColumn;
@@ -50,50 +63,53 @@ public class InsuranceSurveyorController implements Initializable {
     @FXML
     private TextField additionalInfoField;
 
+    @FXML
+    private Stage stage;
+
+    @FXML
+    private AnchorPane sideBar;
+    private double x, y = 0;
+
     private ObservableList<Claim> claimsData;
 
-    public InsuranceSurveyorController(ClaimService claimService) {
-        this.claimService = claimService;
+    public InsuranceSurveyorController() {
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        claimIdColumn.setCellValueFactory(new PropertyValueFactory<>("claimId"));
-        claimDateColumn.setCellValueFactory(new PropertyValueFactory<>("claimDate"));
-        examDateColumn.setCellValueFactory(new PropertyValueFactory<>("examDate"));
-        claimAmountColumn.setCellValueFactory(new PropertyValueFactory<>("claimAmount"));
-        claimStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-        bankingInfoColumn.setCellValueFactory(new PropertyValueFactory<>("receiverBankingInfo"));
-
-        populateTable();
+        Platform.runLater(() -> {
+            stage = (Stage) sideBar.getScene().getWindow();
+        });
+        sideBar.setOnMousePressed(mouseEvent -> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
+        sideBar.setOnMouseDragged(mouseEvent -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
     }
-
-    public void populateTable() {
-        List<Claim> claimList = claimService.getAllClaims();
-        claimsData = FXCollections.observableArrayList(claimList);
-        claimTable.setItems(claimsData);
-    }
-
     @FXML
-    private void requireMoreInfo() {
-        String id = claimIdField.getText();
-        String additionalInfo = additionalInfoField.getText();
-        // Logic to require more information for the claim
-        showAlert(AlertType.INFORMATION, "Request Sent", "Additional information required for claim ID: " + id);
-    }
+    private void signOut() {
+        try {
+            // Load the Main.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nikisurance/fxml/Main.fxml"));
+            Parent root = loader.load();
 
-    @FXML
-    private void proposeClaim() {
-        String id = claimIdField.getText();
-        // Logic to propose claim to managers
-        showAlert(AlertType.INFORMATION, "Claim Proposed", "Claim ID: " + id + " proposed to managers.");
-    }
+            // Create a new scene and display it
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            scene.setFill(Color.TRANSPARENT);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setTitle("Nikisurance");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
 
-    private void showAlert(AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.show();
+            // Close the current window
+            Stage currentStage = (Stage) btnSignOut.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+        }
     }
 }

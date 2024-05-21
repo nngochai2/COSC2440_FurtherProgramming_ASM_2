@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.nikisurance.controller.InsuranceSurveyorController"
-            prefHeight="400.0" prefWidth="600.0" >
-
+<AnchorPane fx:id="sideBar" prefHeight="522.0" prefWidth="546.0" style="-fx-background-color: TRANSPARENT; -fx-background-radius: 25;" stylesheets="@../css/tableDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.controller.InsuranceSurveyorController">
+    <children>
+        <AnchorPane layoutX="34.0" layoutY="11.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-radius: 250; -fx-background-color: #2a363f;">
+         <children>
+            <Label layoutX="195.0" layoutY="150.0" text="Label" />
+                  <JFXButton fx:id="btnSignOut" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="188.0" layoutY="397.0" onAction="#signOut" prefHeight="54.0" prefWidth="130.0" style="-fx-background-radius: 25; -fx-border-radius: 25; -fx-border-width: 3; -fx-border-color: #fff;" text="Sign Out" textFill="WHITE">
+                      <font>
+                          <Font size="16.0" />
+                      </font>
+                      <graphic>
+                          <FontIcon iconColor="WHITE" iconLiteral="ci-logout" iconSize="23" text="" />
+                      </graphic>
+                  </JFXButton>
+            <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="21.0" layoutY="200.0" prefHeight="47.0" prefWidth="467.0" text="In the development " textFill="WHITE">
+               <font>
+                  <Font size="38.0" />
+               </font>
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="ci-face-cool" iconSize="45" />
+               </graphic>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="15.0" layoutY="263.0" prefHeight="47.0" prefWidth="467.0" text="version 0.9.1" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>
