@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.nikisurance.controller.LoginController;
+import org.nikisurance.entity.PolicyHolder;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -19,6 +20,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
     @Override

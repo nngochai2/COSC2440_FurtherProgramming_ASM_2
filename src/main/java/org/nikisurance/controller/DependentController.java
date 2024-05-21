@@ -16,6 +16,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -43,14 +45,11 @@ public class DependentController implements Initializable {
 
     @FXML private JFXButton btnDashboard;
     @FXML private JFXButton btnClaims;
-    @FXML private JFXButton btnUsers;
-    @FXML private JFXButton btnProviders;
+    @FXML private JFXButton btnPolicyHolder;
     @FXML private JFXButton btnSettings;
     @FXML private FontAwesomeIconView closeButton;
     @FXML private Pane pnDashboard;
     @FXML private Pane pnClaims;
-    @FXML private Pane pnUsers;
-    @FXML private Pane pnProviders;
     @FXML private Pane pnSettings;
     @FXML private AnchorPane sideBar;
     @FXML private JFXButton btnSignOut;
@@ -58,6 +57,7 @@ public class DependentController implements Initializable {
     @FXML private Label totalClaimsAmountValue;
     @FXML private Label totalSuccessfulClaims;
     @FXML private Label totalRejectedClaims;
+    @FXML private CategoryAxis xAxis;
 
     @FXML private TableView<Claim> claimTableView;
     @FXML private TableColumn<Claim, String> claimIdColumn;
@@ -66,6 +66,9 @@ public class DependentController implements Initializable {
     @FXML private TableColumn<Claim, String> examDateColumn;
     @FXML private TableColumn<Claim, String> claimStatusColumn;
 
+    @FXML private TextField idField;
+    @FXML private TextField fullNameField;
+    @FXML private TextField passwordField;
     @FXML private TextField emailField;
     @FXML private TextField phoneField;
     @FXML private TextField addressField;
@@ -90,6 +93,7 @@ public class DependentController implements Initializable {
             stage = (Stage) sideBar.getScene().getWindow();
             loadDashboard();
             setupFiltering();
+            populatePersonalInfo();
         });
         sideBar.setOnMousePressed(mouseEvent -> {
             x = mouseEvent.getSceneX();
@@ -116,9 +120,23 @@ public class DependentController implements Initializable {
     }
 
     private void populatePersonalInfo() {
+        idField.setText(String.valueOf(currentDependent.getId()));
+        fullNameField.setText(currentDependent.getFullName());
+        passwordField.setText(currentDependent.getPassword());
         emailField.setText(currentDependent.getEmail());
         phoneField.setText(String.valueOf(currentDependent.getPhoneNumber()));
         addressField.setText(currentDependent.getAddress());
+    }
+
+    private void loadClaimsSummaryData() {
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data<>("Approved", claimService.getCountByStatus(ClaimStatus.NEW)));
+        series.getData().add(new XYChart.Data<>("Processing", claimService.getCountByStatus(ClaimStatus.PROCESSING)));
+        series.getData().add(new XYChart.Data<>("Approved", claimService.getCountByStatus(ClaimStatus.APPROVED)));
+        series.getData().add(new XYChart.Data<>("Rejected", claimService.getCountByStatus(ClaimStatus.REJECTED)));
+        xAxis.setCategories(FXCollections.observableArrayList("New", "Processing", "Approved", "Rejected"));
+        claimsBarChart.getData().add(series);
+        claimsBarChart.setLegendVisible(false);
     }
 
     @FXML
@@ -126,8 +144,6 @@ public class DependentController implements Initializable {
         // Reset all buttons to normal font weight
         btnDashboard.setFont(Font.font(btnDashboard.getFont().getFamily(), FontWeight.NORMAL, btnDashboard.getFont().getSize()));
         btnClaims.setFont(Font.font(btnClaims.getFont().getFamily(), FontWeight.NORMAL, btnClaims.getFont().getSize()));
-        btnUsers.setFont(Font.font(btnUsers.getFont().getFamily(), FontWeight.NORMAL, btnUsers.getFont().getSize()));
-        btnProviders.setFont(Font.font(btnProviders.getFont().getFamily(), FontWeight.NORMAL, btnProviders.getFont().getSize()));
         btnSettings.setFont(Font.font(btnSettings.getFont().getFamily(), FontWeight.NORMAL, btnSettings.getFont().getSize()));
 
         if (actionEvent.getSource() == btnDashboard) {
@@ -141,18 +157,7 @@ public class DependentController implements Initializable {
             closeButton.toFront();
             btnClaims.setFont(Font.font(btnClaims.getFont().getFamily(), FontWeight.BOLD, btnClaims.getFont().getSize()));
         }
-        if (actionEvent.getSource() == btnUsers) {
-            pnUsers.toFront();
-            closeButton.toFront();
-            btnUsers.setFont(Font.font(btnUsers.getFont().getFamily(), FontWeight.BOLD, btnUsers.getFont().getSize()));
-        }
-        if(actionEvent.getSource()==btnProviders)
-        {
-            pnProviders.toFront();
-            closeButton.toFront();
-            btnProviders.setFont(Font.font(btnProviders.getFont().getFamily(), FontWeight.BOLD, btnProviders.getFont().getSize()));
-        }
-        if(actionEvent.getSource()==btnSettings)
+        if (actionEvent.getSource()==btnSettings)
         {
             pnSettings.toFront();
             closeButton.toFront();

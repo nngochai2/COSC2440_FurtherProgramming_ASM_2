@@ -1,14 +1,392 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.nikisurance.controller.DependentController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="sideBar" prefHeight="600.0" prefWidth="950.0" style="-fx-background-color: TRANSPARENT; -fx-background-radius: 25;" stylesheets="@../css/tableDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.controller.DependentController">
+    <children>
+        <AnchorPane layoutX="161.0" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25;">
+            <children>
+                <FontAwesomeIconView fx:id="closeButton" fill="WHITE" glyphName="CLOSE" layoutX="759.0" layoutY="32.0" onMouseClicked="#closeProgram" selectionEnd="1" selectionStart="1" size="19" />
+                <Pane fx:id="pnClaims" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+                    <children>
+                        <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                            <font>
+                                <Font size="1.0" />
+                            </font>
+                        </JFXButton>
+                        <TableView fx:id="claimTableView" layoutX="81.0" layoutY="123.0" prefHeight="449.0" prefWidth="657.0">
+                            <columns>
+                                <TableColumn fx:id="claimIdColumn" prefWidth="113.0" text="Claim ID" />
+                                <TableColumn fx:id="claimDateColumn" prefWidth="99.0" text="Claim Date" />
+                                <TableColumn fx:id="insuredPersonIdColumn" prefWidth="90.0" text="Beneficiary ID" />
+                                <TableColumn fx:id="insuredPersonNameColumn" prefWidth="100.0" text="Insured Person" />
+                                <TableColumn fx:id="claimAmountColumn" prefWidth="95.0" text="Claim Amount" />
+                                <TableColumn fx:id="claimStatusColumn" prefWidth="77.0" text="Status" />
+                                <TableColumn fx:id="surveyorIdColumn" prefWidth="126.0" text="Surveyor ID" />
+                            </columns>
+                        </TableView>
+                        <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="My Claim Management " textFill="WHITE">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                    <graphic>
+                                        <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                                    </graphic>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                            <font>
+                                <Font size="1.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                            <font>
+                                <Font size="1.0" />
+                            </font>
+                        </JFXButton>
+                        <TextField fx:id="filterTextField" layoutX="199.0" layoutY="78.0" prefHeight="25.0" prefWidth="538.0" style="-fx-background-radius: 25; -fx-border-width: 0; -fx-border-color: #fff;" />
+                        <Text layoutX="86.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Claim:">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </Pane>
+                <Pane fx:id="pnSettings" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #e4e9ed;">
+                    <children>
+                        <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30;">
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Settings" textFill="WHITE">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="206.0" layoutY="109.0" prefHeight="29.0" prefWidth="627.0" text="User ID:         " textFill="#2a363f">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <graphic>
+                                <TextField fx:id="idField" prefHeight="36.0" prefWidth="257.0" style="-fx-border-color: #fff; -fx-border-radius: 25; -fx-background-radius: 25;" />
+                            </graphic>
+                        </Label>
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="206.0" layoutY="164.0" prefHeight="29.0" prefWidth="627.0" text="Full Name:    " textFill="#2a363f">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <graphic>
+                                <TextField fx:id="fullNameField" prefHeight="36.0" prefWidth="257.0" style="-fx-border-color: #fff; -fx-border-radius: 25; -fx-background-radius: 25;" text=" " />
+                            </graphic>
+                        </Label>
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="206.0" layoutY="274.0" prefHeight="29.0" prefWidth="627.0" text="Password:    " textFill="#2a363f">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <graphic>
+                                <TextField fx:id="passwordField" prefHeight="36.0" prefWidth="257.0" style="-fx-border-color: #fff; -fx-border-radius: 25; -fx-background-radius: 25;" />
+                            </graphic>
+                        </Label>
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="206.0" layoutY="219.0" prefHeight="29.0" prefWidth="627.0" text="Username:   " textFill="#2a363f">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <graphic>
+                                <TextField fx:id="usernameField" prefHeight="36.0" prefWidth="257.0" style="-fx-border-color: #fff; -fx-border-radius: 25; -fx-background-radius: 25;" />
+                            </graphic>
+                        </Label>
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="206.0" layoutY="384.0" prefHeight="29.0" prefWidth="627.0" text="Phone:           " textFill="#2a363f">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <graphic>
+                                <TextField fx:id="phoneField" prefHeight="36.0" prefWidth="257.0" style="-fx-border-color: #fff; -fx-border-radius: 25; -fx-background-radius: 25;" />
+                            </graphic>
+                        </Label>
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="206.0" layoutY="329.0" prefHeight="29.0" prefWidth="627.0" text="Address:       " textFill="#2a363f">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <graphic>
+                                <TextField fx:id="addressField" prefHeight="36.0" prefWidth="257.0" style="-fx-border-color: #fff; -fx-border-radius: 25; -fx-background-radius: 25;" />
+                            </graphic>
+                        </Label>
+                        <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="207.0" layoutY="439.0" prefHeight="29.0" prefWidth="627.0" text="Email:             " textFill="#2a363f">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                            <graphic>
+                                <TextField fx:id="emailField" prefHeight="36.0" prefWidth="257.0" style="-fx-border-color: #fff; -fx-border-radius: 25; -fx-background-radius: 25;" />
+                            </graphic>
+                        </Label>
+                        <JFXButton fx:id="btnSave" layoutX="395.0" layoutY="508.0" prefHeight="39.0" prefWidth="104.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25;" text="Save" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </JFXButton>
+                    </children>
+                </Pane>
+                <Pane fx:id="pnBeneficiaries" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #2a363f;">
+                    <children>
+                        <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30; -fx-border-color: #fff; -fx-border-width: 3; -fx-border-radius: 25;">
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Beneficiaries Management" textFill="WHITE">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                    <graphic>
+                                        <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                                    </graphic>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <JFXButton layoutX="700.0" layoutY="331.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                            <font>
+                                <Font size="1.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton layoutX="700.0" layoutY="265.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                            <font>
+                                <Font size="1.0" />
+                            </font>
+                        </JFXButton>
+                        <JFXButton layoutX="700.0" layoutY="200.0" prefHeight="49.0" prefWidth="44.0" text="⠀">
+                            <font>
+                                <Font size="1.0" />
+                            </font>
+                        </JFXButton>
+                        <FontIcon iconColor="WHITE" iconLiteral="ci-add-alt" iconSize="40" layoutX="705.0" layoutY="319.0" wrappingWidth="40.87493896484375" />
+                    </children>
+                </Pane>
+                <Pane fx:id="pnDashboard" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25; -fx-background-color: #2a363f;">
+                    <children>
+                        <Pane fx:id="tier" layoutX="87.0" layoutY="79.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-radius: 25; -fx-border-radius: 25;">
+                            <children>
+                                <Label fx:id="labeltier" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="14.0" layoutY="71.0" prefHeight="29.0" prefWidth="151.0" text="Account Tier" textFill="WHITE">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <FontIcon fx:id="heart" iconColor="WHITE" iconLiteral="ci-favorite" iconSize="40" layoutX="152.0" layoutY="126.0" />
+                                <Label fx:id="totalClaimsAmountValue" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="SILVER" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="47.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="314.0" layoutY="81.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #FAA0A0; -fx-background-radius: 25;">
+                            <children>
+                                <FontIcon iconColor="#2a363f" iconLiteral="ci-close-outline" iconSize="40" layoutX="150.0" layoutY="123.0" />
+                                <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="14.0" layoutY="71.0" prefHeight="29.0" prefWidth="151.0" text="Rejected Claims" textFill="#2a363f">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="totalRejectedClaims" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="..." textFill="#2a363f">
+                                    <font>
+                                        <Font size="47.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="544.0" layoutY="80.0" prefHeight="140.0" prefWidth="200.0" style="-fx-background-color: #e0f0e3; -fx-background-radius: 25;">
+                            <children>
+                                <FontIcon iconColor="#2a363f" iconLiteral="ci-thumbs-up" iconSize="40" layoutX="148.0" layoutY="125.0" />
+                                <Label alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="14.0" layoutY="71.0" prefHeight="29.0" prefWidth="151.0" text="Approved Claims" textFill="#2a363f">
+                                    <font>
+                                        <Font size="12.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="totalSuccessfulClaims" alignment="BASELINE_LEFT" contentDisplay="RIGHT" layoutX="13.0" layoutY="19.0" prefHeight="56.0" prefWidth="159.0" text="..." textFill="#2a363f">
+                                    <font>
+                                        <Font size="47.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="86.0" layoutY="28.0" prefHeight="32.0" prefWidth="657.0" style="-fx-background-color: #2a363f; -fx-background-radius: 30; -fx-border-radius: 25; -fx-border-width: 2; -fx-border-color: #fff;">
+                            <children>
+                                <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="1.0" prefHeight="29.0" prefWidth="627.0" text="Welcome to the Dashboard,  Policy Holder" textFill="WHITE">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                    <graphic>
+                                        <FontIcon iconColor="WHITE" iconLiteral="ci-cafe" iconSize="17" />
+                                    </graphic>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <Line endX="81.82463836669922" layoutX="287.0" layoutY="150.0" rotate="90.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
+                        <Pane layoutX="83.0" layoutY="241.0" prefHeight="37.0" prefWidth="429.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: #fff; -fx-border-width: 2;">
+                            <children>
+                                <Label fx:id="lastAddedClaim" alignment="BASELINE_LEFT" layoutX="18.0" layoutY="5.0" prefHeight="29.0" prefWidth="408.0" text="Your Last Registered Claim:  f-XXXXXXXXXXX (Dat Quoc)" textFill="WHITE">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                    <graphic>
+                                        <FontIcon iconColor="WHITE" iconLiteral="ci-notification-new" iconSize="18" text=" " />
+                                    </graphic>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="543.0" layoutY="241.0" prefHeight="37.0" prefWidth="202.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25;">
+                            <children>
+                                <JFXButton fx:id="btnHistory" prefHeight="38.0" prefWidth="201.0" style="-fx-background-radius: 30; -fx-border-width: 2; -fx-border-color: #fff; -fx-border-radius: 25; -fx-background-color: #2a363f;" textFill="#2a363f">
+                                    <graphic>
+                                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="29.0" prefWidth="174.0" style="-fx-border-color: f;" text="View Action History  " textFill="WHITE">
+                                            <font>
+                                                <Font size="15.0" />
+                                            </font>
+                                            <graphic>
+                                                <FontIcon iconColor="WHITE" iconLiteral="ci-view-next" iconSize="18" />
+                                            </graphic>
+                                        </Label>
+                                    </graphic>
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Line endX="597.31005859375" layoutX="142.0" layoutY="300.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
+                        <Line endX="81.82463836669922" layoutX="517.0" layoutY="150.0" rotate="90.0" startX="-55.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
+                        <Pane layoutX="84.0" layoutY="316.0" prefHeight="264.0" prefWidth="420.0" style="-fx-background-color: #2a363f; -fx-border-radius: 25; -fx-border-color: #fff; -fx-border-width: 2; -fx-background-radius: 25;">
+                            <children>
+                                <BarChart fx:id="claimsBarChart" layoutX="1.0" layoutY="12.0" prefHeight="250.0" prefWidth="417.0">
+                                    <xAxis>
+                                        <CategoryAxis tickLabelFill="WHITE" fx:id="xAxis" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis fx:id="yAxis" prefWidth="28.0" side="LEFT" tickLabelFill="WHITE" tickLabelGap="0.0" />
+                                    </yAxis>
+                                </BarChart>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="546.0" layoutY="316.0" prefHeight="263.0" prefWidth="202.0" style="-fx-background-color: #2a363f; -fx-background-radius: 25; -fx-border-color: #fff; -fx-border-radius: 25; -fx-border-width: 2;">
+                            <children>
+                                <JFXButton fx:id="bnYoutube" layoutX="39.0" layoutY="90.0" text="⠀">
+                                    <font>
+                                        <Font size="1.0" />
+                                    </font>
+                                    <graphic>
+                                        <FontIcon iconColor="WHITE" iconLiteral="ci-logo-youtube" iconSize="60" text="" />
+                                    </graphic>
+                                </JFXButton>
+                                <Label alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="36.0" layoutY="194.0" prefHeight="56.0" prefWidth="134.0" text="FOLLOW US" textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="23.0" />
+                                    </font>
+                                </Label>
+                                <JFXButton fx:id="bnFacebook" layoutX="97.0" layoutY="52.0" text="⠀">
+                                    <font>
+                                        <Font size="1.0" />
+                                    </font>
+                                    <graphic>
+                                        <FontIcon iconColor="WHITE" iconLiteral="ci-logo-facebook" iconSize="60" />
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton fx:id="bnLinkedin" layoutX="97.0" layoutY="109.0" text="⠀">
+                                    <font>
+                                        <Font size="1.0" />
+                                    </font>
+                                    <graphic>
+                                        <FontIcon iconColor="WHITE" iconLiteral="ci-logo-linkedin" iconSize="60" />
+                                    </graphic>
+                                </JFXButton>
+                                <JFXButton fx:id="bnGithub" layoutX="39.0" layoutY="38.0" text="⠀">
+                                    <font>
+                                        <Font size="1.0" />
+                                    </font>
+                                    <graphic>
+                                        <FontIcon iconColor="WHITE" iconLiteral="ci-logo-github" iconSize="60" />
+                                    </graphic>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Line endX="81.82463836669922" layoutX="578.0" layoutY="449.0" rotate="90.0" startX="-180.0" stroke="WHITE" strokeLineCap="ROUND" strokeWidth="3.0" />
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="-1.0" style="-fx-background-radius: 25;">
+            <children>
+                <VBox prefHeight="600.0" prefWidth="221.0" style="-fx-background-color: #fff; -fx-background-radius: 25;">
+                    <children>
+                        <Pane prefHeight="140.0" prefWidth="242.0">
+                            <children>
+                                <Text fill="#2a363f" layoutX="32.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nikisurance" wrappingWidth="174.37348423344974">
+                                    <font>
+                                        <Font name="System Bold" size="30.0" />
+                                    </font>
+                                </Text>
+                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="76.0" layoutX="14.0" layoutY="32.0" stroke="#465058" strokeType="INSIDE" strokeWidth="2.0" width="76.0" />
+                            </children>
+                        </Pane>
+                        <JFXButton fx:id="btnDashboard" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="55.0" prefWidth="244.0" text="Dashboard" textFill="#2a363f">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                            <graphic>
+                                <FontIcon iconColor="#2a363f" iconLiteral="ci-dashboard" iconSize="23" text="    " />
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="btnClaims" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="55.0" prefWidth="244.0" text="My Claims" textFill="#2a363f">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <graphic>
+                                <FontIcon iconColor="#2a363f" iconLiteral="ci-baggage-claim" iconSize="23" text="    " />
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="btnPolicyHolder" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="55.0" prefWidth="244.0" text="My Policy Holder" textFill="#2a363f">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <graphic>
+                                <FontIcon iconColor="#2a363f" iconLiteral="ci-group" iconSize="23" text="    " />
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="btnSettings" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#handleClicks" prefHeight="55.0" prefWidth="244.0" text="Settings" textFill="#2a363f">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <graphic>
+                                <FontIcon iconColor="#2a363f" iconLiteral="ci-settings" iconSize="23" text="    " />
+                            </graphic>
+                        </JFXButton>
+                        <Pane prefHeight="55.0" prefWidth="224.0" />
+                        <Pane prefHeight="55.0" prefWidth="224.0" />
+                        <JFXButton fx:id="btnSignOut" alignment="BASELINE_LEFT" graphicTextGap="10.0" onAction="#signOut" prefHeight="54.0" prefWidth="221.0" text="Sign Out" textFill="#2a363f">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                            <graphic>
+                                <FontIcon iconColor="#2a363f" iconLiteral="ci-logout" iconSize="23" text="    " />
+                            </graphic>
+                        </JFXButton>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

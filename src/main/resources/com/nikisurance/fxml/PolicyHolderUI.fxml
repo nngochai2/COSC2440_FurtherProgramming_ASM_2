@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="sideBar" prefHeight="600.0" prefWidth="950.0" style="-fx-background-color: TRANSPARENT; -fx-background-radius: 25;" stylesheets="@../css/tableDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.controller.SystemAdminController">
+<AnchorPane fx:id="sideBar" prefHeight="600.0" prefWidth="950.0" style="-fx-background-color: TRANSPARENT; -fx-background-radius: 25;" stylesheets="@../css/tableDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nikisurance.controller.PolicyHolderController">
    <children>
       <AnchorPane layoutX="161.0" prefHeight="600.0" prefWidth="790.0" style="-fx-background-radius: 25;">
          <children>

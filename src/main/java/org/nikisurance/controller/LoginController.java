@@ -3,6 +3,7 @@ package org.nikisurance.controller;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import jakarta.persistence.*;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +44,9 @@ public class LoginController implements Initializable {
     @FXML
     private FontAwesomeIconView closeButton;
 
+    @FXML
+    private ComboBox<String> loginRoleComboBox;
+
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -50,6 +54,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loginRoleComboBox.setItems(FXCollections.observableArrayList("Policy Holder", "Dependent", "Policy Owner", "Insurance Surveyor", "Insurance Manager", "Admin"));
         Platform.runLater(() -> {
             if (sideBar.getScene() != null && sideBar.getScene().getWindow() != null) {
                 stage = (Stage) sideBar.getScene().getWindow();
@@ -74,7 +79,20 @@ public class LoginController implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        Person person = login(username, password);
+        Person person = null;
+        String loginRole = loginRoleComboBox.getValue();
+
+        if (loginRole != null) {
+            switch (loginRole) {
+                case "Policy Holder" -> person = this.loginAsPolicyHolder(username, password);
+                case "Dependent" -> person = this.loginAsDependent(username, password);
+                case "Policy Owner" -> person = this.loginAsPolicyOwner(username, password);
+                case "Insurance Manager" -> person = this.loginAsManager(username, password);
+                case "Insurance Surveyor" -> person = this.loginAsSurveyor(username, password);
+                case "Admin" -> person = this.loginAsAdmin(username, password);
+                default -> showAlert(Alert.AlertType.ERROR, "Error", "No role selected.");
+            }
+        }
         if (person != null){
             showAlert(Alert.AlertType.INFORMATION, "Login successful!", "Welcome " + person.getFullName());
             UserSession.getInstance().setLoggedInPerson(person); // Set logged in user
@@ -87,7 +105,147 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    public Person login(String username, String password){
+    public PolicyHolder loginAsPolicyHolder(String username, String password) {
+        EntityManager em = null;
+        try {
+            em = EMFactory.getInstance().getEntityManager();
+            String queryString = "SELECT p FROM PolicyHolder p WHERE p.username = :username";
+            TypedQuery<PolicyHolder> query = em.createQuery(queryString, PolicyHolder.class);
+            query.setParameter("username", username);
+            PolicyHolder person = query.getSingleResult();
+
+            if (person != null && person.getPassword().equals(password)){
+                System.out.println("Logged in successfully");
+                System.out.println(person);
+                return person;
+            } else {
+                System.err.println("Login failed");
+                return null;
+            }
+        } catch (NoResultException ex) {
+            System.err.println("Person with username '" + username + "' not found");
+            return null;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    @FXML
+    public Dependent loginAsDependent(String username, String password) {
+        EntityManager em = null;
+        try {
+            em = EMFactory.getInstance().getEntityManager();
+            String queryString = "SELECT d FROM Dependent d WHERE d.username = :username";
+            TypedQuery<Dependent> query = em.createQuery(queryString, Dependent.class);
+            query.setParameter("username", username);
+            Dependent person = query.getSingleResult();
+
+            if (person != null && person.getPassword().equals(password)){
+                System.out.println("Logged in successfully");
+                System.out.println(person);
+                return person;
+            } else {
+                System.err.println("Login failed");
+                return null;
+            }
+        } catch (NoResultException ex) {
+            System.err.println("Person with username '" + username + "' not found");
+            return null;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    @FXML
+    public PolicyOwner loginAsPolicyOwner(String username, String password) {
+        EntityManager em = null;
+        try {
+            em = EMFactory.getInstance().getEntityManager();
+            String queryString = "SELECT d FROM Dependent d WHERE d.username = :username";
+            TypedQuery<PolicyOwner> query = em.createQuery(queryString, PolicyOwner.class);
+            query.setParameter("username", username);
+            PolicyOwner person = query.getSingleResult();
+
+            if (person != null && person.getPassword().equals(password)){
+                System.out.println("Logged in successfully");
+                System.out.println(person);
+                return person;
+            } else {
+                System.err.println("Login failed");
+                return null;
+            }
+        } catch (NoResultException ex) {
+            System.err.println("Person with username '" + username + "' not found");
+            return null;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    @FXML
+    public InsuranceSurveyor loginAsSurveyor(String username, String password) {
+        EntityManager em = null;
+        try {
+            em = EMFactory.getInstance().getEntityManager();
+            String queryString = "SELECT i FROM InsuranceSurveyor i WHERE i.username = :username";
+            TypedQuery<InsuranceSurveyor> query = em.createQuery(queryString, InsuranceSurveyor.class);
+            query.setParameter("username", username);
+            InsuranceSurveyor person = query.getSingleResult();
+
+            if (person != null && person.getPassword().equals(password)){
+                System.out.println("Logged in successfully");
+                System.out.println(person);
+                return person;
+            } else {
+                System.err.println("Login failed");
+                return null;
+            }
+        } catch (NoResultException ex) {
+            System.err.println("Person with username '" + username + "' not found");
+            return null;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    @FXML
+    public InsuranceManager loginAsManager(String username, String password) {
+        EntityManager em = null;
+        try {
+            em = EMFactory.getInstance().getEntityManager();
+            String queryString = "SELECT im FROM InsuranceManager im WHERE im.username = :username";
+            TypedQuery<InsuranceManager> query = em.createQuery(queryString, InsuranceManager.class);
+            query.setParameter("username", username);
+            InsuranceManager person = query.getSingleResult();
+
+            if (person != null && person.getPassword().equals(password)){
+                System.out.println("Logged in successfully");
+                System.out.println(person);
+                return person;
+            } else {
+                System.err.println("Login failed");
+                return null;
+            }
+        } catch (NoResultException ex) {
+            System.err.println("Person with username '" + username + "' not found");
+            return null;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    @FXML
+    public Person loginAsAdmin(String username, String password){
         EntityManager em = null;
         try {
             em = EMFactory.getInstance().getEntityManager();

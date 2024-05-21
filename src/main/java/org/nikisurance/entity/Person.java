@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "person")
-public abstract class Person {
+public class Person {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
