@@ -25,7 +25,9 @@ implemented by:
 ## Contribution Score
 
 Nguyen Ngoc Hai (s3978281)  - 5
+
 Nguyen Chi Nghia (s3979170) - 5
+
 Duong Viet Hoang (s3962514) - 5
 
 
