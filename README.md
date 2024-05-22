@@ -30,5 +30,41 @@ Nguyen Chi Nghia (s3979170) - 5
 
 Duong Viet Hoang (s3962514) - 5
 
+## Account for testing
+
+**Admin**
+- username: admin
+- password: admin 
+
+**Policy holder**
+- username: devans
+- password: Pass123word 
+
+**Dependent**
+- username: mlopez
+- password: MyP@ssword
+
+**Insuruance surveyor**
+- username: lharris
+- password: Pass4321word
+
+**Insuruance manager**
+- username: rgonzalez
+- password: SecurePwd741
+
+**Policyowner**
+- username: Rmit123
+- password: P@ssword963
+
+## NOTE
+To run our jar file just run below script at out/artifacts/COSC2440_Further_Programming_jar folder
+```bash
+java -jar COSC2440_Further_Programming.jar
+```
+However, because of several limitations and conflicts among different Java and JavaFX versions, various libraries, or even different operating systems, our JAR file may not run perfectly across all platforms. In a few cases, it might encounter errors. In such instances, I kindly ask you to spend a little time to re-add the artifact for launcher.java and rebuild it. I assure you that with the current settings, this new JAR will operate effectively on your machine. 
+
+Alternatively, just simply run our Main.java to active our system.
+
+
 
 
